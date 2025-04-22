@@ -62,7 +62,7 @@ namespace TextRPG.Unit
             {
                 realDamage = 1;
             }
-            Console.WriteLine($"{state.Name}이 {realDamage}의 데미지로 공격하였습니다");
+            Console.WriteLine($"{state.Name}의 일반 공격 !!");
             
             //랜덤 추가 예정
             _Other.SetDamage(realDamage);
@@ -87,11 +87,16 @@ namespace TextRPG.Unit
 
         public void SetDamage(int _damage)
         {
+            int pre_Hp = state.CurHp;
+
             state.CurHp -= _damage;
             if (state.CurHp < 0)
             {
                 state.CurHp = 0;
             }
+
+            Console.WriteLine($"\nLv. {state.Level} {state.Name} 을(를) 맞췄습니다. [데미지: {_damage}]\n");
+            Console.WriteLine($"Lv. {state.Level} {state.Name}\nHP {pre_Hp} -> {state.CurHp}");
         }
         public void ResetHp()
         {

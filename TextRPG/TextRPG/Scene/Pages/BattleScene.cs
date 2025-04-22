@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+using Microsoft.VisualBasic;
 using TextRPG.Unit.Child;
 namespace TextRPG.Scene
 {
@@ -101,6 +103,15 @@ namespace TextRPG.Scene
                 else
                 {
                     player.Attack(monsters[choice - 1]);
+
+                    int choice2 = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
+
+                    foreach(var monster in monsters)
+                    {
+                        if(monster.state.CurHp != 0)
+                            continue;
+                    }
+
                     MonstersPhase();
                     return;
                 }
@@ -110,6 +121,7 @@ namespace TextRPG.Scene
         // 몬스터 페이즈
         void MonstersPhase()
         {
+            // 몬스터가 죽지 않았다면 공격!
             foreach(var mon in monsters)
             {
                 if(mon.state.CurHp == 0)
