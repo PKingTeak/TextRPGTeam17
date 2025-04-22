@@ -17,9 +17,14 @@ class Program
         questManager.SetQuest(10003, "더욱 더 강해지기!", "모험가라면 레벨을 올리는 건 기본이지!\r\n레벨이 올라가면 능력치도 올라가고, 새로운 스킬도 배울 수 있어!\r\n레벨을 올리기 위해선 몬스터를 처치하고 경험치를 얻어야 해.\r\n그럼 자네의 모험이 시작되는 거야!", "레벨", 1," 이상 올리기", "힘의 물약 x 2 , 8G");
 
 
+
         Quest quest= questManager.FindQuest(10001); //특정 퀘스트 찾기
         questManager.GetQuest(quest);//퀘스트 정보 출력
 
+
+        //퀘스트 수락했을 경우 수락했다라는 정보를 넘겨주기
+        Console.WriteLine("퀘스트를 수락하셨습니다.");
+        questManager.SetQuestAccept(quest);
         //몬스터 3마리만 처치
         minieon.Name = "미니언";
         for (int i = 0; i < 3; i++) //던전 생략 슬라임 3번 사망
@@ -45,9 +50,7 @@ class Program
 
 
 
-        //퀘스트 수락했을 경우 수락했다라는 정보를 넘겨주기
-        Console.WriteLine("퀘스트를 수락하셨습니다.");
-        questManager.SetQuestAccept(quest);
+
 
 
 
