@@ -31,10 +31,6 @@ namespace TextRPG.Scene.Pages
                 case 0:
                     sceneManager.PopScene();
                     break;
-                default:
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.WriteLine();
-                    break;
             }
         }
     }
