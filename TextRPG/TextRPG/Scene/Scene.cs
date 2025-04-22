@@ -10,6 +10,9 @@ namespace TextRPG.Scene
     {
         protected string sceneName;
         protected string sceneDescription;
+        protected SceneManager sceneManager;
+
+        public string SceneName { get { return sceneName; } }
 
         /// <summary>
         /// 장면을 보여주는 메소드
@@ -17,11 +20,12 @@ namespace TextRPG.Scene
         /// </summary>
         public Action Show { get; }
 
-        public Scene(string sceneName, string sceneDescription)
+        public Scene(string sceneName, string sceneDescription, SceneManager sceneManager)
         {
             this.sceneName = sceneName;
             this.sceneDescription = sceneDescription;
             Show = ShowScene;
+            this.sceneManager = sceneManager;
         }
 
         /// <summary>
