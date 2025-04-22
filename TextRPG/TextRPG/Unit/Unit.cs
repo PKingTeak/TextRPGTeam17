@@ -99,7 +99,7 @@ namespace TextRPG.Unit
 
         //공격, 피해
 
-        protected UnitState state = new UnitState();
+        public UnitState state = new UnitState();
 
         
 
