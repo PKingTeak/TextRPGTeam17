@@ -76,10 +76,6 @@ namespace TextRPG.Scene.Pages
                 case 0:
                     invenMode = InvenMode.Inventory;
                     break;
-                case -1:
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.WriteLine();
-                    break;
                 default:
                     // 선택 장비 장착
                     break;

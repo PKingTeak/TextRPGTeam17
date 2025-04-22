@@ -71,10 +71,6 @@ namespace TextRPG.Scene.Pages
                 case 2:
                     shopMode = ShopMode.Sell;
                     break;
-                default:
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.WriteLine();
-                    break;
             }
         }
 
