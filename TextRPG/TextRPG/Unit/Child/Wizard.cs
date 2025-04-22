@@ -20,8 +20,8 @@ namespace TextRPG.Unit.Child
             state.Level = 1;
             state.Gold = 800;
             state.MaxExp = 100; //경험치량
-
-
+            ResetHp();
+            ResetMP();
         }
         
         

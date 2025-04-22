@@ -18,7 +18,17 @@ namespace TextRPG.Unit.Child
             state.Level = 1;
             state.Gold = 800;
             state.MaxExp = 100; //경험치량
+            ResetHp();
+            ResetMP();
 
+            Skill = (other) =>
+            {
+                int skilldamage = state.Damage + state.Defense;
+                other.SetDamage(skilldamage);
+                Console.WriteLine($"공격에 올인 스킬을 사용하여 {state.Damage}(공격력)+{state.Defense}(방어력)을 합친만큼 데미지를 주었습니다.");
+
+            };
+                
 
         }
     }
