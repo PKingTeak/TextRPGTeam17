@@ -38,8 +38,6 @@ namespace TextRPG.Scene
             }
             else
             {
-                Console.WriteLine("잘못된 입력입니다.");
-                Console.WriteLine();
                 return -1;
             }
         }

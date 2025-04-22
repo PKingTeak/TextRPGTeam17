@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.Scene.Pages;
 
 namespace TextRPG.Scene
 {
@@ -11,10 +12,21 @@ namespace TextRPG.Scene
         private List<Scene> sceneList;
         private Stack<Action> sceneStack;
 
+        /// <summary>
+        /// 장면 스택의 개수를 반환하는 프로퍼티
+        /// </summary>
+        public int StackCount
+        {
+            get { return sceneStack.Count; }
+        }
+
         public SceneManager()
         {
             sceneList = new List<Scene>();
             sceneStack = new Stack<Action>();
+
+            sceneList.Add(new Status("상태 보기", "캐릭터의 정보가 표시됩니다.", this));
+            sceneStack.Push(sceneList.Find(x => x.SceneName == "상태 보기").Show);
         }
 
         /// <summary>
