@@ -36,6 +36,9 @@ namespace TextRPG.Scene.Pages
                 case 2:
                     sceneManager.AddScene(SceneType.Inventory);
                     break;
+                case 3:
+                    sceneManager.AddScene(SceneType.Battle);
+                    break;
                 default:
                     Console.WriteLine("잘못된 입력입니다.");
                     Console.WriteLine();

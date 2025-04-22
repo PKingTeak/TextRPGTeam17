@@ -1,10 +1,15 @@
-using System.Reflection.Metadata;
 using TextRPG.Unit.Child;
 namespace TextRPG.Scene
 {
     public class BattleScene : Scene
     {
-        public BattleScene(SceneManager sceneManager) : base(sceneManager) { }
+        public BattleScene(SceneManager sceneManager, Player player) : base(sceneManager)
+        {
+            sceneName = "Battle!!";
+            sceneDescription = "";
+            type = SceneType.Battle;
+            this.player = player;
+        }
 
         Player player;
 
@@ -24,8 +29,10 @@ namespace TextRPG.Scene
                 Console.Clear();
                 Console.WriteLine("Battle!!\n");
 
-                //몬스터 출력
-                PrintMonsterInfo();
+                //번호 없이 몬스터 출력
+                PrintMonsterInfo(false);
+
+                Console.WriteLine();
 
                 // 플레이어 정보 표시
                 PrintPlayerInfo();
@@ -35,14 +42,22 @@ namespace TextRPG.Scene
                 switch (choice)
                 {
                     case 1:
-                        ChooseMonster();
+                        PlayerPhase(false); // 공격 선택
                         break;
 
                     case 2:
-                        ChooseSkill();
+                        PlayerPhase(true);  // 스킬 선택
                         break;
                 }
             }
+        }
+
+        void PlayerPhase(bool useSkill)
+        {
+            if (useSkill)
+                ChooseSkill();
+            else
+                ChooseMonster();
         }
 
         // 스킬 선택
@@ -51,10 +66,13 @@ namespace TextRPG.Scene
             Console.Clear();
             Console.WriteLine("Battle!!\n");
 
-            // 몬스터 출력
+            // 번호 없이 몬스터 출력
+            PrintMonsterInfo(false);
+
+            Console.WriteLine();
 
             // 플레이어 정보 표시
-            Console.WriteLine("[내정보]");
+            PrintPlayerInfo();
 
             // 스킬 정보 표시
 
@@ -69,27 +87,40 @@ namespace TextRPG.Scene
                 Console.WriteLine("Battle!!\n");
 
                 // 몬스터 번호와 함께 출력
+                PrintMonsterInfo(true);
+
+                Console.WriteLine();
 
                 // 플레이어 정보 표시
-                Console.WriteLine("[내정보]");
+                PrintPlayerInfo();
 
-                int choice = InputHandler.ChooseAction(0, monsters.Count, "0. 취소", "공격할 대상을 선택하세요.\n");
+                int choice = InputHandler.ChooseAction(0, monsters.Count, "\n0. 취소", "공격할 대상을 선택하세요.\n");
 
                 if (choice == 0)
                     return;
 
                 else
                 {
-                    player.Attack(monsters[choice]);
+                    player.Attack(monsters[choice - 1]);
+                    MonstersPhase();
+                    return;
                 }
             }
         }
-
+        
+        // 몬스터 페이즈
         void MonstersPhase()
         {
-            // 몬스터 페이즈
+            foreach(var mon in monsters)
+            {
+                if(mon.state.CurHp == 0)
+                    continue;
+                else
+                    mon.Attack(player);
+            }
         }
 
+        // 플레이어 정보 출력
         void PrintPlayerInfo()
         {
             Console.WriteLine("[내정보]");
@@ -97,16 +128,23 @@ namespace TextRPG.Scene
             Console.WriteLine($"{player.state.CurHp}/{player.state.MaxHp}");
         }
 
+        // 몬스터 정보 출력
         void PrintMonsterInfo(bool useNum)
         {
             if (useNum)
             {
+                int num = 1;
 
+                for (int i = 0; i < monsters.Count; i++)
+                {
+                    Console.WriteLine($"[{num}] Lv. {monsters[i].state.Level} {monsters[i].state.Name} HP {monsters[i].state.CurHp}");
+                    num++;
+                }
             }
             else
             {
                 foreach (var mon in monsters)
-                    Console.WriteLine($"Lv. {mon.state.Level} HP {mon.state.CurHp}");
+                    Console.WriteLine($"Lv. {mon.state.Level} {mon.state.Name} HP {mon.state.CurHp}");
             }
 
         }

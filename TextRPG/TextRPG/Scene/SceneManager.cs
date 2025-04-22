@@ -29,6 +29,7 @@ namespace TextRPG.Scene
             sceneList.Add(new Town(this));
             sceneList.Add(new Status(this, player));
             sceneList.Add(new Inventory(this));
+            sceneList.Add(new BattleScene(this, player));
             sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.Town).Show);
         }
 
