@@ -10,7 +10,7 @@ namespace TextRPG.Unit.Child
     public class Wizard : Player
     {
 
-        public Wizard(string _name) :  base(_name)
+        public Wizard(string _name) :  base()
         {
             state.Name = _name;
             state.MaxHp = 100;
