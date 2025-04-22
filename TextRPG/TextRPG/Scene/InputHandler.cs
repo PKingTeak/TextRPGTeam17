@@ -19,8 +19,6 @@ namespace TextRPG.Scene
         /// <returns>입력한 값이 숫자가 아니거나 범위를 벗어나면 -1, 조건에 맞으면 입력한 값 반환</returns>
         public static int ChooseAction(int min, int max, string optionTxt, string comment)
         {
-            int choice = -1;
-
             // 선택지 출력후 콘솔 초기화
             Console.WriteLine(optionTxt);
             Console.WriteLine();

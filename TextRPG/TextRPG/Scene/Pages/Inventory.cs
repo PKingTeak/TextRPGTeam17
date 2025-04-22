@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Scene.Pages
 {
-    internal class Inventory :Scene
+    public class Inventory :Scene
     {
         private enum InvenMode
         {
@@ -28,10 +28,7 @@ namespace TextRPG.Scene.Pages
             {
                 subTitle = " - 장비 관리";
             }
-            else if(invenMode == InvenMode.Equipment)
-            {
-                subTitle = "";
-            }
+
             Console.WriteLine($"{sceneName}{subTitle}\n{sceneDescription}\n");
 
             switch(invenMode)
