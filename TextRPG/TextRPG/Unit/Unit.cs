@@ -57,16 +57,25 @@ namespace TextRPG.Unit
 
         public void Attack(Unit _Other)
         {
-            int realDamage = this.state.Damage - _Other.state.Defense;
+            int realDamage = RandomNum(state.Damage-_Other.state.Defense,state.Damage+10);
             if (realDamage < 0)
             {
                 realDamage = 1;
             }
             Console.WriteLine($"{state.Name}이 {realDamage}의 데미지로 공격하였습니다");
+            
+            //랜덤 추가 예정
             _Other.SetDamage(realDamage);
 
             //공격 
             //공격력 - 방어력 만큼 피해 주기 
+        }
+
+        public int RandomNum(int _min, int _max)
+        {
+            Random random = new Random();
+            int result = random.Next(_min,_max);
+            return result;
         }
 
         

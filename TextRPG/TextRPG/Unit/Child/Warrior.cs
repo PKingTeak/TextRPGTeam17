@@ -9,9 +9,10 @@ namespace TextRPG.Unit.Child
 {
     public class Warrior : Player
     {
-        public Warrior(string _Name)
+        public Warrior(string _name) : base(_name)
         {
-            state.Name = _Name;
+            
+            state.Name = _name;
             state.MaxHp = 200;
             state.MaxMp = 50;
             state.Damage = 10;
@@ -27,7 +28,7 @@ namespace TextRPG.Unit.Child
 
         }
 
-        public Dictionary<string, SkillAttack> GetSkillSet()
+        public override Dictionary<string, SkillAttack> GetSkillSet()
         {
             return new Dictionary<string, SkillAttack>
                 {
@@ -52,7 +53,7 @@ namespace TextRPG.Unit.Child
 
                 };
 
-            }
+        }
 
-}
+    }
 }
