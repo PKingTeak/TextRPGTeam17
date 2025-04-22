@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Scene
 {
-    internal class SceneManager
+    public class SceneManager
     {
         private List<Scene> sceneList;
         private Stack<Action> sceneStack;

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.Unit.Child;
 
 namespace TextRPG.Scene
 {
-    internal abstract class Scene
+    public abstract class Scene
     {
         protected string sceneName;
         protected string sceneDescription;
