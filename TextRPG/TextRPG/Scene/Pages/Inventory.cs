@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Scene.Pages
 {
-    internal class Inventory :Scene
+    public class Inventory :Scene
     {
         private enum InvenMode
         {
@@ -28,10 +28,7 @@ namespace TextRPG.Scene.Pages
             {
                 subTitle = " - 장비 관리";
             }
-            else if(invenMode == InvenMode.Equipment)
-            {
-                subTitle = "";
-            }
+
             Console.WriteLine($"{sceneName}{subTitle}\n{sceneDescription}\n");
 
             switch(invenMode)
@@ -78,7 +75,6 @@ namespace TextRPG.Scene.Pages
             {
                 case 0:
                     invenMode = InvenMode.Inventory;
-                    sceneManager.PopScene();
                     break;
                 case -1:
                     Console.WriteLine("잘못된 입력입니다.");

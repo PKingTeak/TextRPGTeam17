@@ -11,6 +11,7 @@ namespace TextRPG.Scene
         Town,
         Status,
         Inventory,
+        Shop,
         Battle
     }
 
