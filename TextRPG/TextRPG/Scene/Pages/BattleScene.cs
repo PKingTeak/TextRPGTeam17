@@ -12,7 +12,7 @@ namespace TextRPG.Scene
             type = SceneType.Battle;
             this.player = sceneManager.Player;
         }
-        
+
         Player player;
         int floor = 1; // 던전의 층수
         MonsterSpawner spawner = new MonsterSpawner();
@@ -28,7 +28,7 @@ namespace TextRPG.Scene
             {
                 // 전투 UI 출력
                 Console.Clear();
-                Console.WriteLine("Battle!!\n");
+                Console.WriteLine($"{sceneName}" + "\n");
 
                 //번호 없이 몬스터 출력
                 PrintMonsterInfo(false);
@@ -65,8 +65,8 @@ namespace TextRPG.Scene
         void ChooseSkill()
         {
             Console.Clear();
-            Console.WriteLine("Battle!!\n");
-
+            Console.WriteLine($"{sceneName}" + "\n");
+        
             // 번호 없이 몬스터 출력
             PrintMonsterInfo(false);
 
@@ -82,53 +82,50 @@ namespace TextRPG.Scene
         // 대상 선택 화면
         void ChooseMonster()
         {
-            while (true)
+            Console.Clear();
+            Console.WriteLine($"{sceneName}" + "\n");
+
+            // 몬스터 번호와 함께 출력
+            PrintMonsterInfo(true);
+
+            Console.WriteLine();
+
+            // 플레이어 정보 표시
+            PrintPlayerInfo();
+
+            int choice = InputHandler.ChooseAction(0, monsters.Count, "\n0. 취소", "공격할 대상을 선택하세요.\n");
+
+            if (choice == 0)
+                return;
+
+            else if (choice != - 1 && choice <= monsters.Count)
             {
-                Console.Clear();
-                Console.WriteLine("Battle!!\n");
+                Console.WriteLine($"{sceneName}" + "\n");
+                
+                player.Attack(monsters[choice - 1]);
 
-                // 몬스터 번호와 함께 출력
-                PrintMonsterInfo(true);
+                int choice2 = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
+                if (choice2 != 0)
 
-                Console.WriteLine();
-
-                // 플레이어 정보 표시
-                PrintPlayerInfo();
-
-                int choice = InputHandler.ChooseAction(0, monsters.Count, "\n0. 취소", "공격할 대상을 선택하세요.\n");
-
-                if (choice == 0)
-                    return;
-
-                else
-                {
-                    player.Attack(monsters[choice - 1]);
-
-                    int choice2 = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
-
-                    foreach(var monster in monsters)
-                    {
-                        if(monster.state.CurHp != 0)
-                            continue;
-                    }
-
-                    MonstersPhase();
-                    return;
-                }
+                MonstersPhase();
+                return;
             }
         }
-        
+
         // 몬스터 페이즈
         void MonstersPhase()
         {
             // 몬스터가 죽지 않았다면 공격!
-            foreach(var mon in monsters)
+            foreach (var monster in monsters)
             {
-                if(mon.state.CurHp == 0)
+                if (monster.state.CurHp == 0)
                     continue;
                 else
-                    mon.Attack(player);
+                    monster.Attack(player);
             }
+
+            int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하는 행동을 입력해주세요.\n");
+
         }
 
         // 플레이어 정보 출력

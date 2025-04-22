@@ -95,8 +95,8 @@ namespace TextRPG.Unit
                 state.CurHp = 0;
             }
 
-            Console.WriteLine($"\nLv. {state.Level} {state.Name} 을(를) 맞췄습니다. [데미지: {_damage}]\n");
-            Console.WriteLine($"Lv. {state.Level} {state.Name}\nHP {pre_Hp} -> {state.CurHp}");
+            Console.WriteLine($"Lv. {state.Level} {state.Name} 을(를) 맞췄습니다. [데미지: {_damage}]");
+            Console.WriteLine($"Lv. {state.Level} {state.Name} HP {pre_Hp} -> {state.CurHp}\n");
         }
         public void ResetHp()
         {
