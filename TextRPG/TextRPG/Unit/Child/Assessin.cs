@@ -8,10 +8,10 @@ namespace TextRPG.Unit.Child
 {
     public class Assessin : Player
     {
-        public Assessin(string _Name)
+        public Assessin(string _name): base(_name)
         {
 
-            state.Name = _Name;
+            state.Name = _name;
             state.MaxHp = 100;
             state.MaxMp = 150;
             state.Damage = 15;

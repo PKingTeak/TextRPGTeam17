@@ -8,5 +8,13 @@ namespace TextRPG.Unit.Child
 {
     public class Monster : Unit
     {
+        public Monster(string _name)
+        {
+            state.Name = _name;
+        }
+
+
+
+    
     }
 }

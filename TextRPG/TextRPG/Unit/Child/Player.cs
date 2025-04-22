@@ -18,7 +18,7 @@ namespace TextRPG.Unit.Child
     public class Player : Unit
     {
         
-        public Player()
+        public Player(string _Name)
         {
             
         }
@@ -96,6 +96,7 @@ namespace TextRPG.Unit.Child
             {
                 case "1":
                     break;
+                //스킬 이름으로 호출하는 방식을 선택하는게 좋을듯 하다. 
             }
 
 
@@ -124,6 +125,13 @@ namespace TextRPG.Unit.Child
         protected void SettingSkill(Dictionary<string, SkillAttack> skillset)
         {
             Skills = skillset;
+        }
+
+
+        public virtual Dictionary<string, SkillAttack> GetSkillSet()
+        {
+            return new Dictionary<string, SkillAttack>();
+            //상속받아서 사용하는 느낌으로 사용할것이고 가상함수를 사용할 것임
         }
         Dictionary<string,SkillAttack> Skills = new();
         
