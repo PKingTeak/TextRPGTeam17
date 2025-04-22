@@ -27,6 +27,7 @@ namespace TextRPG.Scene
 
             sceneList.Add(new Town(this));
             sceneList.Add(new Status(this));
+            sceneList.Add(new Inventory(this));
             sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.Town).Show);
         }
 
