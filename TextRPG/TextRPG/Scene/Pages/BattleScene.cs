@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using TextRPG.Unit.Child;
 namespace TextRPG.Scene
 {
@@ -24,18 +25,17 @@ namespace TextRPG.Scene
                 Console.WriteLine("Battle!!\n");
 
                 //몬스터 출력
-
+                PrintMonsterInfo();
 
                 // 플레이어 정보 표시
-                Console.WriteLine("[내정보]");
+                PrintPlayerInfo();
 
-
-                int choice = InputHandler.ChooseAction(1, 2, "1. 공격\n2. 스킬", "원하시는 행동을 입력해주세요.\n");
+                int choice = InputHandler.ChooseAction(1, 2, "\n1. 공격\n2. 스킬", "원하시는 행동을 입력해주세요.\n");
 
                 switch (choice)
                 {
                     case 1:
-                        ChooseEnemyUI();
+                        ChooseMonster();
                         break;
 
                     case 2:
@@ -44,7 +44,7 @@ namespace TextRPG.Scene
                 }
             }
         }
-        
+
         // 스킬 선택
         void ChooseSkill()
         {
@@ -57,11 +57,11 @@ namespace TextRPG.Scene
             Console.WriteLine("[내정보]");
 
             // 스킬 정보 표시
-            
+
         }
 
         // 대상 선택 화면
-        void ChooseEnemyUI()
+        void ChooseMonster()
         {
             while (true)
             {
@@ -88,6 +88,27 @@ namespace TextRPG.Scene
         void MonstersPhase()
         {
             // 몬스터 페이즈
+        }
+
+        void PrintPlayerInfo()
+        {
+            Console.WriteLine("[내정보]");
+            Console.WriteLine($"Lv. {player.state.Level} {player.state.Name} (직업)");
+            Console.WriteLine($"{player.state.CurHp}/{player.state.MaxHp}");
+        }
+
+        void PrintMonsterInfo(bool useNum)
+        {
+            if (useNum)
+            {
+
+            }
+            else
+            {
+                foreach (var mon in monsters)
+                    Console.WriteLine($"Lv. {mon.state.Level} HP {mon.state.CurHp}");
+            }
+
         }
     }
 }
