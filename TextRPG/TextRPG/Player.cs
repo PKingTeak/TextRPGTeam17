@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG
-{
+
     public class TestPlayer : TestUnit
     {
 
@@ -15,4 +14,4 @@ namespace TextRPG
  
 
     }
-}
+

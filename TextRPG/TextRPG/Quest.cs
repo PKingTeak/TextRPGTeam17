@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG
-{
+
     class Quest
     {
         public int QuestID { get;private set; } //퀘스트 ID
@@ -43,4 +42,4 @@ namespace TextRPG
             this.minCount++;
         }
     }
-}
+
