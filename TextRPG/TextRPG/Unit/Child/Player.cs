@@ -50,8 +50,8 @@ namespace TextRPG.Unit.Child
 
         public void ShowInfo()
         {
-            Console.WriteLine("상태보기");
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
+            //Console.WriteLine("상태보기");
+            //Console.WriteLine("캐릭터의 정보가 표시됩니다.");
             Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
 
         }
