@@ -3,16 +3,15 @@ namespace TextRPG.Scene
 {
     public class BattleScene : Scene
     {
-        public BattleScene(SceneManager sceneManager, Player player) : base(sceneManager)
+        public BattleScene(SceneManager sceneManager) : base(sceneManager)
         {
             sceneName = "Battle!!";
             sceneDescription = "";
             type = SceneType.Battle;
-            this.player = player;
+            this.player = sceneManager.Player;
         }
-
+        
         Player player;
-
         int floor = 1; // 던전의 층수
         MonsterSpawner spawner = new MonsterSpawner();
         List<Unit.Unit> monsters = new List<Unit.Unit>();
