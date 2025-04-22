@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    public class Player : Unit
+    public class TestPlayer : TestUnit
     {
 
         public string Name;

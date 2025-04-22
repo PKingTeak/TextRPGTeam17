@@ -4,26 +4,33 @@ using TextRPG;
 
 public class QuestManager
 {
-    List<Quest> questList = new List<Quest>(); //퀘스트 리스트
+    List<Quest> questList = new List<Quest>(); //퀘스트 묶음,퀘스트의 수가 100개 이상이라면 딕셔너리로 바꿔야함
 
-    int minCount = 0; //처치한 몬스터 수
-    int maxCount = 5; //처치해야 할 몬스터 수
-    public void Subscribe(Monster monster)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
+    //하나의 기능
+    public void Subscribe(TestMonster monster)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
     {
         monster.OnMonsterKilled += HandleMonsterKilled;
     }
-    private void HandleMonsterKilled() //몬스터에게서 OnMonsterKilled?.Invoke();될 때 마다 호출
+    private void HandleMonsterKilled(string name) //몬스터에게서 OnMonsterKilled?.Invoke();될 때 마다 호출
     {
-        this.minCount ++; //처치한 몬스터 수 증가
-        if(minCount >=maxCount) //처치한 몬스터 수가 5 이상이면
+        foreach (var quest in questList) //퀘스트 리스트를 돌면서
         {
-            Console.WriteLine($"[퀘스트 업데이트] 몬스터 5마리 처치 완료!");
+            if (quest.questTarget == name) //퀘스트의 목표물과 몬스터 이름이 같으면
+            {
+                quest.Count(); //퀘스트의 수집 수 증가
+                if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
+                {
+                    Console.WriteLine($"[퀘스트 업데이트] 몬스터 5마리 처치 완료!"); //클리어 축하 메세지
+                }
+            }
         }
-    }
 
-    public void setQuest(int id=0,string title = "", string content = "", string condition = "", string reward = "") //퀘스트 화면
+    }
+    //하나의 기능
+
+    public void setQuest(int id = 0, string title = "제목", string content = "퀘스트내용", string target = "목표물", int maxcount = 0, string action = "", string reward = "보상") //퀘스트 화면
     {
-        Quest quest = new Quest(id,title, content, condition, reward);
+        Quest quest = new Quest(id,title, content,target,maxcount,action, reward);
         questList.Add(quest);
     }
 
@@ -33,7 +40,6 @@ public class QuestManager
         {
             if(quest.QuestID == i)
             {
-                quest.GetCount(minCount, maxCount); //퀘스트 수집 수
                 quest.QuestInfo();
             }
         }
