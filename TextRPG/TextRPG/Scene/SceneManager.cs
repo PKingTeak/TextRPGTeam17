@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TextRPG.Scene.Pages;
+using TextRPG.Unit.Child;
+
+namespace TextRPG.Scene
+{
+    public class SceneManager
+    {
+        private List<Scene> sceneList;
+        private Stack<Action> sceneStack;
+
+        /// <summary>
+        /// 장면 스택의 개수를 반환하는 프로퍼티
+        /// </summary>
+        public int StackCount
+        {
+            get { return sceneStack.Count; }
+        }
+
+        public SceneManager(Player player)
+        {
+            sceneList = new List<Scene>();
+            sceneStack = new Stack<Action>();
+
+            sceneList.Add(new Town(this));
+            sceneList.Add(new Status(this, player));
+            sceneList.Add(new Inventory(this));
+            sceneList.Add(new BattleScene(this, player));
+            sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.Town).Show);
+        }
+
+        /// <summary>
+        /// 장면을 스택에 추가하는 메소드
+        /// </summary>
+        /// <param name="scene">추가할 장면 이름</param>
+        public void AddScene(SceneType type)
+        {
+            sceneStack.Push(sceneList.Find(x => x.SceneType == type).Show);
+        }
+        /// <summary>
+        /// 스택에서 장면을 꺼내는 메소드
+        /// </summary>
+        public void PopScene()
+        {
+            if(sceneStack.Count > 0)
+            {
+                sceneStack.Pop();
+            }
+            else
+            {
+                Console.WriteLine("스택이 비어있습니다.");
+            }
+        }
+        /// <summary>
+        /// 현재 장면을 보여주는 메소드
+        /// </summary>
+        public void ShowCurrentScene()
+        {
+            if(sceneStack.Count > 0)
+            {
+                sceneStack.Peek()();
+            }
+            else
+            {
+                Console.WriteLine("게임 종료");
+            }
+        }
+    }
+}
