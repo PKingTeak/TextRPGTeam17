@@ -12,17 +12,24 @@ namespace TextRPG.Unit
     {
 
         public delegate void SkillAttack(Unit _Other);
-        protected struct UnitState
+        public struct UnitState
         {
 
-            public string Name;
-            public int Level;
-            public int MaxHp;
-            public int MaxMp;
-            public int Damage;
-            public int Defense;
-            public int Gold;
-            public int MaxExp;
+            public string Name { get;set; }
+            public int Level { get;set; }
+
+            public int MaxHp { get;set; }
+
+            public int MaxMp { get;set; }
+
+            public int Damage { get;set; }
+
+            public int Defense { get;set; }
+
+            public int Gold { get;set; }
+
+            public int MaxExp { get;set; }
+
             public int CurHp { get;set; }
             public int CurExp { get;set; }
             public int CurMp { get;set; }

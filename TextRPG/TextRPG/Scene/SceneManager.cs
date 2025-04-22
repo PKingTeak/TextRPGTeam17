@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPG.Scene.Pages;
+using TextRPG.Unit.Child;
 
 namespace TextRPG.Scene
 {
@@ -20,13 +21,14 @@ namespace TextRPG.Scene
             get { return sceneStack.Count; }
         }
 
-        public SceneManager()
+        public SceneManager(Player player)
         {
             sceneList = new List<Scene>();
             sceneStack = new Stack<Action>();
 
             sceneList.Add(new Town(this));
-            sceneList.Add(new Status(this));
+            sceneList.Add(new Status(this, player));
+            sceneList.Add(new Inventory(this));
             sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.Town).Show);
         }
 
