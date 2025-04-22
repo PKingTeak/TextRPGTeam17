@@ -17,10 +17,13 @@ public class QuestManager
         {
             if (quest.questTarget == name) //퀘스트의 목표물과 몬스터 이름이 같으면
             {
-                quest.Count(); //퀘스트의 수집 수 증가
-                if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
+                if (quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
                 {
-                    Console.WriteLine($"[퀘스트 업데이트] 몬스터 5마리 처치 완료!"); //클리어 축하 메세지
+                    quest.Count(); //퀘스트의 수집 수 증가
+                    if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
+                    {
+                        quest.Complete(); //퀘스트 완료
+                    }
                 }
             }
         }
@@ -28,20 +31,29 @@ public class QuestManager
     }
     //하나의 기능
 
-    public void setQuest(int id = 0, string title = "제목", string content = "퀘스트내용", string target = "목표물", int maxcount = 0, string action = "", string reward = "보상") //퀘스트 화면
+    public void SetQuest(int id = 0, string title = "제목", string content = "퀘스트내용", string target = "목표물", int maxcount = 0, string action = "", string reward = "보상") //퀘스트 화면
     {
         Quest quest = new Quest(id,title, content,target,maxcount,action, reward);
         questList.Add(quest);
     }
 
-    public void getQuest(int i) //퀘스트 정보
+    public Quest FindQuest(int i) //퀘스트 찾기
     {
         foreach (var quest in questList)
         {
-            if(quest.QuestID == i)
+            if (quest.QuestID == i)
             {
-                quest.QuestInfo();
+                return quest;
             }
         }
+        return null;
+    }
+    public void GetQuest(Quest quest) //퀘스트 정보
+    {
+          quest.QuestInfo();
+    }
+    public void SetQuestAccept(Quest quest) //퀘스트 수락
+    {
+        quest.Accept();
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-    class Quest
+   public class Quest
     {
         public int QuestID { get;private set; } //퀘스트 ID
         string questTitle; //퀘스트 제목
@@ -15,7 +15,11 @@ using System.Threading.Tasks;
         string questReward; //퀘스트 보상
         public int minCount { get; private set; } //수집 수
         public int maxCount { get; private set; } //목표 조건 수
-        public  Quest(int id=0 ,string title = "제목", string content = "퀘스트내용", string target = "목표물",int maxcount=0,string action="", string reward = "보상") //퀘스트 화면
+    public bool isAccepted { get; private set; } = false;//퀘스트 수락 여부
+    public bool isComplete { get; private set; } = false;//퀘스트 완료 여부
+
+    public bool isAlready { get; private set; } = false;//퀘스트 재수락 여부
+    public  Quest(int id=0 ,string title = "제목", string content = "퀘스트내용", string target = "목표물",int maxcount=0,string action="", string reward = "보상") //퀘스트 화면
         {
             QuestID = id;
             questContent = content;
@@ -41,5 +45,20 @@ using System.Threading.Tasks;
         {
             this.minCount++;
         }
+
+    public void Accept() //퀘스트 수락
+    {
+        isAccepted = true;
     }
+
+    public void Complete()//퀘스트 완료
+    {
+        isComplete = true;
+    }
+
+    public void Already()//퀘스트 재수락
+    {
+        isAlready = true;
+    }
+}
 
