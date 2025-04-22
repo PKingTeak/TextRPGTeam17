@@ -75,7 +75,6 @@ namespace TextRPG.Scene.Pages
             {
                 case 0:
                     invenMode = InvenMode.Inventory;
-                    sceneManager.PopScene();
                     break;
                 case -1:
                     Console.WriteLine("잘못된 입력입니다.");
