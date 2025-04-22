@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TextRPG.Unit.Child;
 
 namespace TextRPG.Scene
 {
+    public enum SceneType
+    {
+        Town,
+        Status,
+        Inventory,
+        Battle
+    }
+
     public abstract class Scene
     {
         protected string sceneName;
         protected string sceneDescription;
         protected SceneManager sceneManager;
+        protected SceneType type;
 
-        public string SceneName { get { return sceneName; } }
+        public SceneType SceneType { get { return type; } }
 
         /// <summary>
         /// 장면을 보여주는 메소드
@@ -21,10 +29,8 @@ namespace TextRPG.Scene
         /// </summary>
         public Action Show { get; }
 
-        public Scene(string sceneName, string sceneDescription, SceneManager sceneManager)
+        public Scene(SceneManager sceneManager)
         {
-            this.sceneName = sceneName;
-            this.sceneDescription = sceneDescription;
             Show = ShowScene;
             this.sceneManager = sceneManager;
         }
