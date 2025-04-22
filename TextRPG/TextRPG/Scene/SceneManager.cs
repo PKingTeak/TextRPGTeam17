@@ -7,7 +7,7 @@ using TextRPG.Scene.Pages;
 
 namespace TextRPG.Scene
 {
-    internal class SceneManager
+    public class SceneManager
     {
         private List<Scene> sceneList;
         private Stack<Action> sceneStack;
@@ -25,17 +25,18 @@ namespace TextRPG.Scene
             sceneList = new List<Scene>();
             sceneStack = new Stack<Action>();
 
-            sceneList.Add(new Status("상태 보기", "캐릭터의 정보가 표시됩니다.", this));
-            sceneStack.Push(sceneList.Find(x => x.SceneName == "상태 보기").Show);
+            sceneList.Add(new Town(this));
+            sceneList.Add(new Status(this));
+            sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.Town).Show);
         }
 
         /// <summary>
         /// 장면을 스택에 추가하는 메소드
         /// </summary>
         /// <param name="scene">추가할 장면 이름</param>
-        public void AddScene(string scene)
+        public void AddScene(SceneType type)
         {
-            sceneStack.Push(sceneList.Find(x => x.SceneName == scene).Show);
+            sceneStack.Push(sceneList.Find(x => x.SceneType == type).Show);
         }
         /// <summary>
         /// 스택에서 장면을 꺼내는 메소드

@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace TextRPG.Scene
 {
-    internal static class InputHandler
+    public static class InputHandler
     {
         /// <summary>
         /// 사용자에게 선택지를 주고, 그에 대한 입력을 받는 메소드

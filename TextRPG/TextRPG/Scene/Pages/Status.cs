@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Scene.Pages
 {
-    internal class Status:Scene
+    public class Status:Scene
     {
-        // Player 객체 변수 생성
-
-        public Status(string sceneName, string sceneDescription, SceneManager sceneManager) : base(sceneName, sceneDescription, sceneManager)
+        public Status(SceneManager sceneManager) : base(sceneManager)
         {
-            // 매개변수로 Player 객체 받아와 Player 변수 할당
+            sceneName = "상태 보기";
+            sceneDescription = "캐릭터의 정보가 표시됩니다.";
+            type = SceneType.Status;
         }
 
         public override void ShowScene()
         {
-            Console.WriteLine($"{sceneName}\n{sceneDescription}");
+            Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
 
             // 플레이어 정보 출력
 
