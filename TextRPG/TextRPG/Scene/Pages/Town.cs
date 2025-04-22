@@ -20,7 +20,7 @@ namespace TextRPG.Scene.Pages
 
             // 플레이어 정보 출력
 
-            int choice = InputHandler.ChooseAction(0, 3, "1. 상태보기\n" +
+            int choice = InputHandler.ChooseAction(0, 4, "1. 상태보기\n" +
                                                          "2. 인벤토리\n" +
                                                          "3. 상점\n" +
                                                          "4. 전투 시작\n" +
@@ -39,6 +39,9 @@ namespace TextRPG.Scene.Pages
                     break;
                 case 3:
                     sceneManager.AddScene(SceneType.Shop);
+                    break;
+                case 4:
+                    sceneManager.AddScene(SceneType.Battle);
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다.");
