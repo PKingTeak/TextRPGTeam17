@@ -1,9 +1,11 @@
+using TextRPG.Unit;
+
 public class MonsterSpawner
 {
     Random rand = new Random();
-    public List<string> SpawnMonsters(int floor)
+    public List<Unit> SpawnMonsters(int floor)
     {
-        List<string> monsters = new List<string>();
+        List<Unit> monsters = new List<Unit>();
 
         int repeat = rand.Next(1, 3);  // 랜덤 생성
 
