@@ -18,32 +18,34 @@ namespace TextRPG.Unit.Child
     public class Player : Unit
     {
         
-        public Player(string _Name)
+        public Player()
         {
+        
             
         }
-       public void SetJob(string _name)
+       public Player SetJob(string _name)
        {
             Console.WriteLine("직업을 선택해 주세요\n1.전사 \t2.궁수\t3.도적\t4.마법사");
             string Input = Console.ReadLine();
-            Player player = null;
+           
             switch(Input)
             {
                 case "1":
-                player = new Warrior(_name);
+                return new Warrior(_name);
                 break;
                 case "2":
-                player = new Archer(_name);
+                return new Archer(_name);
                 break;
                 case "3" :
-                player = new Assessin(_name);
+                return new Assessin(_name);
                 break;
                 case "4" :
-                player = new Wizard(_name);
+                return new Wizard(_name);
                 break;
                 default:
                 Console.WriteLine("값을 잘못 입력했습니다.");
-                break;
+                return null;
+               
                 
 
             }

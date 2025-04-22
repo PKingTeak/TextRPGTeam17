@@ -8,7 +8,7 @@ namespace TextRPG.Unit.Child
 {
     public class Assessin : Player
     {
-        public Assessin(string _name): base(_name)
+        public Assessin(string _name): base()
         {
 
             state.Name = _name;

@@ -9,7 +9,7 @@ namespace TextRPG.Unit.Child
 {
     public class Archer : Player
     {
-        public Archer(string _name) : base(_name)
+        public Archer(string _name) : base()
         {
             state.Name = base.state.Name;
             state.MaxHp = 100;
