@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using TextRPG.Unit.Child;
 
 
 public class QuestManager
@@ -7,7 +8,7 @@ public class QuestManager
     List<Quest> questList = new List<Quest>(); //퀘스트 묶음,퀘스트의 수가 100개 이상이라면 딕셔너리로 바꿔야함
 
     //하나의 기능
-    public void Subscribe(TestMonster monster)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
+    public void Subscribe(Monster monster)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
     {
         monster.OnMonsterKilled += HandleMonsterKilled;
     }

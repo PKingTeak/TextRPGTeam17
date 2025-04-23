@@ -12,7 +12,8 @@ namespace TextRPG.Scene
         Status,
         Inventory,
         Shop,
-        Battle
+        Battle,
+        Quest
     }
 
     public abstract class Scene

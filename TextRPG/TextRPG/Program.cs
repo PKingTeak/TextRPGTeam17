@@ -10,24 +10,23 @@ class Program
     static void Main(string[] args)
     {
 
-        // 플레이어 객체 생성 및 정보 입력
-        Console.WriteLine("이름을 입력해주세요");
-        string Input = Console.ReadLine();
-        Player player = new Warrior(Input);
-        player.SetJob(Input);
+        //// 플레이어 객체 생성 및 정보 입력
+        //Console.WriteLine("이름을 입력해주세요");
+        //string Input = Console.ReadLine();
+        //Player player = new Warrior(Input);
+        //player.SetJob(Input);
 
 
 
-        SceneManager sceneManager = new SceneManager(player);
+        //SceneManager sceneManager = new SceneManager(player);
 
-        while (sceneManager.StackCount > 0)
-        {
-            sceneManager.ShowCurrentScene();
-        }
+        //while (sceneManager.StackCount > 0)
+        //{
+        //    sceneManager.ShowCurrentScene();
+        //}
+        //Console.WriteLine("게임 종료");
 
-
-        Console.WriteLine("게임 종료");
-        TestMonster minieon = new TestMonster();//몬스터
+        Monster minieon = new Monster("미니언");//몬스터
         QuestManager questManager = new QuestManager();//퀘스트 매니저
         questManager.Subscribe(minieon);// 퀘스트 매니저에 슬라임 등록
 
@@ -47,7 +46,6 @@ class Program
         Console.WriteLine("퀘스트를 수락하셨습니다.");
         questManager.SetQuestAccept(quest);
         //몬스터 3마리만 처치
-        minieon.Name = "미니언";
         for (int i = 0; i < 3; i++) //던전 생략 슬라임 3번 사망
         {
             minieon.Dead();
@@ -56,7 +54,6 @@ class Program
         questManager.GetQuest(quest);//퀘스트 정보 출력
 
         //몬스터 2마리 더 처치
-        minieon.Name = "미니언";
         for (int i = 0; i < 2; i++)
         {
             minieon.Dead();
