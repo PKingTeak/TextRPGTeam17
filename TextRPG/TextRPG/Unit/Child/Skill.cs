@@ -27,7 +27,8 @@ namespace TextRPG.Unit.Child
         {
             int result = player.state.Damage * AttackRank;
             if (player.state.CurMp >= UseMp)
-            { 
+            {
+            Console.WriteLine($"Mp{player.state.CurMp}-{UseMp}");
             player.state.CurMp -= UseMp;
             }
             else

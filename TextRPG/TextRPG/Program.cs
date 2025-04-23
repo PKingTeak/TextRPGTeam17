@@ -21,9 +21,7 @@ class Program
 
         Monster monster = new Monster("stet");
 
-        Input = Console.ReadLine();
-        int index = int.Parse(Input);
-
+       
         player.GetSKillList();
 
 

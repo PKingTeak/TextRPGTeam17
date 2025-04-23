@@ -80,10 +80,14 @@ namespace TextRPG.Unit.Child
         }
         public void ShowInfo()
         {
-            Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
             if (playerequiments.Count > 0)
             {
                 Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}(+{ItemDamage})\n방어력: {state.Defense}(+{ItemDefense})\n체 력: {state.CurHp}\nGold: {state.Gold}");
+            }
+            else
+            { 
+            Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
+            
             }
 
         }
