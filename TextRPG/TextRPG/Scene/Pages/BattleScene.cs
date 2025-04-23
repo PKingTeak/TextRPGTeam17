@@ -25,11 +25,12 @@ namespace TextRPG.Scene
             monsters = spawner.SpawnMonsters(floor);
             entranceHp = player.state.CurHp;
 
+            Console.Clear();
             while (isBattle)
             {
                 // 전투 UI 출력
-                Console.Clear();
                 Console.WriteLine($"{sceneName}" + "\n");
+                Console.WriteLine($"현재 층수 - {floor}\n");
 
                 //번호 없이 몬스터 출력
                 PrintMonsterInfo(false);
@@ -70,9 +71,9 @@ namespace TextRPG.Scene
         // 스킬 선택
         void ChooseSkill()
         {
+            Console.Clear();
             while (true)
             {
-                Console.Clear();
                 Console.WriteLine($"{sceneName}" + "\n");
 
                 // 번호 없이 몬스터 출력
@@ -90,9 +91,10 @@ namespace TextRPG.Scene
         // 대상 선택 화면
         void ChooseMonster()
         {
+            Console.Clear();
+
             while (true)
             {
-                Console.Clear();
                 Console.WriteLine($"{sceneName}" + "\n");
 
                 // 몬스터 번호와 함께 출력

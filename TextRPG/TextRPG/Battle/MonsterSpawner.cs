@@ -23,14 +23,14 @@ public class MonsterSpawner
     {
         Unit monster = new Unit();
 
-        int rand_Value = rand.Next(5) * floor;
+        int monsterLevel = floor + rand.Next(1, 3);
 
         monster.state = new Unit.UnitState()
         {
             Name = monsterNames[rand.Next(monsterNames.Length)],
-            Level = 1 + rand_Value,
-            MaxHp = 20 + rand_Value,
-            Damage = 5 + rand_Value
+            Level = monsterLevel,
+            MaxHp = 20 + (5 * monsterLevel) ,
+            Damage = 5 + (2 * monsterLevel)
         };
 
         monster.state.CurHp = monster.state.MaxHp;
