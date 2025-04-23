@@ -20,6 +20,13 @@ namespace TextRPG.Scene
         private bool isBattle;
         Skill? selectSkill = null;
 
+        // 전투 과정 출력 대기
+        void BattleProgress()
+        {
+            Console.WriteLine("계속하려면 아무 키나 입력해주세요.");
+            Console.ReadKey();
+        }
+
         public override void ShowScene()
         {
             isBattle = true;
@@ -31,8 +38,7 @@ namespace TextRPG.Scene
             {
                 Console.Clear();
                 // 전투 UI 출력
-                Console.WriteLine($"{sceneName}" + "\n");
-                Console.WriteLine($"현재 층수 - {floor}\n");
+                Console.WriteLine($"{sceneName} - 현재 층수 {floor}층" + "\n");
 
                 //번호 없이 몬스터 출력
                 PrintMonsterInfo(false);
@@ -76,9 +82,9 @@ namespace TextRPG.Scene
         // 스킬 선택
         void ChooseSkill()
         {
-            Console.Clear();
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine($"{sceneName}" + "\n");
 
                 // 번호 없이 몬스터 출력
@@ -114,10 +120,9 @@ namespace TextRPG.Scene
         // 대상 선택 화면
         void ChooseMonster()
         {
-            Console.Clear();
-
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine($"{sceneName}" + "\n");
 
                 // 몬스터 번호와 함께 출력
@@ -159,13 +164,6 @@ namespace TextRPG.Scene
             }
         }
 
-        // 전투 과정 출력
-        void BattleProgress()
-        {
-            Console.WriteLine("계속하려면 아무 키나 입력해주세요.");
-            Console.ReadKey();
-        }
-
         // 몬스터 페이즈
         void MonstersPhase()
         {
@@ -204,6 +202,10 @@ namespace TextRPG.Scene
         // 전투 종료 페이지
         void EndBattle(bool isWin)
         {
+            // 보상 번들 생성
+            BattleReward battleReward = new BattleReward();
+            RewardBundle rewardBundle = battleReward.GetReward(floor);
+
             while (true)
             {
                 Console.Clear();
@@ -212,15 +214,15 @@ namespace TextRPG.Scene
                 if (isWin) { Console.WriteLine("Victory\n"); floor++; }
                 else Console.WriteLine("You Lose\n");
 
-                Console.WriteLine($"던전에서 몬스터 {3}마리를 잡았습니다.\n");
+                Console.WriteLine($"던전에서 몬스터 {CountKilledMonster()}마리를 잡았습니다.\n");
 
                 Console.WriteLine("[캐릭터 정보]");
                 Console.WriteLine($"Lv.{player.state.Level} {player.state.Name}");
                 Console.WriteLine($"HP {entranceHp} -> {player.state.CurHp}\n");
 
-                Console.WriteLine("[획득 아이템]");
-                // 획득한 아이템들 출력
-
+                Console.WriteLine("[획득 보상]");
+                // 획득한 보상들 출력
+                
                 int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
 
                 if (choice == 0) return;
@@ -231,8 +233,9 @@ namespace TextRPG.Scene
         void PrintPlayerInfo()
         {
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv. {player.state.Level} {player.state.Name} (직업)");
-            Console.WriteLine($"{player.state.CurHp}/{player.state.MaxHp}");
+            Console.WriteLine($"Lv. {player.state.Level} {player.state.Name} ({player.GetType().Name})");
+            Console.WriteLine($"HP {player.state.CurHp}/{player.state.MaxHp}");
+            Console.WriteLine($"MP {player.state.CurMp}/{player.state.MaxMp}");
         }
 
         // 몬스터 정보 출력
@@ -276,6 +279,19 @@ namespace TextRPG.Scene
             }
 
             return isAllDie;
+        }
+
+        // 처치한 몬스터 수 계산
+        int CountKilledMonster()
+        {
+            int kill = 0;
+
+            foreach (var monster in monsters)
+            {
+                if (monster.state.CurHp == 0)
+                    kill++;
+            }
+            return kill;
         }
     }
 }

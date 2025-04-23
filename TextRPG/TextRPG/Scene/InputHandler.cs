@@ -38,7 +38,6 @@ namespace TextRPG.Scene
             {
                 Console.WriteLine("잘못된 입력입니다.");
                 Thread.Sleep(500);
-                Console.WriteLine();
                 return -1;
             }
         }
