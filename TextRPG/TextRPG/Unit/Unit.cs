@@ -62,7 +62,7 @@ namespace TextRPG.Unit
             {
                 realDamage = 1;
             }
-            Console.WriteLine($"{state.Name}의 일반 공격 !!");
+            Console.WriteLine($"{state.Name}의 공격 !!");
             
             //랜덤 추가 예정
             _Other.SetDamage(realDamage);

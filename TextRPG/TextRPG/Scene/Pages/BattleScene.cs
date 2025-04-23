@@ -50,9 +50,12 @@ namespace TextRPG.Scene
                     case 2:
                         PlayerPhase(true);  // 스킬 선택
                         break;
+                    default:
+                        Thread.Sleep(500);
+                        break;
                 }
             }
-            
+
             sceneManager.PopScene();
         }
 
@@ -67,19 +70,21 @@ namespace TextRPG.Scene
         // 스킬 선택
         void ChooseSkill()
         {
-            Console.Clear();
-            Console.WriteLine($"{sceneName}" + "\n");
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"{sceneName}" + "\n");
 
-            // 번호 없이 몬스터 출력
-            PrintMonsterInfo(false);
+                // 번호 없이 몬스터 출력
+                PrintMonsterInfo(false);
 
-            Console.WriteLine();
+                Console.WriteLine();
 
-            // 플레이어 정보 표시
-            PrintPlayerInfo();
+                // 플레이어 정보 표시
+                PrintPlayerInfo();
 
-            // 스킬 정보 표시
-
+                // 스킬 정보 표시
+            }
         }
 
         // 대상 선택 화면
@@ -105,14 +110,16 @@ namespace TextRPG.Scene
 
                 else if (choice != -1 && choice <= monsters.Count)
                 {
-                    Console.WriteLine($"{sceneName}" + "\n");
-
                     // 몬스터가 살아있다면 공격
                     if (monsters[choice - 1].state.CurHp != 0)
                     {
+                        Console.Clear();
+                        Console.WriteLine($"{sceneName}" + "\n");
+
                         player.Attack(monsters[choice - 1]);
 
                         BattleProgress(); // 전투 과정 출력
+
                         MonstersPhase(); // 몬스터 턴
                         return;
                     }
@@ -122,25 +129,27 @@ namespace TextRPG.Scene
                         Thread.Sleep(500);
                     }
                 }
+
+                else Thread.Sleep(500);
+
             }
         }
 
         // 전투 과정 출력
         void BattleProgress()
         {
-            while (true)
-            {
-                int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
+            int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
 
-                if (choice == 0) return;
-                else
-                    Console.WriteLine("잘못된 입력입니다.");
-            }
+            if (choice == 0) return;
+            else Thread.Sleep(500);
         }
 
         // 몬스터 페이즈
         void MonstersPhase()
         {
+            Console.Clear();
+            Console.WriteLine($"{sceneName}" + "\n");
+
             // 모든 몬스터가 죽었다면 전투 종료
             if (CheckAllMonstersDie())
             {
@@ -161,7 +170,7 @@ namespace TextRPG.Scene
             BattleProgress();
 
             // 플레이어가 죽었다면 전투 종료
-            if(player.state.CurHp == 0)
+            if (player.state.CurHp == 0)
             {
                 isBattle = false;
                 EndBattle(false);
@@ -174,9 +183,10 @@ namespace TextRPG.Scene
         {
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine($"{sceneName} - Result\n");
 
-                if(isWin) Console.WriteLine("Victory\n");
+                if (isWin) { Console.WriteLine("Victory\n"); floor++; }
                 else Console.WriteLine("You Lose\n");
 
                 Console.WriteLine($"던전에서 몬스터 {3}마리를 잡았습니다.\n");
@@ -190,7 +200,7 @@ namespace TextRPG.Scene
 
                 int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
 
-                if(choice == 0) return;
+                if (choice == 0) return;
                 else Thread.Sleep(500);
             }
         }
