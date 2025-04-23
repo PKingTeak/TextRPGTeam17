@@ -67,10 +67,6 @@ namespace TextRPG.Scene.Pages
                 case 1:
                     invenMode = InvenMode.Equipment;
                     break;
-                default:
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.WriteLine();
-                    break;
             }
         }
 
