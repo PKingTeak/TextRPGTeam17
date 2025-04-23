@@ -8,46 +8,82 @@ public class ItemManager
 {
     public List<Item> Items { get; private set; } = new List<Item>();
 
+    // 현재 장착 중인 무기/방어구 저장 변수
+    private Item equippedWeapon = null;
+    private Item equippedArmor = null;
 
     public ItemManager()
     {
-        // 테스트용 아이템 추가
-        Items.Add(new Item(
-            name: "불꽃의 검",
-            stats: new Dictionary<Item.ItemType, int> { { Item.ItemType.WeaPon, 15 } },
-            description: "불 속성을 띤 강력한 검.",
-            price: 1000
-        ));
-
-        Items.Add(new Item(
-            name: "전투 도끼",
-            stats: new Dictionary<Item.ItemType, int> { { Item.ItemType.WeaPon, 12 } },
-            description: "묵직한 일격을 가하는 도끼.",
-            price: 850
-        ));
-
-        Items.Add(new Item(
-            name: "엘프의 활",
-            stats: new Dictionary<Item.ItemType, int> { { Item.ItemType.WeaPon, 11 } },
-            description: "정확도가 높은 마법 활.",
-            price: 900
-        ));
-
-        Items.Add(new Item(
-            name: "철 투구",
-            stats: new Dictionary<Item.ItemType, int> { { Item.ItemType.Armor, 5 } },
-            description: "머리를 보호하는 튼튼한 철 투구.",
-            price: 400
-        ));
-
-        Items.Add(new Item(
-            name: "용의 갑옷",
-            stats: new Dictionary<Item.ItemType, int> { { Item.ItemType.Armor, 20 } },
-            description: "전설 속 용의 비늘로 만든 방어구.",
-            price: 2000
-        ));
+        Items.Add(new Item("불꽃의 검", new Dictionary<Item.ItemType, int> { { Item.ItemType.WeaPon, 15 } }, "불 속성을 띤 강력한 검.", 1000));
+        Items.Add(new Item("전투 도끼", new Dictionary<Item.ItemType, int> { { Item.ItemType.WeaPon, 12 } }, "묵직한 일격을 가하는 도끼.", 850));
+        Items.Add(new Item("엘프의 활", new Dictionary<Item.ItemType, int> { { Item.ItemType.WeaPon, 11 } }, "정확도가 높은 마법 활.", 900));
+        Items.Add(new Item("철 투구", new Dictionary<Item.ItemType, int> { { Item.ItemType.Armor, 5 } }, "머리를 보호하는 튼튼한 철 투구.", 400));
+        Items.Add(new Item("용의 갑옷", new Dictionary<Item.ItemType, int> { { Item.ItemType.Armor, 20 } }, "전설 속 용의 비늘로 만든 방어구.", 2000));
     }
 
+    public void EquipItemByIndex(int index)
+    {
+        if (index < 0 || index >= Items.Count)
+        {
+            Console.WriteLine("잘못된 인덱스입니다.");
+            return;
+        }
+
+        var item = Items[index];
+
+        if (!item.IsOwned)
+        {
+            Console.WriteLine($"{item.Name}은(는) 보유 중이지 않습니다.");
+            return;
+        }
+
+        var itemType = item.Stats.Keys.First();
+
+        if (item.IsEquipped)
+        {
+            Console.WriteLine($"{item.Name}은(는) 이미 장착 중입니다.");
+            return;
+        }
+
+        if (itemType == Item.ItemType.WeaPon)
+        {
+            if (equippedWeapon != null)
+            {
+                equippedWeapon.ChangeEquipStatus(false);
+                Console.WriteLine($"기존 무기 {equippedWeapon.Name} 장착 해제.");
+            }
+
+            equippedWeapon = item;
+        }
+        else if (itemType == Item.ItemType.Armor)
+        {
+            if (equippedArmor != null)
+            {
+                equippedArmor.ChangeEquipStatus(false);
+                Console.WriteLine($"기존 방어구 {equippedArmor.Name} 장착 해제.");
+            }
+
+            equippedArmor = item;
+        }
+
+        item.ChangeEquipStatus(true);
+        Console.WriteLine($"{item.Name} 장착 완료!");
+    }
+
+    public void ShowItems()
+    {
+        for (int i = 0; i < Items.Count; i++)
+        {
+            Console.WriteLine($"[{i}] {Items[i]}");
+        }
+    }
+
+    public void ShowEquippedItems()
+    {
+        Console.WriteLine("🧤 현재 장착 중인 아이템:");
+        Console.WriteLine($"무기: {(equippedWeapon != null ? equippedWeapon.Name : "없음")}");
+        Console.WriteLine($"방어구: {(equippedArmor != null ? equippedArmor.Name : "없음")}");
+    }
 
     public void BuyItem(Item item)
     {
@@ -67,6 +103,9 @@ public class ItemManager
     {
         if (item.IsOwned)
         {
+            if (item == equippedWeapon) equippedWeapon = null;
+            if (item == equippedArmor) equippedArmor = null;
+
             item.ChangeOwnership(false);
             item.ChangeEquipStatus(false);
             Items.Remove(item);
@@ -77,37 +116,4 @@ public class ItemManager
             Console.WriteLine($"{item.Name}은 소지하고 있지 않습니다.");
         }
     }
-
-    public void EquipItem(Item item)
-    {
-        if (item.IsOwned && !item.IsEquipped)
-        {
-            item.ChangeEquipStatus(true);
-            Console.WriteLine($"{item.Name} 장착 완료!");
-        }
-        else
-        {
-            Console.WriteLine($"{item.Name}은 장착할 수 없습니다.");
-        }
-    }
-
-    public void UnequipItem(Item item)
-    {
-        if (item.IsEquipped)
-        {
-            item.ChangeEquipStatus(false);
-            Console.WriteLine($"{item.Name} 장착 해제 완료!");
-        }
-        else
-        {
-            Console.WriteLine($"{item.Name}은 장착되어 있지 않습니다.");
-        }
-    }
-
-    public string ShowItems(int idx)
-    {
-        return Items[idx].ToString();
-    }
-
-
 }
