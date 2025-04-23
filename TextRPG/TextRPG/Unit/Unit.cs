@@ -90,13 +90,16 @@ namespace TextRPG.Unit
             int pre_Hp = state.CurHp;
 
             state.CurHp -= _damage;
+            
+            Console.WriteLine($"Lv. {state.Level} {state.Name} 을(를) 맞췄습니다. [데미지: {_damage}]");
+
             if (state.CurHp < 0)
             {
                 state.CurHp = 0;
+                Console.WriteLine($"Lv. {state.Level} {state.Name} HP {pre_Hp} -> Dead\n");
             }
-
-            Console.WriteLine($"Lv. {state.Level} {state.Name} 을(를) 맞췄습니다. [데미지: {_damage}]");
-            Console.WriteLine($"Lv. {state.Level} {state.Name} HP {pre_Hp} -> {state.CurHp}\n");
+            else
+                Console.WriteLine($"Lv. {state.Level} {state.Name} HP {pre_Hp} -> {state.CurHp}\n");
         }
         public void ResetHp()
         {

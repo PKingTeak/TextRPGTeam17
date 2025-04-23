@@ -3,7 +3,7 @@ using TextRPG.Unit;
 public class MonsterSpawner
 {
     Random rand = new Random();
-    string[] monsterNames = {"몬스터", "개쌘 몬스터", "적당한 몬스터", "귀여운 몬스터"};
+    string[] monsterNames = {"고릴라", "고블린", "골렘", "오크"};
     public List<Unit> SpawnMonsters(int floor)
     {
         List<Unit> monsters = new List<Unit>();
@@ -18,6 +18,7 @@ public class MonsterSpawner
         return monsters;
     }
 
+    // 스탯 설정
     Unit SetMonster(int floor)
     {
         Unit monster = new Unit();
