@@ -46,17 +46,10 @@ namespace TextRPG.Scene.Pages
 
         private void ShowInventory()
         {
-            itemInfoTypes.Clear();
-            itemInfoTypes.Add(ItemInfoType.NameAndDescription);
+            itemInfoList.Clear();
+            itemInfoList.Add(ItemInfoType.NameAndDescription);
 
-            for (int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
-            {
-                if(sceneManager.ItemManager.Items[i].IsOwned)
-                {
-                    Console.WriteLine($"{PickItemInfo(i, itemInfoTypes)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
-                }
-            }
-            Console.WriteLine();
+            ShowItemList(itemInfoList, (int x) => sceneManager.ItemManager.Items[x].IsOwned); // 소지 중인 아이템만 출력
 
             int choice = InputHandler.ChooseAction(0, 1, "1. 장착관리\n" +
                                                          "0. 나가기", "원하시는 행동을 입력해주세요.");
@@ -75,18 +68,11 @@ namespace TextRPG.Scene.Pages
 
         private void ShowEquipment()
         {
-            itemInfoTypes.Clear();
-            itemInfoTypes.Add(ItemInfoType.NameAndDescription);
-            itemInfoTypes.Add(ItemInfoType.IsEquipped);
+            itemInfoList.Clear();
+            itemInfoList.Add(ItemInfoType.NameAndDescription);
+            itemInfoList.Add(ItemInfoType.IsEquipped);
 
-            for (int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
-            {
-                if(sceneManager.ItemManager.Items[i].IsOwned)
-                {
-                    Console.WriteLine($"{i + 1}. {PickItemInfo(i, itemInfoTypes)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
-                }
-            }
-            Console.WriteLine();
+            ShowItemList(itemInfoList, (int x) => sceneManager.ItemManager.Items[x].IsOwned); // 소지 중인 아이템만 출력
 
             int choice = InputHandler.ChooseAction(0, sceneManager.ItemManager.Items.Count, "0. 나가기", "원하시는 행동을 입력해주세요.");
 
