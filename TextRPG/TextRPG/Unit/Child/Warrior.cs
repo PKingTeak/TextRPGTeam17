@@ -22,7 +22,7 @@ namespace TextRPG.Unit.Child
             state.MaxExp = 100; //경험치량
             ResetHp();
             ResetMP();
-
+            SettingSkill(GetSkillSet());
 
 
 

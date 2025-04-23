@@ -87,23 +87,7 @@ namespace TextRPG.Unit.Child
             }
 
         }
-        public void ChoiceSkill(string _input)
-        {
-            switch (_input)
-            {
-                case "1":
-                    break;
-                    //스킬 이름으로 호출하는 방식을 선택하는게 좋을듯 하다. 
-            }
-        }
-        public void equipmentItem(/*Item item*/)
-        {
-            //아이템 능력치를 가져와서 값을 증가시키는 방식을 사용하거나
-            //player의 능력치를 직접 호출하여 사용하거나 둘중에 하나.
-
-        }
-
-
+     
         public void UsingSkill(string _skillName, Unit other)
         {
             if (Skills.ContainsKey(_skillName))
