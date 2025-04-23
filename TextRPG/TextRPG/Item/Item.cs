@@ -25,7 +25,7 @@ public class Item
         Stats = stats;
         Description = description;
         Price = price;
-        IsOwned = false;
+        IsOwned = true;
         IsEquipped = false;
     }
 

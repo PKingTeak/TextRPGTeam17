@@ -9,23 +9,17 @@ class Program
 
     static void Main(string[] args)
     {
-
+        ItemManager itemManager = new ItemManager(); //아이템 매니저
         // 플레이어 객체 생성 및 정보 입력
         Console.WriteLine("이름을 입력해주세요");
         string Input = Console.ReadLine();
         Player player = new Player();
         player = player.SetJob(Input);
 
-        Item item = new Item("봉",new Dictionary<Item.ItemType, int>() { { Item.ItemType.WeaPon, 10 } } ,"아",500);
-        player.EquimentItem(item);
+        //Item item = new Item("봉",new Dictionary<Item.ItemType, int>() { { Item.ItemType.WeaPon, 10 } } ,"아",500);
+        //player.EquimentItem(item);
 
-        Monster monster = new Monster("stet");
-
-       
-        player.GetSKillList();
-
-
-        SceneManager sceneManager = new SceneManager(player);
+        SceneManager sceneManager = new SceneManager(player, itemManager);
        
         while (sceneManager.StackCount > 0)
         {
