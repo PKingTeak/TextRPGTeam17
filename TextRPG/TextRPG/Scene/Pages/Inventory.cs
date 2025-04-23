@@ -30,6 +30,7 @@ namespace TextRPG.Scene.Pages
             }
 
             Console.WriteLine($"{sceneName}{subTitle}\n{sceneDescription}\n");
+            Console.WriteLine();
 
             switch(invenMode)
             {
@@ -44,7 +45,10 @@ namespace TextRPG.Scene.Pages
 
         private void ShowInventory()
         {
-            // 플레이어 정보 출력
+            for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
+            {
+                Console.WriteLine($"{sceneManager.ItemManager.ShowItems(i)}");
+            }
 
             int choice = InputHandler.ChooseAction(0, 1, "1. 장착관리\n" +
                                                          "0. 나가기", "원하시는 행동을 입력해주세요.");
@@ -67,7 +71,10 @@ namespace TextRPG.Scene.Pages
 
         private void ShowEquipment()
         {
-            // 플레이어 정보 출력(장착 여부 표시)
+            for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {sceneManager.ItemManager.ShowItems(i)}");
+            }
 
             int choice = InputHandler.ChooseAction(0, 0, "0. 나가기", "원하시는 행동을 입력해주세요.");
 
@@ -75,10 +82,6 @@ namespace TextRPG.Scene.Pages
             {
                 case 0:
                     invenMode = InvenMode.Inventory;
-                    break;
-                case -1:
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.WriteLine();
                     break;
                 default:
                     // 선택 장비 장착
