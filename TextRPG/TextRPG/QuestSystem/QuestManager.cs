@@ -23,6 +23,7 @@ namespace TextRPG.QuestSystem
 
                 if (quest.questTarget == name) //퀘스트의 목표물과 몬스터 이름이 같으면
                 {
+                                            Console.WriteLine(quest.minCount);
                     if (!quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
                     {
                         Console.WriteLine(quest.minCount);

@@ -10,6 +10,7 @@ class Program
 
     static void Main(string[] args)
     {
+        
         ItemManager itemManager = new ItemManager();
         QuestManager questManager = new QuestManager();
 

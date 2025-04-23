@@ -24,6 +24,14 @@ namespace TextRPG.Scene.Pages
         }
         public override void ShowScene()
         {
+                        Monster monster = new Monster("미니언");
+            questManager.Subscribe(monster);
+
+            for (int i = 0; i < 5; i++)
+            {
+                monster.Dead();
+            }
+            
             string subTitle = "";
             if (invenMode == InvenMode.Equipment)
             {

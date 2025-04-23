@@ -37,7 +37,6 @@ namespace TextRPG.QuestSystem
 
         public void QuestInfo() //퀘스트 정보
         {
-            Console.Clear();
             Console.WriteLine("Quest!!\n");
             Console.WriteLine(questTitle + "\n");
             Console.WriteLine(questContent + "\n");
