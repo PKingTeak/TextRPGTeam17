@@ -10,9 +10,9 @@ namespace TextRPG.Unit.Child
     public class Wizard : Player
     {
 
-        public Wizard(string _Name)
+        public Wizard(string _name) :  base()
         {
-            state.Name = _Name;
+            state.Name = _name;
             state.MaxHp = 100;
             state.MaxMp = 200;
             state.Damage = 10;
@@ -20,8 +20,8 @@ namespace TextRPG.Unit.Child
             state.Level = 1;
             state.Gold = 800;
             state.MaxExp = 100; //경험치량
-
-
+            ResetHp();
+            ResetMP();
         }
         
         

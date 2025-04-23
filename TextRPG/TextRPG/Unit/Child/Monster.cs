@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Unit.Child
 {
-    internal class Monster
+    public class Monster : Unit
     {
+        public Monster(string _name)
+        {
+            state.Name = _name;
+        }
+
+
+
+    
     }
 }
