@@ -28,7 +28,8 @@ namespace TextRPG.Unit.Child
             int result = player.state.Damage * AttackRank;
             if (player.state.CurMp >= UseMp)
             {
-
+                Console.WriteLine($"{player.state.Name} 의 {SkillName}!!");
+                Console.WriteLine($"Mp {player.state.CurMp} -> {player.state.CurMp - UseMp}\n");
                 player.state.CurMp -= UseMp;
             }
             else
@@ -36,7 +37,6 @@ namespace TextRPG.Unit.Child
                 Console.WriteLine($"MP가 부족합니다");
             }
             other.SetDamage(result);
-
         }
 
         public int AttackRank { get; private set; }

@@ -134,10 +134,10 @@ namespace TextRPG.Unit.Child
             int realDamage = RandomNum(FinalDamage - _Other.state.Defense, state.Damage + 10);
             if (realDamage < 0)
             {
-                realDamage = 0;
+                realDamage = 1;
             }
-            Console.WriteLine($"{state.Name}이 {realDamage}의 데미지로 공격하였습니다");
-
+            Console.WriteLine($"{state.Name}의 일반 공격 !!");
+            _Other.SetDamage(realDamage);
 
         }
        
