@@ -21,6 +21,7 @@ public class ItemManager
         Items.Add(new Item("용의 갑옷", new Dictionary<Item.ItemType, int> { { Item.ItemType.Armor, 20 } }, "전설 속 용의 비늘로 만든 방어구.", 2000));
     }
 
+    //아이템 보유 및 착용, 해제 기능 일체화
     public void EquipItemByIndex(int index)
     {
         if (index < 0 || index >= Items.Count)
@@ -80,7 +81,7 @@ public class ItemManager
 
     public void ShowEquippedItems()
     {
-        Console.WriteLine("🧤 현재 장착 중인 아이템:");
+        Console.WriteLine(" 현재 장착 중인 아이템:");
         Console.WriteLine($"무기: {(equippedWeapon != null ? equippedWeapon.Name : "없음")}");
         Console.WriteLine($"방어구: {(equippedArmor != null ? equippedArmor.Name : "없음")}");
     }
