@@ -93,7 +93,7 @@ namespace TextRPG.Unit
             
             Console.WriteLine($"Lv. {state.Level} {state.Name} 을(를) 맞췄습니다. [데미지: {_damage}]");
 
-            if (state.CurHp < 0)
+            if (state.CurHp <= 0)
             {
                 state.CurHp = 0;
                 Console.WriteLine($"Lv. {state.Level} {state.Name} HP {pre_Hp} -> Dead\n");

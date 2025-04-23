@@ -18,6 +18,7 @@ namespace TextRPG.Scene
         MonsterSpawner spawner = new MonsterSpawner();
         List<Unit.Unit> monsters = new List<Unit.Unit>();
         private bool isBattle;
+        Skill? selectSkill = null;
 
         public override void ShowScene()
         {
@@ -25,9 +26,10 @@ namespace TextRPG.Scene
             monsters = spawner.SpawnMonsters(floor);
             entranceHp = player.state.CurHp;
 
-            Console.Clear();
+
             while (isBattle)
             {
+                Console.Clear();
                 // 전투 UI 출력
                 Console.WriteLine($"{sceneName}" + "\n");
                 Console.WriteLine($"현재 층수 - {floor}\n");
@@ -63,7 +65,10 @@ namespace TextRPG.Scene
         void PlayerPhase(bool useSkill)
         {
             if (useSkill)
+            {
                 ChooseSkill();
+                selectSkill = null;
+            }
             else
                 ChooseMonster();
         }
@@ -85,6 +90,24 @@ namespace TextRPG.Scene
                 PrintPlayerInfo();
 
                 // 스킬 정보 표시
+                Console.WriteLine("\n[스킬 목록]");
+                for (int i = 0; i < player.SkillList.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {player.SkillList[i].SkillName} - MP {player.SkillList[i].UseMp}");
+                    player.SkillList[i].SkillInfo();
+                }
+
+                int choice = InputHandler.ChooseAction(0, player.SkillList.Count, "\n0. 다음", "원하는 행동을 입력해주세요.");
+
+                if (choice == 0) return;
+
+                else if (choice != -1 && choice <= player.SkillList.Count)
+                {
+                    // 스킬 선택 후 공격 몬스터 선택
+                    selectSkill = player.SkillList[choice - 1];
+                    ChooseMonster();
+                    return;
+                }
             }
         }
 
@@ -107,8 +130,7 @@ namespace TextRPG.Scene
 
                 int choice = InputHandler.ChooseAction(0, monsters.Count, "\n0. 취소", "공격할 대상을 선택하세요.\n");
 
-                if (choice == 0)
-                    return;
+                if (choice == 0) return;
 
                 else if (choice != -1 && choice <= monsters.Count)
                 {
@@ -118,9 +140,12 @@ namespace TextRPG.Scene
                         Console.Clear();
                         Console.WriteLine($"{sceneName}" + "\n");
 
-                        player.Attack(monsters[choice - 1]);
+                        if (selectSkill != null)
+                            selectSkill.UsingSkill(player, monsters[choice - 1]);
+                        else
+                            player.Attack(monsters[choice - 1]);
 
-                        BattleProgress(); // 전투 과정 출력
+                        BattleProgress(); // 전투 과정 출력 대기
 
                         MonstersPhase(); // 몬스터 턴
                         return;
@@ -131,19 +156,14 @@ namespace TextRPG.Scene
                         Thread.Sleep(500);
                     }
                 }
-
-                else Thread.Sleep(500);
-
             }
         }
 
         // 전투 과정 출력
         void BattleProgress()
         {
-            int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
-
-            if (choice == 0) return;
-            else Thread.Sleep(500);
+            Console.WriteLine("계속하려면 아무 키나 입력해주세요.");
+            Console.ReadKey();
         }
 
         // 몬스터 페이즈
@@ -169,6 +189,7 @@ namespace TextRPG.Scene
                     monster.Attack(player);
             }
 
+            // 전투 과정 출력 대기
             BattleProgress();
 
             // 플레이어가 죽었다면 전투 종료
@@ -203,7 +224,6 @@ namespace TextRPG.Scene
                 int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
 
                 if (choice == 0) return;
-                else Thread.Sleep(500);
             }
         }
 
