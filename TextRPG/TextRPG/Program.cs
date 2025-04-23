@@ -21,8 +21,6 @@ class Program
 
         Monster monster = new Monster("stet");
 
-       
-        player.GetSKillList();
 
 
         SceneManager sceneManager = new SceneManager(player);

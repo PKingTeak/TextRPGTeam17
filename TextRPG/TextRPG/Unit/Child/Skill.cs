@@ -8,7 +8,7 @@ namespace TextRPG.Unit.Child
 {
     public class Skill
     {
-        public Skill(string _name, string _info , int _mp ,int _rank)
+        public Skill(string _name, string _info, int _mp, int _rank)
         {
             SkillName = _name;
             SkillData = _info;
@@ -23,19 +23,19 @@ namespace TextRPG.Unit.Child
         }
 
 
-        public void UsingSkill(Player player ,Unit other)
+        public void UsingSkill(Player player, Unit other)
         {
             int result = player.state.Damage * AttackRank;
             if (player.state.CurMp >= UseMp)
             {
-            Console.WriteLine($"Mp{player.state.CurMp}-{UseMp}");
-            player.state.CurMp -= UseMp;
+
+                player.state.CurMp -= UseMp;
             }
             else
             {
                 Console.WriteLine($"MP가 부족합니다");
             }
-                other.SetDamage(result);
+            other.SetDamage(result);
 
         }
 
@@ -45,7 +45,7 @@ namespace TextRPG.Unit.Child
         public string SkillData { get; private set; }
 
         public int UseMp { get; private set; }
-       
+
 
 
 

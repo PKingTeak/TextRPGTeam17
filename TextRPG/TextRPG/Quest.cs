@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.Unit.Child;
 
 
-   public class Quest
+public class Quest
     {
         public int QuestID { get;private set; } //퀘스트 ID
         string questTitle; //퀘스트 제목
@@ -39,6 +40,7 @@ using System.Threading.Tasks;
             Console.WriteLine(questAction);
             Console.WriteLine($"{minCount}/{maxCount}");
             Console.WriteLine(questReward);
+           
         }
 
         public void Count() //퀘스트 수집 수
