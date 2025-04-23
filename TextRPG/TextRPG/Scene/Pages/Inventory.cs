@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.Unit.Child;
 
 namespace TextRPG.Scene.Pages
 {
@@ -23,6 +24,20 @@ namespace TextRPG.Scene.Pages
         }
         public override void ShowScene()
         {
+            /*
+foreach (var mon in monsters)
+{
+  questManager.Subscribe(mon); // 모든 몬스터 구독
+}
+*/
+            Monster monster = new Monster("미니언");
+            questManager.Subscribe(monster);
+
+            for (int i = 0; i < 5; i++)
+            {
+                monster.Dead();
+                Console.WriteLine("몬스터 처치");
+            }
             string subTitle = "";
             if(invenMode == InvenMode.Equipment)
             {

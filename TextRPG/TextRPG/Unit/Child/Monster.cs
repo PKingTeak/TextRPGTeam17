@@ -14,8 +14,5 @@ namespace TextRPG.Unit.Child
 
         }
 
-
-
-    
     }
 }
