@@ -52,12 +52,22 @@ namespace TextRPG.Unit.Child
 
 
         }
+        //상태창 
+        public void ShowInfo()
+        {
+            if (playerequiments.Count > 0)
+            {
+                Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}(+{ItemDamage})\n방어력: {state.Defense}(+{ItemDefense})\n체 력: {state.CurHp}\nGold: {state.Gold}");
+            }
+            else
+            {
+                Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
 
+            }
 
+        }
 
-        //능력치 오르는 조건
-        //1. 레벨업
-        //2. 아이템 장착 
+        #region 레벨관련매서드
         private void levelUp()
         {
             state.Level++;
@@ -73,31 +83,26 @@ namespace TextRPG.Unit.Child
         {
             state.CurExp += _Exp;
             if (state.CurExp >= state.MaxExp)
-                levelUp();
-            else
-                return; //레벨업 조건이 아님 
-          
-        }
-        public void ShowInfo()
-        {
-            if (playerequiments.Count > 0)
             {
-                Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}(+{ItemDamage})\n방어력: {state.Defense}(+{ItemDefense})\n체 력: {state.CurHp}\nGold: {state.Gold}");
+                levelUp();
+
             }
             else
             { 
-            Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
-            
+                return; //레벨업 조건이 아님 
             }
-
+          
         }
+        #endregion
 
 
 
 
-       
-       
 
+
+
+
+        #region 아이템 관련
         public void EquimentItem(Item _Item)
         {
 
@@ -120,6 +125,10 @@ namespace TextRPG.Unit.Child
 
         }
 
+        #endregion
+
+
+        #region 공격및스킬관련
         public override void Attack(Unit _Other)
         {
             int realDamage = RandomNum(FinalDamage - _Other.state.Defense, state.Damage + 10);
@@ -131,6 +140,13 @@ namespace TextRPG.Unit.Child
             _Other.SetDamage(realDamage);
 
         }
+       
+        public List<Skill> GetSKillList()
+        {
+            return SkillList;
+            //GetSkillList
+        }
+
 
         public int FinalDamage { get => state.Damage + ItemDamage; }
         public int FinalDefense { get => state.Defense + ItemDefense; }
@@ -140,29 +156,11 @@ namespace TextRPG.Unit.Child
         private int ItemDefense = 0;
 
 
-        public void ShowSkillList() //플레이어의 전직한 모든 스킬을 보고싶을때 
-        {
-            if (SkillList.Count <= 0)
-            {
-                return;
-            }
-            foreach (var skill in SkillList)
-            {
-                skill.SkillInfo();
-            }
-
-        }
-       
-        public List<Skill> GetSKillList()
-        {
-            return SkillList;
-            //GetSkillList
-        }
-
         public List<Skill> SkillList = new List<Skill>();
 
         List<Item> playerequiments = new List<Item>(); //장비 갯수 무조건 0번째는 무기 나머지는 방어구
         //아이템 먹으면 -> 공격력이 겹치는데 -> 
+#endregion
 
     };
 };
