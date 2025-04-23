@@ -7,7 +7,7 @@ using TextRPG.Unit.Child;
 
 namespace TextRPG.Scene.Pages
 {
-    public class Inventory : Scene
+    public class Inventory : ItemContainer
     {
         private enum InvenMode
         {
@@ -46,11 +46,14 @@ namespace TextRPG.Scene.Pages
 
         private void ShowInventory()
         {
+            itemInfoTypes.Clear();
+            itemInfoTypes.Add(ItemInfoType.NameAndDescription);
+
             for (int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
             {
-                if (CheckOwnedItem(i))
+                if(sceneManager.ItemManager.Items[i].IsOwned)
                 {
-                    Console.WriteLine($"{PickItemInfo(i)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
+                    Console.WriteLine($"{PickItemInfo(i, itemInfoTypes)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
                 }
             }
             Console.WriteLine();
@@ -72,11 +75,15 @@ namespace TextRPG.Scene.Pages
 
         private void ShowEquipment()
         {
+            itemInfoTypes.Clear();
+            itemInfoTypes.Add(ItemInfoType.NameAndDescription);
+            itemInfoTypes.Add(ItemInfoType.IsEquipped);
+
             for (int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
             {
-                if (CheckOwnedItem(i))
+                if(sceneManager.ItemManager.Items[i].IsOwned)
                 {
-                    Console.WriteLine($"{i + 1}. {PickItemInfo(i)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
+                    Console.WriteLine($"{i + 1}. {PickItemInfo(i, itemInfoTypes)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
                 }
             }
             Console.WriteLine();
@@ -92,61 +99,6 @@ namespace TextRPG.Scene.Pages
                     // 선택 장비 장착
                     break;
             }
-        }
-
-        private string GetItemStatus(int idx)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            foreach (KeyValuePair<Item.ItemType, int> stats in sceneManager.ItemManager.Items[idx].Stats)
-            {
-                switch (stats.Key)
-                {
-                    case Item.ItemType.WeaPon:
-                        sb.Append($"공격력 +{stats.Value}");
-                        break;
-                    case Item.ItemType.Armor:
-                        sb.Append($"방어력 +{stats.Value}");
-                        break;
-                }
-            }
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// 아이템 정보에서 소지 여부를 확인합니다.
-        /// </summary>
-        /// <param name="idx">확인할 아이템 인덱스</param>
-        /// <returns>아이템 소지 여부</returns>
-        private bool CheckOwnedItem(int idx)
-        {
-            // {Name} - {Description} / Price: {Price} / Owned: {IsOwned} / Equipped: {IsEquipped}
-            string itemInfo = sceneManager.ItemManager.ShowItems(idx);
-
-            // Owned: True인 경우 체크
-            if (itemInfo.Split('/')[2].ToUpper().Contains("TRUE"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 아이템 정보에서 이름과 설명만 추출하여 반환합니다.
-        /// </summary>
-        /// <param name="idx">추출할 아이템 인덱스</param>
-        /// <returns>아이템의 이름과 설명</returns>
-        private string PickItemInfo(int idx)
-        {
-            // {Name} - {Description} / Price: {Price} / Owned: {IsOwned} / Equipped: {IsEquipped}
-            string itemInfos = sceneManager.ItemManager.ShowItems(idx);
-            int targetSlashIdx = itemInfos.IndexOf('/');
-
-            return itemInfos.Substring(0, targetSlashIdx); // 슬래시까지의 문자열 반환
         }
     }
 }
