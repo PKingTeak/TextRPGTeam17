@@ -13,13 +13,14 @@ class Program
         // 플레이어 객체 생성 및 정보 입력
         Console.WriteLine("이름을 입력해주세요");
         string Input = Console.ReadLine();
-        Player player = new Warrior(Input);
-        player.SetJob(Input);
+        Player player = new Player();
+        player = player.SetJob(Input);
 
-
+        Item item = new Item("봉",new Dictionary<Item.ItemType, int>() { { Item.ItemType.WeaPon, 10 } } ,"아",500);
+        player.EquimentItem(item);
 
         SceneManager sceneManager = new SceneManager(player);
-
+       
         while (sceneManager.StackCount > 0)
         {
             sceneManager.ShowCurrentScene();
@@ -63,7 +64,7 @@ class Program
         }
         questManager.GetQuest(quest);//퀘스트 정보 출력
 
-
+        
 
         //골렘처치<< 미니언 처치와 동일
         //아무 장비장착 퀘스트<<인벤토리에서 값을 받아 와야함

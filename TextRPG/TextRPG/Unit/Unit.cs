@@ -55,7 +55,7 @@ namespace TextRPG.Unit
             }
         }
 
-        public void Attack(Unit _Other)
+        public virtual void Attack(Unit _Other)
         {
             int realDamage = RandomNum(state.Damage-_Other.state.Defense,state.Damage+10);
             if (realDamage < 0)

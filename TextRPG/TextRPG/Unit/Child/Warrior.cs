@@ -9,7 +9,7 @@ namespace TextRPG.Unit.Child
 {
     public class Warrior : Player
     {
-        public Warrior(string _name) : base(_name)
+        public Warrior(string _name) : base()
         {
             
             state.Name = _name;
