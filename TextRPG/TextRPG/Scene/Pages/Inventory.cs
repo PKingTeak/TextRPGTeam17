@@ -49,6 +49,7 @@ namespace TextRPG.Scene.Pages
             {
                 Console.WriteLine($"{sceneManager.ItemManager.ShowItems(i)}");
             }
+            Console.WriteLine();
 
             int choice = InputHandler.ChooseAction(0, 1, "1. 장착관리\n" +
                                                          "0. 나가기", "원하시는 행동을 입력해주세요.");
@@ -76,7 +77,7 @@ namespace TextRPG.Scene.Pages
                 Console.WriteLine($"{i + 1}. {sceneManager.ItemManager.ShowItems(i)}");
             }
 
-            int choice = InputHandler.ChooseAction(0, 0, "0. 나가기", "원하시는 행동을 입력해주세요.");
+            int choice = InputHandler.ChooseAction(0, sceneManager.ItemManager.Items.Count, "0. 나가기", "원하시는 행동을 입력해주세요.");
 
             switch(choice)
             {

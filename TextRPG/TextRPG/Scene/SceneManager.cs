@@ -24,11 +24,12 @@ namespace TextRPG.Scene
             get { return sceneStack.Count; }
         }
 
-        public SceneManager(Player player)
+        public SceneManager(Player player, ItemManager itemManager)
         {
             sceneList = new List<Scene>();
             sceneStack = new Stack<Action>();
-            this.Player = player;
+            Player = player;
+            ItemManager = itemManager;
 
             sceneList.Add(new Town(this));
             sceneList.Add(new Status(this));
