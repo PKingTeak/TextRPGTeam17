@@ -11,6 +11,7 @@ namespace TextRPG.Unit.Child
         public Monster(string _name)
         {
             state.Name = _name;
+
         }
 
 

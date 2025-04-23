@@ -19,6 +19,12 @@ class Program
         Item item = new Item("봉",new Dictionary<Item.ItemType, int>() { { Item.ItemType.WeaPon, 10 } } ,"아",500);
         player.EquimentItem(item);
 
+        Monster monster = new Monster("stet");
+
+       
+        player.GetSKillList();
+
+
         SceneManager sceneManager = new SceneManager(player);
        
         while (sceneManager.StackCount > 0)

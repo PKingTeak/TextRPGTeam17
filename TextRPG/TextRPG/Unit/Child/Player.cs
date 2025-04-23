@@ -80,55 +80,23 @@ namespace TextRPG.Unit.Child
         }
         public void ShowInfo()
         {
-            Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
             if (playerequiments.Count > 0)
             {
                 Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}(+{ItemDamage})\n방어력: {state.Defense}(+{ItemDefense})\n체 력: {state.CurHp}\nGold: {state.Gold}");
             }
-
-        }
-        public void ChoiceSkill(string _input)
-        {
-            switch (_input)
-            {
-                case "1":
-                    break;
-                    //스킬 이름으로 호출하는 방식을 선택하는게 좋을듯 하다. 
-            }
-        }
-        public void equipmentItem(/*Item item*/)
-        {
-            //아이템 능력치를 가져와서 값을 증가시키는 방식을 사용하거나
-            //player의 능력치를 직접 호출하여 사용하거나 둘중에 하나.
-
-        }
-
-
-        public void UsingSkill(string _skillName, Unit other)
-        {
-            if (Skills.ContainsKey(_skillName))
-            {
-                Skills[_skillName]?.Invoke(other); //다른 유닛 공격하기 
-
-            }
             else
-            {
-
-                Console.WriteLine("스킬이름을 다시 확인해 주세요");
+            { 
+            Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
+            
             }
-        }
 
-        protected void SettingSkill(Dictionary<string, SkillAttack> skillset)
-        {
-            Skills = skillset;
         }
 
 
-        public virtual Dictionary<string, SkillAttack> GetSkillSet()
-        {
-            return new Dictionary<string, SkillAttack>();
-            //상속받아서 사용하는 느낌으로 사용할것이고 가상함수를 사용할 것임
-        }
+
+
+       
+       
 
         public void EquimentItem(Item _Item)
         {
@@ -172,12 +140,26 @@ namespace TextRPG.Unit.Child
         private int ItemDefense = 0;
 
 
+        public void ShowSkillList() //플레이어의 전직한 모든 스킬을 보고싶을때 
+        {
+            if (SkillList.Count <= 0)
+            {
+                return;
+            }
+            foreach (var skill in SkillList)
+            {
+                skill.SkillInfo();
+            }
 
+        }
+       
+        public List<Skill> GetSKillList()
+        {
+            return SkillList;
+            //GetSkillList
+        }
 
-
-
-
-        Dictionary<string, SkillAttack> Skills = new();
+        public List<Skill> SkillList = new List<Skill>();
 
         List<Item> playerequiments = new List<Item>(); //장비 갯수 무조건 0번째는 무기 나머지는 방어구
         //아이템 먹으면 -> 공격력이 겹치는데 -> 
@@ -186,64 +168,3 @@ namespace TextRPG.Unit.Child
 };
 
 
-
-/*
-     
-            Player player = null;
-            Monster monster = new Monster();
-            Console.WriteLine("이름 ");
-            string Input = Console.ReadLine();
-            Console.WriteLine("직업선택 숫자로 입력해주세요 ");
-            string choice = Console.ReadLine();
-            switch (choice)
-            {
-                case "0":
-                    player = new Warrior(Input);
-                    break;
-                case "1":
-                    player = new Archer(Input);
-                    break;
-                case "2":
-                    player = new Assessin(Input);
-                    break;
-                case "3":
-                    player = new Wizard(Input);
-                    break;
-                default:
-                    Console.WriteLine("잘못 입력 하였습니다");
-                    player = null;
-                    break;
-            }
-
-            if (player == null)
-            {
-                Console.WriteLine("잘못된 값이 들어옴");
-            }
-            else
-            {
-                Console.WriteLine($"플레이어 생성됨: {player.GetType().Name}");
-            }
-            while (true)
-            {
-                Input = Console.ReadLine();
-                if (Input == "1")
-                {
-                    player.UseSkill(monster);
-
-                }
-                else if (Input == "2")
-                {
-                    player.ShowInfo();
-                }
-                else
-                {
-                    break;
-                }
-
-            }
-
-
-
-            int ab = 0;
-  
- */
