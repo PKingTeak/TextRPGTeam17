@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Scene.Pages
 {
-    public class Shop:Scene
+    public class Shop:ItemContainer
     {
         private enum ShopMode
         {
@@ -55,11 +55,12 @@ namespace TextRPG.Scene.Pages
 
         private void ShowShop()
         {
-            for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
-            {
-                Console.WriteLine($"{sceneManager.ItemManager.ShowItems(i)}");
-            }
-            Console.WriteLine();
+            itemInfoList.Clear();
+            itemInfoList.Add(ItemInfoType.NameAndDescription);
+            itemInfoList.Add(ItemInfoType.Price);
+            itemInfoList.Add(ItemInfoType.IsOwned);
+
+            ShowItemList(itemInfoList, (int x) => true); // 모든 아이템 출력
 
             int choice = InputHandler.ChooseAction(0, 2, "1. 아이템 구매\n" +
                                                          "2. 아이템 판매\n" +
@@ -81,11 +82,18 @@ namespace TextRPG.Scene.Pages
 
         private void ShowBuyOrSell()
         {
-            for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
+            itemInfoList.Clear();
+            itemInfoList.Add(ItemInfoType.NameAndDescription);
+            itemInfoList.Add(ItemInfoType.Price);
+
+            if(shopMode == ShopMode.Buy)
             {
-                Console.WriteLine($"{i + 1}. {sceneManager.ItemManager.ShowItems(i)}");
+                ShowItemList(itemInfoList, (int x) => !sceneManager.ItemManager.Items[x].IsOwned);
             }
-            Console.WriteLine();
+            else if(shopMode == ShopMode.Sell)
+            {
+                ShowItemList(itemInfoList, (int x) => sceneManager.ItemManager.Items[x].IsOwned);
+            }
 
             int choice = InputHandler.ChooseAction(0, 2, "0. 나가기", "아이템 번호를 입력해주세요.");
             switch(choice)
