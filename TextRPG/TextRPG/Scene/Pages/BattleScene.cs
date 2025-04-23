@@ -1,3 +1,4 @@
+using TextRPG.QuestSystem;
 using TextRPG.Unit.Child;
 namespace TextRPG.Scene
 {
@@ -10,13 +11,13 @@ namespace TextRPG.Scene
             type = SceneType.Battle;
             this.player = sceneManager.Player;
         }
-        
+       
         Player player;
         int floor = 1; // 던전의 층수
         MonsterSpawner spawner = new MonsterSpawner();
         List<Unit.Unit> monsters = new List<Unit.Unit>();
         private bool isBattle;
-
+        
         public override void ShowScene()
         {
             isBattle = true;

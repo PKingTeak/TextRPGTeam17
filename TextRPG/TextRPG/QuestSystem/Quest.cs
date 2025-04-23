@@ -10,6 +10,7 @@ namespace TextRPG.QuestSystem
 
     public class Quest
     {
+        //퀘스트 정보,변수값
         public int QuestID { get; private set; } //퀘스트 ID
         public string questTitle { get; private set; }  //퀘스트 제목
         string questContent; //퀘스트 내용
@@ -18,6 +19,8 @@ namespace TextRPG.QuestSystem
         string questReward; //퀘스트 보상
         public int minCount { get; private set; } //수집 수
         public int maxCount { get; private set; } //목표 조건 수
+
+        //퀘스트 상태
         public bool isAccepted { get; private set; } = false;//퀘스트 수락 여부
         public bool isComplete { get; private set; } = false;//퀘스트 완료 여부
         public bool isRewardGet { get; private set; } = false;//퀘스트 보상 전달 여부
@@ -43,7 +46,7 @@ namespace TextRPG.QuestSystem
             Console.WriteLine($"{ questReward}\n");
         }
 
-        public void Count() //퀘스트 수집 수
+        public void Count() //퀘스트 목표 도달치 증가
         {
             this.minCount++;
         }

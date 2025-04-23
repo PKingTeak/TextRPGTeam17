@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using TextRPG.Unit;
 using TextRPG.Unit.Child;
 
 
@@ -10,18 +11,21 @@ namespace TextRPG.QuestSystem
         List<Quest> questList = new List<Quest>(); //퀘스트 묶음,퀘스트의 수가 100개 이상이라면 딕셔너리로 바꿔야함
 
         //하나의 기능
-        public void Subscribe(Monster monster)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
+        public void Subscribe(Unit.Unit unit)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
         {
-            monster.OnMonsterKilled += HandleMonsterKilled;
+            unit.OnMonsterKilled += HandleMonsterKilled;
         }
         private void HandleMonsterKilled(string name) //몬스터에게서 OnMonsterKilled?.Invoke();될 때 마다 호출
         {
+
             foreach (var quest in questList) //퀘스트 리스트를 돌면서
             {
+
                 if (quest.questTarget == name) //퀘스트의 목표물과 몬스터 이름이 같으면
                 {
-                    if (quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
+                    if (!quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
                     {
+                        Console.WriteLine(quest.minCount);
                         quest.Count(); //퀘스트의 수집 수 증가
                         if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
                         {

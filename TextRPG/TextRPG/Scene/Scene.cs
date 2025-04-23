@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.QuestSystem;
 
 namespace TextRPG.Scene
 {
@@ -21,6 +22,7 @@ namespace TextRPG.Scene
         protected string sceneName;
         protected string sceneDescription;
         protected SceneManager sceneManager;
+        protected QuestManager questManager=new QuestManager();
         protected SceneType type;
 
         public SceneType SceneType { get { return type; } }
