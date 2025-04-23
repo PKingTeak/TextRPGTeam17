@@ -12,12 +12,9 @@ namespace TextRPG.Scene
     {
         private List<Scene> sceneList;
         private Stack<Action> sceneStack;
-        private Player player;
 
-        public Player Player
-        {
-            get { return player; }
-        }
+        public ItemManager ItemManager { get; private set; }
+        public Player Player { get; private set; }
 
         /// <summary>
         /// 장면 스택의 개수를 반환하는 프로퍼티
@@ -31,7 +28,7 @@ namespace TextRPG.Scene
         {
             sceneList = new List<Scene>();
             sceneStack = new Stack<Action>();
-            this.player = player;
+            this.Player = player;
 
             sceneList.Add(new Town(this));
             sceneList.Add(new Status(this));

@@ -63,12 +63,9 @@ public class ItemManager
         }
     }
 
-    public void ShowItems()
+    public string ShowItems(int idx)
     {
-        foreach (var item in Items)
-        {
-            Console.WriteLine(item);
-        }
+        return Items[idx].ToString();
     }
 
 
