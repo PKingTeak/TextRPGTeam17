@@ -55,7 +55,12 @@ namespace TextRPG.Scene.Pages
 
         private void ShowShop()
         {
-            // 아이템 목록 출력
+            for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
+            {
+                Console.WriteLine($"{sceneManager.ItemManager.ShowItems(i)}");
+            }
+            Console.WriteLine();
+
             int choice = InputHandler.ChooseAction(0, 2, "1. 아이템 구매\n" +
                                                          "2. 아이템 판매\n" +
                                                          "0. 나가기", "원하시는 행동을 입력해주세요.");
@@ -76,7 +81,12 @@ namespace TextRPG.Scene.Pages
 
         private void ShowBuyOrSell()
         {
-            // 아이템 목록 출력
+            for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {sceneManager.ItemManager.ShowItems(i)}");
+            }
+            Console.WriteLine();
+
             int choice = InputHandler.ChooseAction(0, 2, "0. 나가기", "아이템 번호를 입력해주세요.");
             switch(choice)
             {
