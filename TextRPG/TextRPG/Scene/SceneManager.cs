@@ -13,7 +13,6 @@ namespace TextRPG.Scene
         private List<Scene> sceneList;
         private Stack<Action> sceneStack;
         private Player player;
-
         public Player Player
         {
             get { return player; }
@@ -38,6 +37,7 @@ namespace TextRPG.Scene
             sceneList.Add(new Inventory(this));
             sceneList.Add(new Shop(this));
             sceneList.Add(new BattleScene(this));
+            sceneList.Add(new QuestScene(this));
             sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.Town).Show);
         }
 
