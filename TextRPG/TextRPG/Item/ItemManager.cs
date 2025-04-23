@@ -70,14 +70,6 @@ public class ItemManager
         Console.WriteLine($"{item.Name} 장착 완료!");
     }
 
-    public void ShowItems()
-    {
-        for (int i = 0; i < Items.Count; i++)
-        {
-            Console.WriteLine($"[{i}] {Items[i]}");
-        }
-    }
-
     public void ShowEquippedItems()
     {
         Console.WriteLine("🧤 현재 장착 중인 아이템:");
@@ -115,5 +107,10 @@ public class ItemManager
         {
             Console.WriteLine($"{item.Name}은 소지하고 있지 않습니다.");
         }
+    }
+
+    public string ShowItems(int idx)
+    {
+        return Items[idx].ToString();
     }
 }

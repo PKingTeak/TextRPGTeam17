@@ -37,13 +37,14 @@ namespace TextRPG.QuestSystem
 
         public void QuestInfo() //퀘스트 정보
         {
+            Console.Clear();
             Console.WriteLine("Quest!!\n");
-            Console.WriteLine(questTitle+"\n");
+            Console.WriteLine(questTitle + "\n");
             Console.WriteLine(questContent + "\n");
             Console.Write($"- {questTarget} {maxCount}{questAction}");
             Console.WriteLine($" {minCount}/{maxCount}\n");
             Console.WriteLine($"- 보상-\n");
-            Console.WriteLine($"{ questReward}\n");
+            Console.WriteLine($"{questReward}\n");
         }
 
         public void Count() //퀘스트 목표 도달치 증가

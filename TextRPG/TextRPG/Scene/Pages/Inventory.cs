@@ -7,7 +7,7 @@ using TextRPG.Unit.Child;
 
 namespace TextRPG.Scene.Pages
 {
-    public class Inventory:Scene
+    public class Inventory : Scene
     {
         private enum InvenMode
         {
@@ -24,22 +24,8 @@ namespace TextRPG.Scene.Pages
         }
         public override void ShowScene()
         {
-            /*
-foreach (var mon in monsters)
-{
-  questManager.Subscribe(mon); // 모든 몬스터 구독
-}
-*/
-            Monster monster = new Monster("미니언");
-            questManager.Subscribe(monster);
-
-            for (int i = 0; i < 5; i++)
-            {
-                monster.Dead();
-                Console.WriteLine("몬스터 처치");
-            }
             string subTitle = "";
-            if(invenMode == InvenMode.Equipment)
+            if (invenMode == InvenMode.Equipment)
             {
                 subTitle = " - 장비 관리";
             }
@@ -47,7 +33,7 @@ foreach (var mon in monsters)
             Console.WriteLine($"{sceneName}{subTitle}\n{sceneDescription}\n");
             Console.WriteLine();
 
-            switch(invenMode)
+            switch (invenMode)
             {
                 case InvenMode.Inventory:
                     ShowInventory();
@@ -60,9 +46,9 @@ foreach (var mon in monsters)
 
         private void ShowInventory()
         {
-            for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
+            for (int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
             {
-                if(CheckOwnedItem(i))
+                if (CheckOwnedItem(i))
                 {
                     Console.WriteLine($"{PickItemInfo(i)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
                 }
@@ -72,7 +58,7 @@ foreach (var mon in monsters)
             int choice = InputHandler.ChooseAction(0, 1, "1. 장착관리\n" +
                                                          "0. 나가기", "원하시는 행동을 입력해주세요.");
 
-            switch(choice)
+            switch (choice)
             {
                 case 0:
                     invenMode = InvenMode.Inventory;
@@ -90,18 +76,18 @@ foreach (var mon in monsters)
 
         private void ShowEquipment()
         {
-            for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
+            for (int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
             {
-                if(CheckOwnedItem(i))
+                if (CheckOwnedItem(i))
                 {
-                    Console.WriteLine($"{i+1}. {PickItemInfo(i)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
+                    Console.WriteLine($"{i + 1}. {PickItemInfo(i)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
                 }
             }
             Console.WriteLine();
 
             int choice = InputHandler.ChooseAction(0, sceneManager.ItemManager.Items.Count, "0. 나가기", "원하시는 행동을 입력해주세요.");
 
-            switch(choice)
+            switch (choice)
             {
                 case 0:
                     invenMode = InvenMode.Inventory;
@@ -116,9 +102,9 @@ foreach (var mon in monsters)
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach(KeyValuePair<Item.ItemType, int> stats in sceneManager.ItemManager.Items[idx].Stats)
+            foreach (KeyValuePair<Item.ItemType, int> stats in sceneManager.ItemManager.Items[idx].Stats)
             {
-                switch(stats.Key)
+                switch (stats.Key)
                 {
                     case Item.ItemType.WeaPon:
                         sb.Append($"공격력 +{stats.Value}");
@@ -143,7 +129,7 @@ foreach (var mon in monsters)
             string itemInfo = sceneManager.ItemManager.ShowItems(idx);
 
             // Owned: True인 경우 체크
-            if(itemInfo.Split('/')[2].ToUpper().Contains("TRUE"))
+            if (itemInfo.Split('/')[2].ToUpper().Contains("TRUE"))
             {
                 return true;
             }

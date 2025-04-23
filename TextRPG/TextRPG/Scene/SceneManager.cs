@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.QuestSystem;
 using TextRPG.Scene.Pages;
 using TextRPG.Unit.Child;
 
@@ -15,6 +16,7 @@ namespace TextRPG.Scene
 
         public ItemManager ItemManager { get; private set; }
         public Player Player { get; private set; }
+        public QuestManager QuestManager { get; private set; }
 
         /// <summary>
         /// 장면 스택의 개수를 반환하는 프로퍼티
@@ -24,18 +26,20 @@ namespace TextRPG.Scene
             get { return sceneStack.Count; }
         }
 
-        public SceneManager(Player player, ItemManager itemManager)
+        public SceneManager(Player player, ItemManager itemManager, QuestManager questManager)
         {
             sceneList = new List<Scene>();
             sceneStack = new Stack<Action>();
             Player = player;
             ItemManager = itemManager;
-
+            QuestManager = questManager;
+            
             sceneList.Add(new Town(this));
             sceneList.Add(new Status(this));
             sceneList.Add(new Inventory(this));
             sceneList.Add(new Shop(this));
             sceneList.Add(new BattleScene(this));
+            sceneList.Add(new QuestScene(this));
             sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.Town).Show);
         }
 
@@ -52,7 +56,7 @@ namespace TextRPG.Scene
         /// </summary>
         public void PopScene()
         {
-            if(sceneStack.Count > 0)
+            if (sceneStack.Count > 0)
             {
                 sceneStack.Pop();
             }
@@ -66,7 +70,7 @@ namespace TextRPG.Scene
         /// </summary>
         public void ShowCurrentScene()
         {
-            if(sceneStack.Count > 0)
+            if (sceneStack.Count > 0)
             {
                 sceneStack.Peek()();
             }
