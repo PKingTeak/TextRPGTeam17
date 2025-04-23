@@ -22,8 +22,11 @@ namespace TextRPG.Unit.Child
             state.MaxExp = 100; //경험치량
             ResetHp();
             ResetMP();
+            SkillList.Add(new Skill("패트로누스", "해리에게 전수받은 공격 스킬이다.", 40, 3));
+            SkillList.Add(new Skill("지팡이로 급소 때리기", "인간은 도구를 사용하는 동물입니다.", 50, 5));
+
         }
-        
-        
+
+
     }
 }

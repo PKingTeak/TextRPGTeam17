@@ -22,7 +22,9 @@ class Program
         Monster monster = new Monster("stet");
 
         Input = Console.ReadLine();
-        player.UsingSkill(Input, monster);
+        int index = int.Parse(Input);
+
+        player.GetSKillList();
 
 
         SceneManager sceneManager = new SceneManager(player);

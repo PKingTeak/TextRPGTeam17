@@ -21,34 +21,12 @@ namespace TextRPG.Unit.Child
             state.MaxExp = 100; //경험치량
             ResetHp();
             ResetMP();
-        }
 
-        public override Dictionary<string, SkillAttack> GetSkillSet()
-        {
-            return new Dictionary<string, SkillAttack>
-                {
-                    {"stealarrow",(other) =>
-                        {
-                            int skilldamage = state.Damage+10;
-                            other.SetDamage(skilldamage);
-                            Console.WriteLine($"공격에 올인 스킬을 사용하여 {skilldamage}데미지를 주었습니다.");
-                        }
-
-
-                    },
-                    {"doubleshot", (other) =>
-                        {
-                            int skilldamage = (state.Damage/2)*2;
-                            other.SetDamage(skilldamage);
-                            Console.WriteLine($"펀치를 사용하여{skilldamage/2}로 두번 공격하였습니다.");
-
-                        }
-                    }
-
-
-                };
+            SkillList.Add(new Skill("더블샷", "화살을 두번 쏴서 두번의 데미지가 들어간다", 10, 2));
+            SkillList.Add(new Skill("트리플샷", "화상을 세번 쏴서 세 번의 데미지가 들어간다", 10, 3));
 
         }
+
 
 
     }

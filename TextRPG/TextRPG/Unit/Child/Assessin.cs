@@ -21,7 +21,14 @@ namespace TextRPG.Unit.Child
             state.MaxExp = 100; //경험치량
             ResetHp();
             ResetMP();
+
+            SkillList.Add(new Skill("비겁하게 통수치기", "이걸쓰네",20 ,2));
+            SkillList.Add(new Skill("민첩하게 통수치기", "빠르게 전두엽을 때려 치명상을 입힌다.", 30, 4));
+
         }
+
+
+
 
     }
 }

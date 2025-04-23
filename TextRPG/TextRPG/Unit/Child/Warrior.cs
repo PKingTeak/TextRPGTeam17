@@ -22,38 +22,15 @@ namespace TextRPG.Unit.Child
             state.MaxExp = 100; //경험치량
             ResetHp();
             ResetMP();
-            SettingSkill(GetSkillSet());
 
+            //스킬생성도
+            SkillList.Add(new Skill("풀파워", "힘을 집중시켜 대상을 공격한다", 10, 2));
+            SkillList.Add(new Skill("진심으로 묵직하게 때리기", "진지하게 장난 안치고 때리기 때문에 아픕니다", 20, 3));
 
 
         }
 
-        public override Dictionary<string, SkillAttack> GetSkillSet()
-        {
-            return new Dictionary<string, SkillAttack>
-                {
-                    {"FullPower",(other) =>
-                        {
-                            int skilldamage = state.Damage+state.Defense;
-                            other.SetDamage(skilldamage);
-                            Console.WriteLine($"공격에 올인 스킬을 사용하여 {state.Damage}(공격력)+{state.Defense}(방어력)을 합친만큼 데미지를 주었습니다.");
-                        }
-
-
-                    },
-                    {"Pucnch", (other) =>
-                        {
-                            int skilldamage = (state.Damage/2)*2;
-                            other.SetDamage(skilldamage);
-                            Console.WriteLine($"펀치를 사용하여{skilldamage/2}로 두번 공격하였습니다.");
-
-                        }
-                    }
-
-
-                };
-
-        }
+      
 
     }
 }

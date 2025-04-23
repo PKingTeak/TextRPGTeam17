@@ -11,7 +11,7 @@ namespace TextRPG.Unit
     public class Unit
     {
 
-        public delegate void SkillAttack(Unit _Other);
+       
         public struct UnitState
         {
 
