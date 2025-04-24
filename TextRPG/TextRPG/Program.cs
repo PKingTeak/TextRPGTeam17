@@ -19,6 +19,8 @@ class Program
         string Input = Console.ReadLine();
         Player player = Player.SetJob(Input);
 
+       // Item newItem = new Item("검",Item.ItemType.WeaPon, 10 ,"단단한 검이다.", 1000);
+
         SceneManager sceneManager = new SceneManager(player, itemManager, questManager);
 
         while (sceneManager.StackCount > 0)

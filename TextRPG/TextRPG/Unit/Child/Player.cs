@@ -101,10 +101,10 @@ namespace TextRPG.Unit.Child
                 switch (ItemType)
                 {
                     case Item.ItemType.WeaPon:
-                        ItemDamage = _Item.Stats[ItemType]; //바로 부르는거기 때문에 아이템 클래스
+                        ItemDamage += _Item.Stats[ItemType]; //바로 부르는거기 때문에 아이템 클래스
                         break;
                     case Item.ItemType.Armor:
-                        ItemDefense = _Item.Stats[ItemType];
+                        ItemDefense += _Item.Stats[ItemType];
                         break;
                 }
             }
