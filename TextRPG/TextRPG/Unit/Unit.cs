@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.Unit.Child;
 
 namespace TextRPG.Unit
 {
@@ -26,7 +28,7 @@ namespace TextRPG.Unit
 
             public int Defense { get; set; }
 
-            public int Gold { get; set; }
+            public int Gold { get; set;}
 
             public int MaxExp { get; set; }
 
@@ -55,16 +57,22 @@ namespace TextRPG.Unit
             }
         }
 
-        public virtual void Attack(Unit _Other)
+        public virtual void AttackVoice()
+        {
+
+        }
+
+        public virtual void Attack(Unit Attacker,Unit _Other)
         {
             int realDamage = RandomNum(state.Damage - _Other.state.Defense, state.Damage + 10);
+          
             if (realDamage < 0)
             {
                 realDamage = 1;
             }
-
+        
             Console.WriteLine($"{state.Name} 의 일반공격!!");
-
+          
             //랜덤 추가 예정
             _Other.SetDamage(realDamage);
 

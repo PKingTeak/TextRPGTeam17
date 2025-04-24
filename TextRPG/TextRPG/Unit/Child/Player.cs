@@ -55,6 +55,19 @@ namespace TextRPG.Unit.Child
             Console.WriteLine($"이름: {state.Name}\n레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage} {GetItemStat(ItemDamage)}\n방어력: {state.Defense} {GetItemStat(ItemDefense)}\n체 력: {state.CurHp}\nGold: {state.Gold}");
         }
 
+
+        public void UseGold(int _num)
+        {
+            state.Gold += _num;
+            if (state.Gold < 0)
+            {
+                state.Gold = 0;
+            }
+
+        }
+
+      
+
         #region 레벨관련매서드
         private void levelUp()
         {
@@ -125,14 +138,15 @@ namespace TextRPG.Unit.Child
 
 
         #region 공격및스킬관련
-        public override void Attack(Unit _Other)
+        public override void Attack(Unit Attacker, Unit _Other)
         {
             int realDamage = RandomNum(FinalDamage - _Other.state.Defense, FinalDamage + 10);
             if (realDamage < 0)
             {
                 realDamage = 1;
             }
-            Console.WriteLine($"{state.Name}의 일반 공격 !!");
+            Attacker.AttackVoice();
+            //Console.WriteLine($"{state.Name}의 일반 공격 !!");
             _Other.SetDamage(realDamage);
         }
 

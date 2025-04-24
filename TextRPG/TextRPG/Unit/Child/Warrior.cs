@@ -29,5 +29,15 @@ namespace TextRPG.Unit.Child
 
 
         }
+
+        public override void AttackVoice()
+        {
+
+            Console.WriteLine($"{state.Name}이 대검을 사용하여 공격!!");
+            Console.ReadLine();
+
+        }
+
+
     }
 }

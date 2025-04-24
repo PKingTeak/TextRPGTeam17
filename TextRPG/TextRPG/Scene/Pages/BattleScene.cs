@@ -158,7 +158,7 @@ namespace TextRPG.Scene
                         if (selectSkill != null)
                             selectSkill.UsingSkill(player, monsters[choice - 1]);
                         else
-                            player.Attack(monsters[choice - 1]);
+                            player.Attack(player,monsters[choice - 1]);
 
                         printInfo.WaitBattleProgress(); // 전투 과정 출력 대기
 
@@ -194,7 +194,7 @@ namespace TextRPG.Scene
                 if (monster.state.CurHp == 0)
                     continue;
                 else
-                    monster.Attack(player);
+                    monster.Attack(monster,player);
             }
 
             // 전투 과정 출력 대기
