@@ -11,36 +11,36 @@ namespace TextRPG.Unit
     public class Unit
     {
 
-       
+
         public struct UnitState
         {
 
-            public string Name { get;set; }
-            public int Level { get;set; }
+            public string Name { get; set; }
+            public int Level { get; set; }
 
-            public int MaxHp { get;set; }
+            public int MaxHp { get; set; }
 
-            public int MaxMp { get;set; }
+            public int MaxMp { get; set; }
 
-            public int Damage { get;set; }
+            public int Damage { get; set; }
 
-            public int Defense { get;set; }
+            public int Defense { get; set; }
 
-            public int Gold { get;set; }
+            public int Gold { get; set; }
 
-            public int MaxExp { get;set; }
+            public int MaxExp { get; set; }
 
-            public int CurHp { get;set; }
-            public int CurExp { get;set; }
-            public int CurMp { get;set; }
+            public int CurHp { get; set; }
+            public int CurExp { get; set; }
+            public int CurMp { get; set; }
             public void Healing(/*item*/)
             {
                 //나중에 아이템 오면 생각
             }
 
-            
-          
-          
+
+
+
 
 
 
@@ -57,13 +57,14 @@ namespace TextRPG.Unit
 
         public virtual void Attack(Unit _Other)
         {
-            int realDamage = RandomNum(state.Damage-_Other.state.Defense,state.Damage+10);
+            int realDamage = RandomNum(state.Damage - _Other.state.Defense, state.Damage + 10);
             if (realDamage < 0)
             {
                 realDamage = 1;
             }
-            Console.WriteLine($"{state.Name}의 공격 !!");
-            
+
+            Console.WriteLine($"{state.Name} 의 일반공격!!");
+
             //랜덤 추가 예정
             _Other.SetDamage(realDamage);
 
@@ -74,11 +75,11 @@ namespace TextRPG.Unit
         public int RandomNum(int _min, int _max)
         {
             Random random = new Random();
-            int result = random.Next(_min,_max);
+            int result = random.Next(_min, _max);
             return result;
         }
 
-        
+
 
         public void Healing(/*item*/)
         {
@@ -90,7 +91,7 @@ namespace TextRPG.Unit
             int pre_Hp = state.CurHp;
 
             state.CurHp -= _damage;
-            
+
             Console.WriteLine($"Lv. {state.Level} {state.Name} 을(를) 맞췄습니다. [데미지: {_damage}]");
 
             if (state.CurHp <= 0)
@@ -107,7 +108,7 @@ namespace TextRPG.Unit
         }
 
         public void ResetMP()
-        { 
+        {
             state.CurMp = state.MaxMp;
         }
 
@@ -117,16 +118,6 @@ namespace TextRPG.Unit
         //공격, 피해
 
         public UnitState state = new UnitState();
-
-
-        //이벤트 선언 (Action 사망소식 전달)
-        public event Action<string> OnMonsterDead;
-        public void Dead()//퀘스트에 사망소식 전달
-        {
-            // 이벤트 발생
-            OnMonsterDead?.Invoke(state.Name);
-        }
-
     }
 }
 

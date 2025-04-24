@@ -72,7 +72,7 @@ QuestManager questManager;
                                 Thread.Sleep(1000);
                 questManager.GetQuest(quest);
                 //돌아가기 선택지가 있어야함
-                return;
+                //return;
             }
             questManager.GetQuest(quest); //해당 퀘스트 정보 출력
             if (quest.isComplete)

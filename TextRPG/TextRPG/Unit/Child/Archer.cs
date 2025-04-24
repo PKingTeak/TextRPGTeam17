@@ -26,8 +26,5 @@ namespace TextRPG.Unit.Child
             SkillList.Add(new Skill("트리플샷", "화상을 세번 쏴서 세 번의 데미지가 들어간다", 10, 3));
 
         }
-
-
-
     }
 }

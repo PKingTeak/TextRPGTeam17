@@ -31,12 +31,7 @@ namespace TextRPG.Scene.Pages
             player.RewardExp(10000);//레벨업퀘스트깨기
             Item item=new Item("불꽃의 검", new Dictionary<Item.ItemType, int> { { Item.ItemType.WeaPon, 15 } }, "불 속성을 띤 강력한 검.", 1000);
             player.EquimentItem(item);//장비장착퀘스트 깨기
-            Monster mon =new Monster("미니언");
-            sceneManager.QuestManager.Subscribe(mon);//미니언 5마리 처치퀘스트 깨기
-            for(int i=0;i<5;i++)
-            {
-                mon.Dead();
-            }
+
         //테스트
 
             string subTitle = "";

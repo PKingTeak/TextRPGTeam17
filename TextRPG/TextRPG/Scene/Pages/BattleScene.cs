@@ -33,6 +33,11 @@ namespace TextRPG.Scene
             isBattle = true;
             monsters = spawner.SpawnMonsters(floor);
 
+            foreach(var monster in monsters)
+            {
+                sceneManager.QuestManager.Subscribe(monster);
+            }
+
             while (isBattle)
             {
                 Console.Clear();
@@ -253,7 +258,10 @@ namespace TextRPG.Scene
             foreach (var monster in monsters)
             {
                 if (monster.state.CurHp == 0)
+                {
                     kill++;
+                    monster.Dead();
+                }
             }
             return kill;
         }

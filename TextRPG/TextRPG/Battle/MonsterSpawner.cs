@@ -1,9 +1,10 @@
+using TextRPG.Unit;
 using TextRPG.Unit.Child;
 
 public class MonsterSpawner
 {
     Random rand = new Random();
-    string[] monsterNames = {"고릴라", "고블린", "골렘", "오크"};
+
     public List<Monster> SpawnMonsters(int floor)
     {
         List<Monster> monsters = new List<Monster>();
@@ -25,14 +26,13 @@ public class MonsterSpawner
 
         int monsterLevel = floor + rand.Next(1, 3);
 
-        monster.state = new Monster.UnitState()
+        monster.state = new Unit.UnitState()
         {
-            Name = monsterNames[rand.Next(monsterNames.Length)],
+            Name = Monster.GetRandomMonsterName(),
             Level = monsterLevel,
             MaxHp = 20 + (5 * monsterLevel) ,
             Damage = 5 + (2 * monsterLevel)
         };
-
         monster.state.CurHp = monster.state.MaxHp;
 
         return monster;
