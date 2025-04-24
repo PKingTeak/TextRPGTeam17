@@ -40,7 +40,7 @@ public class BattleReward
             // 아이템 생성 확률 = (5 + 현재 층수)% 
             if (chance < 5 + floor)
             {
-                //reward.Items.Add(itemManager.item)
+                reward.Items.Add(itemManager.GetRandomItem());
             }
 
             else
@@ -59,6 +59,10 @@ public class BattleReward
         {
             foreach (var item in reward.Items)
             {
+                if (item.IsOwned)
+                {
+                    player.state.Gold += item.Price;
+                }
                 item.ChangeOwnership(true);
             }
         }

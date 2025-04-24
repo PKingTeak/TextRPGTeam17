@@ -111,4 +111,12 @@ public class ItemManager
     {
         return Items[idx].ToString();
     }
+    
+    // 랜덤 아이템 반환
+    public Item GetRandomItem()
+    {
+        Random rand = new Random();
+
+        return Items[rand.Next(0, Items.Count)];
+    }
 }
