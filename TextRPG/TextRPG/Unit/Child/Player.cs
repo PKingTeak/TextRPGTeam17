@@ -63,6 +63,17 @@ namespace TextRPG.Unit.Child
 
         }
 
+
+        public void UseGold(int _num)
+        {
+            state.Gold += _num;
+            if (state.Gold < 0)
+            {
+                state.Gold = 0;
+            }
+
+        }
+
       
 
         #region 레벨관련매서드

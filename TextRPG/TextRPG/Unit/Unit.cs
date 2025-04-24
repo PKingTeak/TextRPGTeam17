@@ -28,7 +28,7 @@ namespace TextRPG.Unit
 
             public int Defense { get; set; }
 
-            public int Gold { get; set; }
+            public int Gold { get; set;}
 
             public int MaxExp { get; set; }
 
