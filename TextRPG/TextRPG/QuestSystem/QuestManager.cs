@@ -10,6 +10,7 @@ namespace TextRPG.QuestSystem
     {
         List<Quest> questList = new List<Quest>(); //퀘스트 묶음,퀘스트의 수가 100개 이상이라면 딕셔너리로 바꿔야함
 
+#region 몬스터 퀘스트 이벤트
         //하나의 기능
         public void Subscribe(Monster unit)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
         {
@@ -40,7 +41,8 @@ namespace TextRPG.QuestSystem
 
         }
         //하나의 기능
-
+#endregion
+#region 플레이어 퀘스트 이벤트
   public void Subscribe(Player player)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
         {
             player.OnPlayerChange += HandlePlayerChange;
@@ -69,9 +71,19 @@ namespace TextRPG.QuestSystem
             }
 
         }
+#endregion
 
-
-        public void SetQuest(int id = 0, string title = "제목", string content = "퀘스트내용", string target = "목표물", int maxcount = 0, string action = "", string reward = "보상") //퀘스트 화면
+ /// <summary>
+ /// 퀘스트 화면
+ /// </summary>
+ /// <param name="id"></param>
+ /// <param name="title"></param>
+ /// <param name="content"></param>
+ /// <param name="target"></param>
+ /// <param name="maxcount"></param>
+ /// <param name="action"></param>
+ /// <param name="reward"></param>
+        public void SetQuest(int id = 0, string title = "제목", string content = "퀘스트내용", string target = "목표물", int maxcount = 0, string action = "", string reward = "보상")
         {
             Quest quest = new Quest(id, title, content, target, maxcount, action, reward);
             questList.Add(quest);

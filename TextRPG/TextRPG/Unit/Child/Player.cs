@@ -74,8 +74,8 @@ namespace TextRPG.Unit.Child
             state.Defense += state.Level;
             state.Damage += (2 * state.Level);
             //추가 수정사항은 회의 하고 추가 및 수정예정
-           // 이벤트 발생
-            OnPlayerChange?.Invoke("더욱 더 강해지기!");
+
+            OnPlayerChange?.Invoke("더욱 더 강해지기!");// 레벨업 퀘스트 이벤트 발생
         }
         public void RewardExp(int _Exp)
         {
@@ -110,8 +110,8 @@ namespace TextRPG.Unit.Child
                         break;
                 }
             }
-            // 이벤트 발생
-            OnPlayerChange?.Invoke("장비를 장착해보자");
+           OnPlayerChange?.Invoke("장비를 장착해보자");//장비 장착 퀘스트 이벤트 발생
+
         }
 
         public void DequimentItem(Item _Item)
@@ -171,7 +171,9 @@ namespace TextRPG.Unit.Child
         #endregion
 
 
-        //이벤트 선언 (Action 사망소식 전달)
+        /// <summary>
+        /// 이벤트 선언 (Action 플레이어 변화 전달)
+        /// </summary>
         public event Action<string> OnPlayerChange;
 
     };

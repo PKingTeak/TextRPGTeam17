@@ -26,8 +26,7 @@ QuestManager questManager;
             questManager.SetQuest(10003, "더욱 더 강해지기!", "모험가라면 레벨을 올리는 건 기본이지!\r\n레벨이 올라가면 능력치도 올라가고, 새로운 스킬도 배울 수 있어!\r\n레벨을 올리기 위해선 몬스터를 처치하고 경험치를 얻어야 해.\r\n그럼 자네의 모험이 시작되는 거야!", "레벨", 1, " 이상 올리기", "힘의 물약 x 2\n8G");
 
         }
-        //아무장비 장착하면 이벤트 발생
-        //레벨업 하면 이벤트 발생
+
         public override void ShowScene()
         {
             Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
@@ -63,16 +62,16 @@ QuestManager questManager;
             if (quest.isRewardGet)
             {
                 Console.WriteLine("이미 보상을 받고 완료한 퀘스트 입니다.");
-                                Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 return;
             }
             else if (quest.isAccepted)
             {
                 Console.WriteLine("이미 수락한 퀘스트 입니다.");
-                                Thread.Sleep(1000);
+                Thread.Sleep(1000);
+                Console.Clear();
                 questManager.GetQuest(quest);
-                //돌아가기 선택지가 있어야함
-                //return;
+                BackScene();
             }
             questManager.GetQuest(quest); //해당 퀘스트 정보 출력
             if (quest.isComplete)
@@ -88,13 +87,14 @@ QuestManager questManager;
         }
 
 
+
         public void QuestSelect(Quest quest)//퀘스트 수락,거절
         {
             Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
-            int questID = InputHandler.ChooseAction(0, 2, "1. 수락" +
+            int select = InputHandler.ChooseAction(0, 2, "1. 수락" +
                                                          "2. 거절", "원하시는 행동을 입력해주세요.");
 
-            switch (questID)
+            switch (select)
             {
 
                 case 1:
@@ -114,10 +114,10 @@ QuestManager questManager;
         public void QuestReward(Quest quest)//퀘스트 보상받기,돌아가기
         {
             Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
-            int questID = InputHandler.ChooseAction(0, 2, "1.보상 받기" +
+            int select = InputHandler.ChooseAction(0, 2, "1.보상 받기" +
                                                          "2.돌아가기", "원하시는 행동을 입력해주세요.");
 
-            switch (questID)
+            switch (select)
             {
                 case 1:
                     Console.WriteLine("보상을 드렸습니다.");
@@ -127,10 +127,22 @@ QuestManager questManager;
                 Console.Clear();
                     ShowScene();
                     break;
-
             }
         }
 
+        public void BackScene()
+        {
+            Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
+            int select = InputHandler.ChooseAction(0,1, "1.돌아가기","원하시는 행동을 입력해주세요.");
+
+            switch (select)
+            {
+                case 1:
+                Console.Clear();
+                    ShowScene();
+                    break;
+            }
+        }
 
     }
 }
