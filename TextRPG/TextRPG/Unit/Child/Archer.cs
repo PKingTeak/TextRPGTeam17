@@ -11,7 +11,7 @@ namespace TextRPG.Unit.Child
     {
         public Archer(string _name) : base()
         {
-            state.Name = base.state.Name;
+            state.Name = state.Name;
             state.MaxHp = 100;
             state.MaxMp = 100;
             state.Damage = 20;

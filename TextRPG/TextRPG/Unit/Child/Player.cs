@@ -114,6 +114,25 @@ namespace TextRPG.Unit.Child
 
         }
 
+        public void DequimentItem(Item _Item)
+        {
+            //장착 해제 
+            foreach (var ItemType in _Item.state.Keys)
+            {
+                switch (ItemType)
+                {
+                    case Item.ItemType.WeaPon:
+                        ItemDamage -= _Item.Stats[ItemType]; 
+                        break;
+                    case Item.ItemType.Armor:
+                        ItemDefense -= _Item.Stats[ItemType];
+                        break;
+                }
+            }
+             playerequiments.Remove(_Item);
+            
+        }
+
         #endregion
 
 
