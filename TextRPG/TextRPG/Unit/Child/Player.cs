@@ -78,6 +78,8 @@ namespace TextRPG.Unit.Child
             state.Defense += state.Level;
             state.Damage += (2 * state.Level);
             //추가 수정사항은 회의 하고 추가 및 수정예정
+           // 이벤트 발생
+            OnPlayerChange?.Invoke("더욱 더 강해지기!");
         }
         public void RewardExp(int _Exp)
         {
@@ -119,10 +121,8 @@ namespace TextRPG.Unit.Child
                         break;
                 }
             }
-
-
-
-
+            // 이벤트 발생
+            OnPlayerChange?.Invoke("장비를 장착해보자");
         }
 
         #endregion
@@ -161,6 +161,10 @@ namespace TextRPG.Unit.Child
         List<Item> playerequiments = new List<Item>(); //장비 갯수 무조건 0번째는 무기 나머지는 방어구
         //아이템 먹으면 -> 공격력이 겹치는데 -> 
 #endregion
+
+
+        //이벤트 선언 (Action 사망소식 전달)
+        public event Action<string> OnPlayerChange;
 
     };
 };

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using TextRPG.QuestSystem;
 using TextRPG.Scene;
 using TextRPG.Unit.Child;
@@ -9,24 +10,54 @@ class Program
 {
 
     static void Main(string[] args)
+    {     
+    string[] lines = new string[]
     {
-        
-        ItemManager itemManager = new ItemManager();
-        QuestManager questManager = new QuestManager();
+        "████████╗███████╗██╗  ██╗████████╗    ██████╗ ██████╗  ██████╗ ",
+        "╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝    ██╔══██╗██╔══██╗██╔════╝ ",
+        "   ██║   █████╗   ╚███╔╝    ██║       ██████╔╝██████╔╝██║  ███╗",
+        "   ██║   ██╔══╝   ██╔██╗    ██║       ██╔══██╗██╔═══╝ ██║   ██║",
+        "   ██║   ███████╗██╔╝ ██╗   ██║       ██║  ██║██║     ╚██████╔╝",
+        "   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝       ╚═╝  ╚═╝╚═╝      ╚═════╝ "
+    };
 
-        // 플레이어 객체 생성 및 정보 입력
-        Console.WriteLine("이름을 입력해주세요");
-        string Input = Console.ReadLine();
-        Player player = new Warrior(Input);
-        player.SetJob(Input);
-
-        SceneManager sceneManager = new SceneManager(player, itemManager, questManager);
-
-        while (sceneManager.StackCount > 0)
+    for (int i = 0; i < lines.Length; i++)
+    {
+        for (int j = 0; j < lines[i].Length; j++)
         {
-            Console.Clear();
-            sceneManager.ShowCurrentScene();
+            // R, G, B 값을 점점 증가시키는 그라데이션
+            int red = 255 * j / lines[i].Length;
+            int green = 100;
+            int blue = 255 - (255 * j / lines[i].Length);
+
+            Console.ForegroundColor = ClosestConsoleColor(red, green, blue);
+            Console.Write(lines[i][j]);
         }
-        Console.WriteLine("게임 종료");
+        Console.WriteLine();
+    }
+
+    Console.ResetColor();
+}
+
+// 256 RGB 색상 -> ConsoleColor에 가장 가까운 값 계산
+static ConsoleColor ClosestConsoleColor(int r, int g, int b)
+{
+    ConsoleColor[] colors = (ConsoleColor[])Enum.GetValues(typeof(ConsoleColor));
+    ConsoleColor bestColor = 0;
+    double bestDiff = double.MaxValue;
+
+    foreach (var cc in colors)
+    {
+        var c = System.Drawing.Color.FromName(cc.ToString());
+        double diff = Math.Pow(c.R - r, 2) + Math.Pow(c.G - g, 2) + Math.Pow(c.B - b, 2);
+
+        if (diff < bestDiff)
+        {
+            bestDiff = diff;
+            bestColor = cc;
+        }
+    }
+
+    return bestColor;
     }
 }

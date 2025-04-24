@@ -11,10 +11,11 @@ namespace TextRPG.Scene.Pages
 {
     class QuestScene : Scene
     {
-
+QuestManager questManager;
 
         public QuestScene(SceneManager sceneManager) : base(sceneManager)
         {
+            questManager=sceneManager.QuestManager;
             sceneName = "Quest!!";
             sceneDescription = "";
             type = SceneType.Quest;
@@ -97,7 +98,7 @@ namespace TextRPG.Scene.Pages
             {
 
                 case 1:
-                    quest.Accept();//퀘스트 수락체크
+                    quest.Accept(true);//퀘스트 수락체크
                     Console.WriteLine(quest.questTitle + "퀘스트를 수락하였습니다.");
                     break;
                 case 2:

@@ -51,9 +51,9 @@ namespace TextRPG.QuestSystem
             this.minCount++;
         }
 
-        public void Accept() //퀘스트 수락
+        public void Accept(bool Accept) //퀘스트 수락
         {
-            isAccepted = true;
+            isAccepted = Accept;
         }
 
         public void Complete()//퀘스트 완료

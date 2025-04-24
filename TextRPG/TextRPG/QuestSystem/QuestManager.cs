@@ -13,9 +13,9 @@ namespace TextRPG.QuestSystem
         //하나의 기능
         public void Subscribe(Unit.Unit unit)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
         {
-            unit.OnMonsterKilled += HandleMonsterKilled;
+            unit.OnMonsterDead += HandleMonsterDead;
         }
-        private void HandleMonsterKilled(string name) //몬스터에게서 OnMonsterKilled?.Invoke();될 때 마다 호출
+        private void HandleMonsterDead(string name) //몬스터에게서 OnMonsterKilled?.Invoke();될 때 마다 호출
         {
 
             foreach (var quest in questList) //퀘스트 리스트를 돌면서
@@ -23,14 +23,16 @@ namespace TextRPG.QuestSystem
 
                 if (quest.questTarget == name) //퀘스트의 목표물과 몬스터 이름이 같으면
                 {
-                                            Console.WriteLine(quest.minCount);
-                    if (!quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
+
+                    if (quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
                     {
-                        Console.WriteLine(quest.minCount);
+                        Console.WriteLine($"{quest.questTarget}를{quest.minCount}개 카운트");
                         quest.Count(); //퀘스트의 수집 수 증가
                         if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
                         {
                             quest.Complete(); //퀘스트 완료
+                            quest.Accept(false);//퀘스트를 완료했기에 퀘스트를 수락했다는 제어를 풀어줘야함
+                            Console.WriteLine("퀘스트 성공");
                         }
                     }
                 }
@@ -38,6 +40,36 @@ namespace TextRPG.QuestSystem
 
         }
         //하나의 기능
+
+  public void Subscribe(Player player)//몬스터가 구독해서 HandleMonsterKilled()를 쓸 수 있게 해줌
+        {
+            player.OnPlayerChange += HandlePlayerChange;
+        }
+        private void HandlePlayerChange(string title) //몬스터에게서 OnMonsterKilled?.Invoke();될 때 마다 호출
+        {
+
+            foreach (var quest in questList) //퀘스트 리스트를 돌면서
+            {
+
+                if (quest.questTitle == title) //퀘스트의 목표물과 몬스터 이름이 같으면
+                {
+
+                    if (quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
+                    {
+                        Console.WriteLine($"{quest.questTarget}를{quest.minCount}개 카운트");
+                        quest.Count(); //퀘스트의 수집 수 증가
+                        if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
+                        {
+                            quest.Complete(); //퀘스트 완료
+                            quest.Accept(false);//퀘스트를 완료했기에 퀘스트를 수락했다는 제어를 풀어줘야함
+                            Console.WriteLine("퀘스트 성공");
+                        }
+                    }
+                }
+            }
+
+        }
+
 
         public void SetQuest(int id = 0, string title = "제목", string content = "퀘스트내용", string target = "목표물", int maxcount = 0, string action = "", string reward = "보상") //퀘스트 화면
         {
@@ -62,7 +94,7 @@ namespace TextRPG.QuestSystem
         }
         public void SetQuestAccept(Quest quest) //퀘스트 수락
         {
-            quest.Accept();
+            quest.Accept(true);
         }
     }
 }

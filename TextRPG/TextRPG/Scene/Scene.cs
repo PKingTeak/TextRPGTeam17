@@ -22,7 +22,6 @@ namespace TextRPG.Scene
         protected string sceneName;
         protected string sceneDescription;
         protected SceneManager sceneManager;
-        protected QuestManager questManager=new QuestManager();
         protected SceneType type;
 
         public SceneType SceneType { get { return type; } }
