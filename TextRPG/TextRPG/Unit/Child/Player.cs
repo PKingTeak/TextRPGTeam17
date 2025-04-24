@@ -18,9 +18,9 @@ namespace TextRPG.Unit.Child
     public class Player : Unit
     {
 
+
         public Player()
         {
-
 
         }
         public static Player SetJob(string _name)
@@ -47,18 +47,17 @@ namespace TextRPG.Unit.Child
                         break;
                 }
             }
-
         }
         //상태창 
         public void ShowInfo()
         {
             if (playerequiments.Count > 0)
             {
-                Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}(+{ItemDamage})\n방어력: {state.Defense}(+{ItemDefense})\n체 력: {state.CurHp}\nGold: {state.Gold}");
+                Console.WriteLine($"이름: {state.Name}\n레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}(+{ItemDamage})\n방어력: {state.Defense}(+{ItemDefense})\n체 력: {state.CurHp}\nGold: {state.Gold}");
             }
             else
             {
-                Console.WriteLine($"레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
+                Console.WriteLine($"이름: {state.Name}\n레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
 
             }
 
@@ -91,13 +90,6 @@ namespace TextRPG.Unit.Child
 
         }
         #endregion
-
-
-
-
-
-
-
 
         #region 아이템 관련
         public void EquimentItem(Item _Item)
