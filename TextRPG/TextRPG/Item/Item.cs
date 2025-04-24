@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPG.Unit.Child;
@@ -9,21 +10,23 @@ public class Item
 {
     public enum ItemType
     {
-        WeaPon,
+        Weapon,
         Armor
     }
 
     public string Name { get; set; }
-    public Dictionary<ItemType, int> Stats { get; set; }
+    public ItemType itemType { get; set;}
+    public int Value {get; set;}
     public string Description { get; set; }
     public int Price { get; set; }
     public bool IsOwned { get; private set; }
     public bool IsEquipped { get; private set; }
 
-    public Item(string name, Dictionary<ItemType, int> stats, string description, int price)
+    public Item(string name, ItemType itemType, int value ,string description, int price)
     {
         Name = name;
-        Stats = stats;
+        this.itemType = itemType;
+        Value = value;
         Description = description;
         Price = price;
         IsOwned = false;
