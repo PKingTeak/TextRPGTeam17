@@ -60,7 +60,10 @@ namespace TextRPG.Unit.Child
 
         }
 
-
+        /// <summary>
+        /// 골드 사용 메서드
+        /// </summary>
+        /// <param name="_num">현재 골드에 더해질 값</param>
         public void UseGold(int _num)
         {
             state.Gold += _num;
