@@ -14,9 +14,9 @@ namespace TextRPG.Scene
 
         Player player;
         int floor = 1; // 던전의 층수
-        int entranceHp;
+        PrintBattleInfo printInfo;
         MonsterSpawner spawner = new MonsterSpawner();
-        List<Unit.Unit> monsters = new List<Unit.Unit>();
+        List<Monster> monsters = new List<Monster>();
         private bool isBattle;
         Skill? selectSkill = null;
 
@@ -29,10 +29,9 @@ namespace TextRPG.Scene
 
         public override void ShowScene()
         {
+            printInfo = new PrintBattleInfo(player.state.CurHp, player.state.CurMp);
             isBattle = true;
             monsters = spawner.SpawnMonsters(floor);
-            entranceHp = player.state.CurHp;
-
 
             while (isBattle)
             {
@@ -41,12 +40,12 @@ namespace TextRPG.Scene
                 Console.WriteLine($"{sceneName} - 현재 층수 {floor}층" + "\n");
 
                 //번호 없이 몬스터 출력
-                PrintMonsterInfo(false);
+                printInfo.PrintMonsterInfo(monsters, false);
 
                 Console.WriteLine();
 
                 // 플레이어 정보 표시
-                PrintPlayerInfo();
+                printInfo.PrintPlayerInfo(player);
 
                 int choice = InputHandler.ChooseAction(1, 2, "\n1. 공격\n2. 스킬", "원하시는 행동을 입력해주세요.\n");
 
@@ -85,17 +84,17 @@ namespace TextRPG.Scene
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"{sceneName}" + "\n");
+                Console.WriteLine($"{sceneName} - 현재 층수 {floor}층" + "\n");
 
                 // 번호 없이 몬스터 출력
-                PrintMonsterInfo(false);
+                printInfo.PrintMonsterInfo(monsters, false);
 
                 Console.WriteLine();
 
                 // 플레이어 정보 표시
-                PrintPlayerInfo();
+                printInfo.PrintPlayerInfo(player);
 
-                // 스킬 정보 표시
+                // 스킬 목록 출력
                 Console.WriteLine("\n[스킬 목록]");
                 for (int i = 0; i < player.SkillList.Count; i++)
                 {
@@ -123,15 +122,18 @@ namespace TextRPG.Scene
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"{sceneName}" + "\n");
+                Console.WriteLine($"{sceneName} - 현재 층수 {floor}층" + "\n");
+                
+                // 선택된 스킬이 있다면 현재 선택중인 스킬 표시
+                if(selectSkill != null) Console.WriteLine($"현재 선택된 스킬 [{selectSkill.SkillName}]\n");
 
                 // 몬스터 번호와 함께 출력
-                PrintMonsterInfo(true);
+                printInfo.PrintMonsterInfo(monsters, true);
 
                 Console.WriteLine();
 
                 // 플레이어 정보 표시
-                PrintPlayerInfo();
+                printInfo.PrintPlayerInfo(player);
 
                 int choice = InputHandler.ChooseAction(0, monsters.Count, "\n0. 취소", "공격할 대상을 선택하세요.\n");
 
@@ -168,7 +170,7 @@ namespace TextRPG.Scene
         void MonstersPhase()
         {
             Console.Clear();
-            Console.WriteLine($"{sceneName}" + "\n");
+            Console.WriteLine($"{sceneName} - 현재 층수 {floor}층" + "\n");
 
             // 모든 몬스터가 죽었다면 전투 종료
             if (CheckAllMonstersDie())
@@ -202,68 +204,30 @@ namespace TextRPG.Scene
         // 전투 종료 페이지
         void EndBattle(bool isWin)
         {
+            int killCount = CountKilledMonster();
+
             // 보상 번들 생성
-            BattleReward battleReward = new BattleReward();
-            RewardBundle rewardBundle = battleReward.GetReward(floor);
+            BattleReward battleReward = new BattleReward(sceneManager.ItemManager);
+            Reward reward = battleReward.CreateBattleReward(floor, killCount);
 
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine($"{sceneName} - Result\n");
-
                 if (isWin) { Console.WriteLine("Victory\n"); floor++; }
                 else Console.WriteLine("You Lose\n");
 
-                Console.WriteLine($"던전에서 몬스터 {CountKilledMonster()}마리를 잡았습니다.\n");
+                Console.WriteLine($"던전에서 몬스터 {killCount}마리를 잡았습니다.\n");
 
                 Console.WriteLine("[캐릭터 정보]");
-                Console.WriteLine($"Lv.{player.state.Level} {player.state.Name}");
-                Console.WriteLine($"HP {entranceHp} -> {player.state.CurHp}\n");
-
-                Console.WriteLine("[획득 보상]");
-                // 획득한 보상들 출력
+                printInfo.PrintPlayerInfoEndBattle(player);
                 
+                // 보상 출력
+                Console.WriteLine("\n[획득 보상]");
+                printInfo.PrintRewardInfo(reward);
                 int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
 
                 if (choice == 0) return;
-            }
-        }
-
-        // 플레이어 정보 출력   
-        void PrintPlayerInfo()
-        {
-            Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv. {player.state.Level} {player.state.Name} ({player.GetType().Name})");
-            Console.WriteLine($"HP {player.state.CurHp}/{player.state.MaxHp}");
-            Console.WriteLine($"MP {player.state.CurMp}/{player.state.MaxMp}");
-        }
-
-        // 몬스터 정보 출력
-        void PrintMonsterInfo(bool useNum)
-        {
-            if (useNum)
-            {
-                int num = 1;
-
-                for (int i = 0; i < monsters.Count; i++)
-                {
-                    if (monsters[i].state.CurHp != 0)
-                        Console.WriteLine($"[{num}] Lv. {monsters[i].state.Level} {monsters[i].state.Name} HP {monsters[i].state.CurHp}");
-                    else
-                        Console.WriteLine($"[{num}] Lv. {monsters[i].state.Level} {monsters[i].state.Name} Dead");
-                    num++;
-                }
-            }
-
-            else
-            {
-                foreach (var monster in monsters)
-                {
-                    if (monster.state.CurHp != 0)
-                        Console.WriteLine($"Lv. {monster.state.Level} {monster.state.Name} HP {monster.state.CurHp}");
-                    else
-                        Console.WriteLine($"Lv. {monster.state.Level} {monster.state.Name} Dead");
-                }
             }
         }
 
@@ -295,5 +259,3 @@ namespace TextRPG.Scene
         }
     }
 }
-
-

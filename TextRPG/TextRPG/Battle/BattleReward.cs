@@ -1,25 +1,66 @@
-public struct RewardBundle
+using TextRPG.Scene;
+using TextRPG.Unit.Child;
+
+public class Reward
 {
-    int RewardExp { get; }
-    int RewardGold { get; }
+    public int Exp { get; set; }
+    public int Gold { get; set; }
+    public List<Item> Items { get; set; }
 
-    // 아이템도 추가 해야함
-
-    // 층수에 따른 보상 설정
-    public RewardBundle(int floor)
+    public Reward()
     {
-        RewardExp = 10 * floor;
-        RewardGold = 20 * floor;
+        Exp = 0;
+        Gold = 0;
+        Items = new List<Item>();
     }
 }
-
 public class BattleReward
 {
+    Random rand = new Random();
+    ItemManager itemManager;
 
-
-    public RewardBundle GetReward(int floor)
+    public BattleReward(ItemManager itemManager)
     {
-        RewardBundle bundle = new RewardBundle(floor);
-        return bundle;
+        this.itemManager = itemManager;
+    }
+
+    public Reward CreateBattleReward(int floor, int killCount)
+    {
+        // 새로운 보상 생성
+        Reward reward = new Reward();
+
+        // 보상 경험치 적용
+        reward.Exp = 5 * floor * killCount;
+
+        // 처치한 몬스터 만큼 아이템 생성
+        for (int i = 0; i < killCount; i++)
+        {
+            int chance = rand.Next(0, 100);
+
+            // 아이템 생성 확률 = (5 + 현재 층수)% 
+            if (chance < 5 + floor)
+            {
+                //reward.Items.Add(itemManager.item)
+            }
+
+            else
+                reward.Gold += floor * 10;
+        }
+
+        return reward;
+    }
+
+    public void ApplyReward(Reward reward, Player player)
+    {
+        player.RewardExp(reward.Exp);
+        player.state.Gold += reward.Gold;
+
+        if (reward.Items.Count != 0)
+        {
+            foreach (var item in reward.Items)
+            {
+                item.ChangeOwnership(true);
+            }
+        }
     }
 }
