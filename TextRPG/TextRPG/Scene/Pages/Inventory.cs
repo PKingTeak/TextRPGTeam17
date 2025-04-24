@@ -22,10 +22,8 @@ namespace TextRPG.Scene.Pages
             sceneDescription = "보유 중인 아이템을 관리할 수 있습니다.";
             type = SceneType.Inventory;
         }
-
         public override void ShowScene()
-        {         
-
+        {
             string subTitle = "";
             if (invenMode == InvenMode.Equipment)
             {
@@ -96,7 +94,6 @@ namespace TextRPG.Scene.Pages
                     Console.Clear();
                     break;
             }
-            
         }
     }
 }

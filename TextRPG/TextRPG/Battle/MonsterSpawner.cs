@@ -30,8 +30,9 @@ public class MonsterSpawner
         {
             Name = Monster.GetRandomMonsterName(),
             Level = monsterLevel,
-            MaxHp = 20 + (5 * monsterLevel) ,
-            Damage = 5 + (2 * monsterLevel)
+            MaxHp = 20 + (5 * monsterLevel),
+            Damage = 5 + (2 * monsterLevel),
+            Defense = 3 + (2 * monsterLevel)
         };
         monster.state.CurHp = monster.state.MaxHp;
 

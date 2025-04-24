@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG.Scene
 {
-    public abstract class ItemContainer:Scene
+    public abstract class ItemContainer : Scene
     {
         protected enum ItemInfoType
         {
@@ -33,11 +33,11 @@ namespace TextRPG.Scene
             showItemList.Clear(); // 화면에 보여줄 아이템 목록 초기화
             int num = 0; // 아이템 번호 초기화
 
-            for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
+            for (int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
             {
-                if(condition(i))
+                if (condition(i))
                 {
-                    if(isShowIdx)
+                    if (isShowIdx)
                     {
                         Console.Write($"{++num}. "); // 인덱스 출력
                     }
@@ -57,17 +57,18 @@ namespace TextRPG.Scene
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach(KeyValuePair<Item.ItemType, int> stats in sceneManager.ItemManager.Items[idx].Stats)
+            var item = sceneManager.ItemManager.Items[idx];
+
+            switch (item.itemType)
             {
-                switch(stats.Key)
-                {
-                    case Item.ItemType.WeaPon:
-                        sb.Append($"공격력 +{stats.Value}");
-                        break;
-                    case Item.ItemType.Armor:
-                        sb.Append($"방어력 +{stats.Value}");
-                        break;
-                }
+                case Item.ItemType.Weapon:
+                    sb.Append($"공격력 +{item.Value}");
+                    break;
+
+                case Item.ItemType.Armor:
+                    sb.Append($"방어력 +{item.Value}");
+                    break;
+
             }
 
             return sb.ToString();
@@ -87,13 +88,13 @@ namespace TextRPG.Scene
             StringBuilder sb = new StringBuilder();
 
 
-            for(int i = 0; i < infoList.Count; i++)
+            for (int i = 0; i < infoList.Count; i++)
             {
                 int infoIdx = (int)infoList[i];
                 sb.Append(itemInfos[infoIdx]);
 
                 // 마지막 정보가 아닐 경우 슬래시 추가
-                if(i != infoList.Count - 1)
+                if (i != infoList.Count - 1)
                 {
                     sb.Append(" / ");
                 }
