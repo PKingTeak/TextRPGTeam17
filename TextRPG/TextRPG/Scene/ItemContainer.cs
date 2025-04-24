@@ -27,14 +27,20 @@ namespace TextRPG.Scene
         /// </summary>
         /// <param name="infoTypes">출력할 아이템 정보 목록</param>
         /// <param name="condition">출력할 아이템 선발 조건 판별 메서드</param>
-        protected void ShowItemList(List<ItemInfoType> infoList, Func<int, bool> condition)
+        /// <param name="isShowIdx">아이템 목록에 순서를 표시할 숫자 출력 여부</param>
+        protected void ShowItemList(List<ItemInfoType> infoList, Func<int, bool> condition, bool isShowIdx)
         {
             showItemList.Clear(); // 화면에 보여줄 아이템 목록 초기화
+            int num = 0; // 아이템 번호 초기화
 
             for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
             {
                 if(condition(i))
                 {
+                    if(isShowIdx)
+                    {
+                        Console.Write($"{++num}. "); // 인덱스 출력
+                    }
                     showItemList.Add(sceneManager.ItemManager.Items[i]); // 조건에 맞는 아이템 추가
                     Console.WriteLine($"{PickItemInfo(i, infoList)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
                 }

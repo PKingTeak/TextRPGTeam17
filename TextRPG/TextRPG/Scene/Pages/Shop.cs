@@ -15,6 +15,8 @@ namespace TextRPG.Scene.Pages
             Sell
         }
         private ShopMode shopMode = ShopMode.Shop;
+        private delegate void ShopAction(Item item);
+        private event ShopAction OnShopAction;
 
         public Shop(SceneManager sceneManager) : base(sceneManager)
         {
@@ -60,7 +62,7 @@ namespace TextRPG.Scene.Pages
             itemInfoList.Add(ItemInfoType.Price);
             itemInfoList.Add(ItemInfoType.IsOwned);
 
-            ShowItemList(itemInfoList, (int x) => true); // 모든 아이템 출력
+            ShowItemList(itemInfoList, (int x) => true, false); // 모든 아이템 출력
 
             int choice = InputHandler.ChooseAction(0, 2, "1. 아이템 구매\n" +
                                                          "2. 아이템 판매\n" +
@@ -88,14 +90,16 @@ namespace TextRPG.Scene.Pages
 
             if(shopMode == ShopMode.Buy)
             {
-                ShowItemList(itemInfoList, (int x) => !sceneManager.ItemManager.Items[x].IsOwned);
+                ShowItemList(itemInfoList, (int x) => !sceneManager.ItemManager.Items[x].IsOwned, true);
+                OnShopAction = sceneManager.ItemManager.BuyItem;
             }
             else if(shopMode == ShopMode.Sell)
             {
-                ShowItemList(itemInfoList, (int x) => sceneManager.ItemManager.Items[x].IsOwned);
+                ShowItemList(itemInfoList, (int x) => sceneManager.ItemManager.Items[x].IsOwned, true);
+                OnShopAction = sceneManager.ItemManager.SellItem;
             }
 
-            int choice = InputHandler.ChooseAction(0, 2, "0. 나가기", "아이템 번호를 입력해주세요.");
+            int choice = InputHandler.ChooseAction(0, showItemList.Count, "0. 나가기", "아이템 번호를 입력해주세요.");
             switch(choice)
             {
                 case 0:
@@ -105,7 +109,8 @@ namespace TextRPG.Scene.Pages
                     break;
                 default:
                     // 구매/판매 로직
-                    Thread.Sleep(500);
+                    OnShopAction(showItemList[choice - 1]);
+                    Thread.Sleep(1000);
                     Console.Clear();
                     break;
             }
