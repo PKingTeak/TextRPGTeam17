@@ -37,7 +37,6 @@ namespace TextRPG.QuestSystem
 
         public void QuestInfo() //퀘스트 정보
         {
-            Console.Clear();
             Console.WriteLine("Quest!!\n");
             Console.WriteLine(questTitle + "\n");
             Console.WriteLine(questContent + "\n");
@@ -52,9 +51,9 @@ namespace TextRPG.QuestSystem
             this.minCount++;
         }
 
-        public void Accept() //퀘스트 수락
+        public void Accept(bool Accept) //퀘스트 수락
         {
-            isAccepted = true;
+            isAccepted = Accept;
         }
 
         public void Complete()//퀘스트 완료

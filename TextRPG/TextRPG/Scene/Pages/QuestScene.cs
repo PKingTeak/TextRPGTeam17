@@ -11,10 +11,11 @@ namespace TextRPG.Scene.Pages
 {
     class QuestScene : Scene
     {
-
+QuestManager questManager;
 
         public QuestScene(SceneManager sceneManager) : base(sceneManager)
         {
+            questManager=sceneManager.QuestManager;
             sceneName = "Quest!!";
             sceneDescription = "";
             type = SceneType.Quest;
@@ -52,26 +53,31 @@ namespace TextRPG.Scene.Pages
                     quest = questManager.FindQuest(10003);
                     QuestControl(quest);
                     break;
+
             }
         }
         public void QuestControl(Quest quest)//퀘스트 각종 제어문
         {
             // quest.Complete(); //퀘스트 완료
+            Console.Clear();
             if (quest.isRewardGet)
             {
                 Console.WriteLine("이미 보상을 받고 완료한 퀘스트 입니다.");
-                Thread.Sleep(500);
+                                Thread.Sleep(1000);
                 return;
             }
             else if (quest.isAccepted)
             {
                 Console.WriteLine("이미 수락한 퀘스트 입니다.");
+                                Thread.Sleep(1000);
                 questManager.GetQuest(quest);
+                //돌아가기 선택지가 있어야함
                 return;
             }
             questManager.GetQuest(quest); //해당 퀘스트 정보 출력
             if (quest.isComplete)
             {
+
                 QuestReward(quest); //퀘스트 보상받기,돌아가기
             }
             else
@@ -92,14 +98,18 @@ namespace TextRPG.Scene.Pages
             {
 
                 case 1:
-                    quest.Accept();//퀘스트 수락체크
+                    quest.Accept(true);//퀘스트 수락체크
                     Console.WriteLine(quest.questTitle + "퀘스트를 수락하였습니다.");
                     break;
                 case 2:
+                Console.Clear();
                     ShowScene();
                     break;
+
             }
+
         }
+
 
         public void QuestReward(Quest quest)//퀘스트 보상받기,돌아가기
         {
@@ -112,11 +122,12 @@ namespace TextRPG.Scene.Pages
                 case 1:
                     Console.WriteLine("보상을 드렸습니다.");
                     quest.RewardGet();//보상완료 체크
-                    Thread.Sleep(500);
                     break;
                 case 2:
+                Console.Clear();
                     ShowScene();
                     break;
+
             }
         }
 
