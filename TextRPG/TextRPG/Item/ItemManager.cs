@@ -53,25 +53,30 @@ public class ItemManager
             case Item.ItemType.Weapon:
                 if (equippedWeapon != null)
                 {
+                    // 장착된 무기가 있다면 해제
                     equippedWeapon.ChangeEquipStatus(false);
                     player.DequimentItem(equippedWeapon);
                 }
-
+                
+                // 현재 장착 무기 변경
                 equippedWeapon = item;
                 break;
 
             case Item.ItemType.Armor:
                 if (equippedArmor != null)
                 {
+                    // 장착된 방어구가 있다면 해제
                     equippedArmor.ChangeEquipStatus(false);
                     player.DequimentItem(equippedArmor);
-                }
+                }   
 
+                // 현재 장착 방어구 변경
                 equippedArmor = item;
                 break;
         }
         Console.WriteLine($"{item.Name}을(를) 장착");
 
+        // 플레이어 아이템 착용
         player.EquimentItem(item);
         item.ChangeEquipStatus(true);
     }
