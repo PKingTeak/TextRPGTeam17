@@ -68,6 +68,8 @@ namespace TextRPG.Scene.Pages
 
         private void ShowEquipment()
         {
+            sceneManager.ItemManager.ShowEquippedItems();
+
             itemInfoList.Clear();
             itemInfoList.Add(ItemInfoType.NameAndDescription);
             itemInfoList.Add(ItemInfoType.IsEquipped);
@@ -81,8 +83,10 @@ namespace TextRPG.Scene.Pages
                 case 0:
                     invenMode = InvenMode.Inventory;
                     break;
+                case -1:
+                    break;
                 default:
-                    // 선택 장비 장착
+                    sceneManager.ItemManager.EquipItemByIndex(choice);
                     break;
             }
         }
