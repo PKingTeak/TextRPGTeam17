@@ -23,33 +23,30 @@ namespace TextRPG.Unit.Child
 
 
         }
-        public Player SetJob(string _name)
+        public static Player SetJob(string _name)
         {
-            Console.WriteLine("직업을 선택해 주세요\n1.전사 \t2.궁수\t3.도적\t4.마법사");
-            string Input = Console.ReadLine();
-
-            switch (Input)
+            while (true)
             {
-                case "1":
-                    return new Warrior(_name);
-                    break;
-                case "2":
-                    return new Archer(_name);
-                    break;
-                case "3":
-                    return new Assessin(_name);
-                    break;
-                case "4":
-                    return new Wizard(_name);
-                    break;
-                default:
-                    Console.WriteLine("값을 잘못 입력했습니다.");
-                    return null;
+                Console.Clear();
+                Console.WriteLine("직업을 선택해 주세요\n1.전사 \t2.궁수\t3.도적\t4.마법사");
+                string Input = Console.ReadLine();
 
-
-
+                switch (Input)
+                {
+                    case "1":
+                        return new Warrior(_name);
+                    case "2":
+                        return new Archer(_name);
+                    case "3":
+                        return new Assessin(_name);
+                    case "4":
+                        return new Wizard(_name);
+                    default:
+                        Console.WriteLine("값을 잘못 입력했습니다.");
+                        Thread.Sleep(500);
+                        break;
+                }
             }
-
 
         }
         //상태창 
@@ -88,10 +85,10 @@ namespace TextRPG.Unit.Child
 
             }
             else
-            { 
+            {
                 return; //레벨업 조건이 아님 
             }
-          
+
         }
         #endregion
 
@@ -140,7 +137,7 @@ namespace TextRPG.Unit.Child
             _Other.SetDamage(realDamage);
 
         }
-       
+
         public List<Skill> GetSKillList()
         {
             return SkillList;
@@ -159,8 +156,8 @@ namespace TextRPG.Unit.Child
         public List<Skill> SkillList = new List<Skill>();
 
         List<Item> playerequiments = new List<Item>(); //장비 갯수 무조건 0번째는 무기 나머지는 방어구
-        //아이템 먹으면 -> 공격력이 겹치는데 -> 
-#endregion
+                                                       //아이템 먹으면 -> 공격력이 겹치는데 -> 
+        #endregion
 
     };
 };

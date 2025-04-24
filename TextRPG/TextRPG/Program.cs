@@ -16,8 +16,7 @@ class Program
         // 플레이어 객체 생성 및 정보 입력
         Console.WriteLine("이름을 입력해주세요");
         string Input = Console.ReadLine();
-        Player player = new Warrior(Input);
-        player.SetJob(Input);
+        Player player = Player.SetJob(Input);
 
         SceneManager sceneManager = new SceneManager(player, itemManager, questManager);
 
