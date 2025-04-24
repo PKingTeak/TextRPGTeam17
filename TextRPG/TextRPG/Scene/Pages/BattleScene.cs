@@ -20,13 +20,6 @@ namespace TextRPG.Scene
         private bool isBattle;
         Skill? selectSkill = null;
 
-        // 전투 과정 출력 대기
-        void BattleProgress()
-        {
-            Console.WriteLine("계속하려면 아무 키나 입력해주세요.");
-            Console.ReadKey();
-        }
-
         public override void ShowScene()
         {
             printInfo = new PrintBattleInfo(player.state.CurHp, player.state.CurMp);
@@ -83,7 +76,7 @@ namespace TextRPG.Scene
                 ChooseMonster();
         }
 
-        // 스킬 선택
+        /// 스킬 선택
         void ChooseSkill()
         {
             while (true)
@@ -157,7 +150,7 @@ namespace TextRPG.Scene
                         else
                             player.Attack(monsters[choice - 1]);
 
-                        BattleProgress(); // 전투 과정 출력 대기
+                        printInfo.WaitBattleProgress(); // 전투 과정 출력 대기
 
                         MonstersPhase(); // 몬스터 턴
                         return;
@@ -195,7 +188,7 @@ namespace TextRPG.Scene
             }
 
             // 전투 과정 출력 대기
-            BattleProgress();
+            printInfo.WaitBattleProgress();
 
             // 플레이어가 죽었다면 전투 종료
             if (player.state.CurHp == 0)
