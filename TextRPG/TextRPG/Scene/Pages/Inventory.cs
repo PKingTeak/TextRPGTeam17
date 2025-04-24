@@ -18,12 +18,10 @@ namespace TextRPG.Scene.Pages
 
         public Inventory(SceneManager sceneManager) : base(sceneManager)
         {
-           this.player = sceneManager.Player;//테스트
             sceneName = "인벤토리";
             sceneDescription = "보유 중인 아이템을 관리할 수 있습니다.";
             type = SceneType.Inventory;
         }
-             Player player;//테스트
         public override void ShowScene()
         {
             string subTitle = "";

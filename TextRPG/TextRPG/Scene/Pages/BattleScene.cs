@@ -22,13 +22,23 @@ namespace TextRPG.Scene
 
         public override void ShowScene()
         {
-            printInfo = new PrintBattleInfo(player.state.CurHp, player.state.CurMp);
-            isBattle = true;
-            monsters = spawner.SpawnMonsters(floor);
-
-            foreach(var monster in monsters)
+            // 플레이어의 체력이 남아있다면 전투 시작
+            if (player.state.CurHp != 0)
             {
-                sceneManager.QuestManager.Subscribe(monster);
+                printInfo = new PrintBattleInfo(player.state.CurHp, player.state.CurMp);
+                isBattle = true;
+                monsters = spawner.SpawnMonsters(floor);
+
+                foreach (var monster in monsters)
+                {
+                    sceneManager.QuestManager.Subscribe(monster);
+                }
+            }
+            else
+            {
+                isBattle = false;
+                Console.WriteLine("지금은 체력이 남아나질 않습니다...");
+                Thread.Sleep(500);
             }
 
             while (isBattle)
@@ -121,9 +131,9 @@ namespace TextRPG.Scene
             {
                 Console.Clear();
                 Console.WriteLine($"{sceneName} - 현재 층수 {floor}층" + "\n");
-                
+
                 // 선택된 스킬이 있다면 현재 선택중인 스킬 표시
-                if(selectSkill != null) Console.WriteLine($"현재 선택된 스킬 [{selectSkill.SkillName}]\n");
+                if (selectSkill != null) Console.WriteLine($"현재 선택된 스킬 [{selectSkill.SkillName}]\n");
 
                 // 몬스터 번호와 함께 출력
                 printInfo.PrintMonsterInfo(monsters, true);
@@ -219,10 +229,11 @@ namespace TextRPG.Scene
 
                 Console.WriteLine("[캐릭터 정보]");
                 printInfo.PrintPlayerInfoEndBattle(player);
-                
+
                 // 보상 출력
                 Console.WriteLine("\n[획득 보상]");
                 printInfo.PrintRewardInfo(reward);
+                battleReward.ApplyReward(reward, player);
                 int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
 
                 if (choice == 0) return;
