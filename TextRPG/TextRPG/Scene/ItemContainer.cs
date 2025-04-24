@@ -15,7 +15,8 @@ namespace TextRPG.Scene
             IsOwned,
             IsEquipped
         }
-        protected List<ItemInfoType> itemInfoList = new List<ItemInfoType>();
+        protected List<ItemInfoType> itemInfoList = new List<ItemInfoType>(); // 아이템 정보 목록
+        protected List<Item> showItemList = new List<Item>(); // 화면에 보여줄 아이템 목록
 
         protected ItemContainer(SceneManager sceneManager) : base(sceneManager)
         {
@@ -28,10 +29,13 @@ namespace TextRPG.Scene
         /// <param name="condition">출력할 아이템 선발 조건 판별 메서드</param>
         protected void ShowItemList(List<ItemInfoType> infoList, Func<int, bool> condition)
         {
+            showItemList.Clear(); // 화면에 보여줄 아이템 목록 초기화
+
             for(int i = 0; i < sceneManager.ItemManager.Items.Count; i++)
             {
                 if(condition(i))
                 {
+                    showItemList.Add(sceneManager.ItemManager.Items[i]); // 조건에 맞는 아이템 추가
                     Console.WriteLine($"{PickItemInfo(i, infoList)}/ {GetItemStatus(i)}"); // 소지 중인 아이템만 출력
                 }
             }

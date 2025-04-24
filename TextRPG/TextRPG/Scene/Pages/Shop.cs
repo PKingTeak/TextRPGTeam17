@@ -101,8 +101,12 @@ namespace TextRPG.Scene.Pages
                 case 0:
                     shopMode = ShopMode.Shop;
                     break;
+                case -1:
+                    break;
                 default:
                     // 구매/판매 로직
+                    Thread.Sleep(500);
+                    Console.Clear();
                     break;
             }
         }

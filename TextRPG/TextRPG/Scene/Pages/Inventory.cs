@@ -76,7 +76,7 @@ namespace TextRPG.Scene.Pages
 
             ShowItemList(itemInfoList, (int x) => sceneManager.ItemManager.Items[x].IsOwned); // 소지 중인 아이템만 출력
 
-            int choice = InputHandler.ChooseAction(0, sceneManager.ItemManager.Items.Count, "0. 나가기", "원하시는 행동을 입력해주세요.");
+            int choice = InputHandler.ChooseAction(0, showItemList.Count, "0. 나가기", "원하시는 행동을 입력해주세요.");
 
             switch (choice)
             {
@@ -86,7 +86,11 @@ namespace TextRPG.Scene.Pages
                 case -1:
                     break;
                 default:
-                    sceneManager.ItemManager.EquipItemByIndex(choice);
+                    // 보유중인 아이템 목록 중에서 선택한 아이템이 전체 아이템 중 몇 번째인지 찾기
+                    int itemIdx = sceneManager.ItemManager.Items.FindIndex(x => x.Equals(showItemList[choice]));
+                    sceneManager.ItemManager.EquipItemByIndex(itemIdx);
+                    Thread.Sleep(500);
+                    Console.Clear();
                     break;
             }
         }
