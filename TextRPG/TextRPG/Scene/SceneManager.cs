@@ -26,21 +26,26 @@ namespace TextRPG.Scene
             get { return sceneStack.Count; }
         }
 
-        public SceneManager(Player player, ItemManager itemManager, QuestManager questManager)
+        public SceneManager()
         {
             sceneList = new List<Scene>();
             sceneStack = new Stack<Action>();
-            Player = player;
-            ItemManager = itemManager;
-            QuestManager = questManager;
+            ItemManager = new ItemManager();
+            QuestManager = new QuestManager();
             
+            sceneList.Add(new NewGame(this));
             sceneList.Add(new Town(this));
             sceneList.Add(new Status(this));
             sceneList.Add(new Inventory(this));
             sceneList.Add(new Shop(this));
             sceneList.Add(new BattleScene(this));
             sceneList.Add(new QuestScene(this));
-            sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.Town).Show);
+            sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.NewGame).Show);
+        }
+
+        public void InitPlayer(string name, PlayerType type)
+        {
+            Player = Player.SetJob(name, type);
         }
 
         /// <summary>

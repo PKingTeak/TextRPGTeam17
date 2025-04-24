@@ -13,7 +13,13 @@ using TextRPG.Unit;
 
 namespace TextRPG.Unit.Child
 {
-
+    public enum PlayerType
+    {
+        Warrior,
+        Archer,
+        Assessin,
+        Wizard
+    }
 
     public class Player : Unit
     {
@@ -23,29 +29,20 @@ namespace TextRPG.Unit.Child
         {
 
         }
-        public static Player SetJob(string _name)
+        public static Player SetJob(string _name, PlayerType type)
         {
-            while (true)
+            switch(type)
             {
-                Console.Clear();
-                Console.WriteLine("직업을 선택해 주세요\n1.전사 \t2.궁수\t3.도적\t4.마법사");
-                string Input = Console.ReadLine();
-
-                switch (Input)
-                {
-                    case "1":
-                        return new Warrior(_name);
-                    case "2":
-                        return new Archer(_name);
-                    case "3":
-                        return new Assessin(_name);
-                    case "4":
-                        return new Wizard(_name);
-                    default:
-                        Console.WriteLine("값을 잘못 입력했습니다.");
-                        Thread.Sleep(500);
-                        break;
-                }
+                case PlayerType.Warrior:
+                    return new Warrior(_name);
+                case PlayerType.Archer:
+                    return new Archer(_name);
+                case PlayerType.Assessin:
+                    return new Assessin(_name);
+                case PlayerType.Wizard:
+                    return new Wizard(_name);
+                default:
+                    return new Warrior(_name);
             }
         }
         //상태창 

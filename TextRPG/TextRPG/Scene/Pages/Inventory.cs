@@ -25,15 +25,7 @@ namespace TextRPG.Scene.Pages
         }
              Player player;//테스트
         public override void ShowScene()
-        {         
-        //테스트
-            sceneManager.QuestManager.Subscribe(player);
-            player.RewardExp(10000);//레벨업퀘스트깨기
-            Item item=new Item("불꽃의 검", new Dictionary<Item.ItemType, int> { { Item.ItemType.WeaPon, 15 } }, "불 속성을 띤 강력한 검.", 1000);
-            player.EquimentItem(item);//장비장착퀘스트 깨기
-
-        //테스트
-
+        {
             string subTitle = "";
             if (invenMode == InvenMode.Equipment)
             {

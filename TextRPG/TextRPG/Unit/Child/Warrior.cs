@@ -18,7 +18,7 @@ namespace TextRPG.Unit.Child
             state.Damage = 10;
             state.Defense = 10;
             state.Level = 1;
-            state.Gold = 5000;
+            state.Gold = 800;
             state.MaxExp = 100; //경험치량
             ResetHp();
             ResetMP();

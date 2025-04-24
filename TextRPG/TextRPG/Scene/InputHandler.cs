@@ -25,21 +25,19 @@ namespace TextRPG.Scene
             Console.WriteLine(comment);
             Console.Write(">> ");
             string input = Console.ReadLine();
-            //Console.Clear();
 
             int inputNum;
             bool isInt = int.TryParse(input, out inputNum);
 
-            if(isInt && min <= inputNum && inputNum <= max)
-            {
-                return inputNum;
-            }
-            else
+            if(!isInt && min > inputNum || inputNum > max)
             {
                 Console.WriteLine("잘못된 입력입니다.");
-                Thread.Sleep(500);
-                return -1;
+                Thread.Sleep(1000);
+                inputNum = -1;
             }
+
+            Console.Clear();
+            return inputNum;
         }
     }
 }
