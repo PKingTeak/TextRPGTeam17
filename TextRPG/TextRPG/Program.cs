@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using TextRPG.QuestSystem;
 using TextRPG.Scene;
 using TextRPG.Unit.Child;

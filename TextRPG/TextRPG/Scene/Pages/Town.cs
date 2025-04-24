@@ -47,10 +47,6 @@ namespace TextRPG.Scene.Pages
                 case 5:
                     sceneManager.AddScene(SceneType.Quest);
                     break;
-                default:
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.WriteLine();
-                    break;
             }
         }
     }

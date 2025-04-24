@@ -82,7 +82,6 @@ public class ItemManager
         if (!item.IsOwned)
         {
             item.ChangeOwnership(true);
-            Items.Add(item);
             Console.WriteLine($"{item.Name} 구매 완료!");
         }
         else
@@ -100,7 +99,6 @@ public class ItemManager
 
             item.ChangeOwnership(false);
             item.ChangeEquipStatus(false);
-            Items.Remove(item);
             Console.WriteLine($"{item.Name} 판매 완료!");
         }
         else

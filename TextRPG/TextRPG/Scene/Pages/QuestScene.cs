@@ -48,15 +48,9 @@ namespace TextRPG.Scene.Pages
                     quest = questManager.FindQuest(10002);
                     QuestControl(quest);
                     break;
-                    break;
                 case 3:
                     quest = questManager.FindQuest(10003);
                     QuestControl(quest);
-                    break;
-                    break;
-                default:
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.WriteLine();
                     break;
             }
         }
@@ -103,10 +97,6 @@ namespace TextRPG.Scene.Pages
                     break;
                 case 2:
                     ShowScene();
-                    break;
-                default:
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.WriteLine();
                     break;
             }
         }
