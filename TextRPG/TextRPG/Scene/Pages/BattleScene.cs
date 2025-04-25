@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.Marshalling;
 using TextRPG.Unit.Child;
 
 namespace TextRPG.Scene
@@ -17,6 +18,7 @@ namespace TextRPG.Scene
         PrintBattleInfo printInfo;
         MonsterSpawner spawner = new MonsterSpawner();
         List<Monster> monsters = new List<Monster>();
+        List<Item> potions;
         private bool isBattle;
         Skill? selectSkill = null;
 
@@ -28,6 +30,7 @@ namespace TextRPG.Scene
                 printInfo = new PrintBattleInfo(player.state.CurHp, player.state.CurMp);
                 isBattle = true;
                 monsters = spawner.SpawnMonsters(floor);
+                potions = sceneManager.ItemManager.GetPotions();
 
                 foreach (var monster in monsters)
                 {
@@ -55,7 +58,7 @@ namespace TextRPG.Scene
                 // 플레이어 정보 표시
                 printInfo.PrintPlayerInfo(player);
 
-                int choice = InputHandler.ChooseAction(1, 2, "\n1. 공격\n2. 스킬", "원하시는 행동을 입력해주세요.\n");
+                int choice = InputHandler.ChooseAction(1, 3, "\n1. 공격\n2. 스킬\n3. 아이템", "원하시는 행동을 입력해주세요.\n");
 
                 switch (choice)
                 {
@@ -66,6 +69,11 @@ namespace TextRPG.Scene
                     case 2:
                         PlayerPhase(true);  // 스킬 선택
                         break;
+
+                    case 3:
+                        ChooseItem(); // 아이템 선택
+                        break;
+
                     default:
                         Thread.Sleep(500);
                         break;
@@ -84,6 +92,35 @@ namespace TextRPG.Scene
             else
                 ChooseMonster();
         }
+
+        // 아이템 선택
+        void ChooseItem()
+        {
+            while(true)
+            {
+                Console.Clear();
+                Console.WriteLine($"{sceneName} - 현재 층수 {floor}층" + "\n");
+                Console.WriteLine("아이템 사용");
+
+                // 플레이어 정보 표시
+                printInfo.PrintPlayerInfo(player);
+
+                Console.WriteLine("\n[아이템 목록]");
+                for(int i = 0; i < potions.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {potions[i].Name} x {potions[i].Count}");
+                }
+
+                int choice = InputHandler.ChooseAction(0, potions.Count, "\n0. 취소", "원하는 행동을 입력해주세요.");
+
+                if (choice == 0) return;
+
+                else if (choice != -1 && choice <= potions.Count)
+                {
+                    sceneManager.ItemManager.UsePotion(potions[choice - 1]);
+                }
+            }
+        }   
 
         /// 스킬 선택
         void ChooseSkill()

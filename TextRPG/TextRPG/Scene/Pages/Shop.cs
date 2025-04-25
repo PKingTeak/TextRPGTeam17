@@ -114,7 +114,6 @@ namespace TextRPG.Scene.Pages
                 default:
                     // 구매/판매 로직
                     OnShopAction(showItemList[choice - 1]);
-                    sceneManager.Player.UseGold(showItemList[choice - 1].Price * usingGoldType);
                     Thread.Sleep(1000);
                     Console.Clear();
                     break;

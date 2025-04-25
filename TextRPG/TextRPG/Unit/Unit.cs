@@ -14,7 +14,6 @@ namespace TextRPG.Unit
     {
         protected Random rand = new Random();
         protected const int evadePercent = 10;
-        protected const int criticalPercent = 15;
         public struct UnitState
         {
 

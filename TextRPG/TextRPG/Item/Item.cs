@@ -11,18 +11,19 @@ public class Item
     public enum ItemType
     {
         Weapon,
-        Armor
+        Armor,
+        Potion
     }
 
     public string Name { get; set; }
-    public ItemType itemType { get; set;}
-    public int Value {get; set;}
+    public ItemType itemType { get; set; }
+    public int Value { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }
     public bool IsOwned { get; private set; }
     public bool IsEquipped { get; private set; }
-
-    public Item(string name, ItemType itemType, int value ,string description, int price)
+    public int Count { get; private set; }
+    public Item(string name, ItemType itemType, int value, string description, int price)
     {
         Name = name;
         this.itemType = itemType;
@@ -31,14 +32,30 @@ public class Item
         Price = price;
         IsOwned = false;
         IsEquipped = false;
+        Count = 0;
+    }
+
+    // 포션 아이템 구매 및 획득
+    public void GetItem()
+    {
+        if (itemType == ItemType.Potion)
+            Count++;
+    }
+
+    // 포션 아이템 소비
+    public void ConsumeItem()
+    {
+        if(itemType == ItemType.Potion)
+        Count--;
+
+        if (Count < 0)
+            Count = 0;
     }
 
     public void ChangeOwnership(bool owned)
     {
         IsOwned = owned;
     }
-
-    public Dictionary<ItemType, int> state { get; set; }
     public void ChangeEquipStatus(bool equipped)
     {
         IsEquipped = equipped;
@@ -46,6 +63,9 @@ public class Item
 
     public override string ToString()
     {
-        return $"{Name} - {Description} / Price: {Price} / Owned: {IsOwned} / Equipped: {IsEquipped}";
+        if (itemType != ItemType.Potion)
+            return $"{Name} - {Description} / Price: {Price} / Owned: {IsOwned} / Equipped: {IsEquipped}";
+        else
+            return $"{Name} - {Description} / Price: {Price} / OwnedCount: {Count} ";
     }
 }
