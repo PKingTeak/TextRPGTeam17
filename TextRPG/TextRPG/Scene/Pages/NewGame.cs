@@ -12,7 +12,7 @@ namespace TextRPG.Scene.Pages
     {
         public NewGame(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "[캐릭터 생성]";
+            sceneName = "\u001b[38;2;255;255;131m[캐릭터 생성]\u001b[0m";
             sceneDescription = "스파르타 마을에 오신걸 환영합니다.\n캐릭터 정보를 입력해 주세요";
             type = SceneType.NewGame;
         }

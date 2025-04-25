@@ -18,7 +18,7 @@ namespace TextRPG.Scene.Pages
 
         public Inventory(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "[인벤토리]";
+            sceneName = "\u001b[38;2;255;255;131m[인벤토리]\u001b[0m";
             sceneDescription = "보유 중인 아이템을 관리할 수 있습니다.";
             type = SceneType.Inventory;
         }
