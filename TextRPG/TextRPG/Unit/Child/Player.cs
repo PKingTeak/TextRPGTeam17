@@ -49,7 +49,7 @@ namespace TextRPG.Unit.Child
         //상태창 
         public void ShowInfo()
         {
-            Console.WriteLine($"이름: {state.Name}\n레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage}\n방어력: {state.Defense}\n체 력: {state.CurHp}\nGold: {state.Gold}");
+            Console.WriteLine($"이름: {state.Name}\n레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage} {GetItemStat(ItemDamage)}\n방어력: {state.Defense} {GetItemStat(ItemDefense)}\n체 력: {state.CurHp}\nGold: {state.Gold}");
         }
 
 
@@ -78,6 +78,10 @@ namespace TextRPG.Unit.Child
             //추가 수정사항은 회의 하고 추가 및 수정예정
             // 이벤트 발생
             OnPlayerChange?.Invoke("더욱 더 강해지기!");
+
+            // HP, MP 회복
+            ResetHp();
+            ResetMP();
         }
 
         public void RewardExp(int _Exp)
@@ -85,14 +89,11 @@ namespace TextRPG.Unit.Child
             state.CurExp += _Exp;
             if (state.CurExp >= state.MaxExp)
             {
+                Console.WriteLine("\n레벨업 !!");
+                Console.WriteLine($"Lv. {state.Level} -> Lv. {state.Level + 1}");
+
                 levelUp();
-
             }
-            else
-            {
-                return; //레벨업 조건이 아님 
-            }
-
         }
         #endregion
 
@@ -175,12 +176,11 @@ namespace TextRPG.Unit.Child
         //이벤트 선언 (Action 사망소식 전달)
         public event Action<string> OnPlayerChange;
 
-        private string PrintItemStat(int itemStat)
+        private string GetItemStat(int itemStat)
         {
-            if(itemStat == 0) return "";
+            if (itemStat == 0) return "";
             else return $"(+{itemStat})";
         }
-
     };
 };
 
