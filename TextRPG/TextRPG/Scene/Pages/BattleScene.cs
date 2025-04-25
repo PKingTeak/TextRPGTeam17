@@ -6,7 +6,7 @@ namespace TextRPG.Scene
     {
         public BattleScene(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "Battle!!";
+            sceneName = "[Battle!!]";
             sceneDescription = "";
             type = SceneType.Battle;
             this.player = sceneManager.Player;
@@ -110,7 +110,7 @@ namespace TextRPG.Scene
                     player.SkillList[i].SkillInfo();
                 }
 
-                int choice = InputHandler.ChooseAction(0, player.SkillList.Count, "\n0. 다음", "원하는 행동을 입력해주세요.");
+                int choice = InputHandler.ChooseAction(0, player.SkillList.Count, "\n0. 취소", "원하는 행동을 입력해주세요.");
 
                 if (choice == 0) return;
 

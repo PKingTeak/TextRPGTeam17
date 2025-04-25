@@ -9,6 +9,7 @@ namespace TextRPG.Scene
 {
     public enum SceneType
     {
+        NewGame,
         Town,
         Status,
         Inventory,
