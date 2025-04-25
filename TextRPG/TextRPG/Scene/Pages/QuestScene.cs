@@ -99,10 +99,11 @@ namespace TextRPG.Scene.Pages
                         Console.WriteLine("보상을 드렸습니다.");
                         quest.RewardGet();//보상완료 체크
                         questManager.ApplyReward(quest.questReward);
-                        
+
                         if (quest.questType == QuestType.Repeat)
                         {
-                            if(quest.QuestID == 10001)
+                            // 몬스터 처치 퀘스트면 새로운 몬스터로 세팅
+                            if (quest.QuestID == 10001)
                             {
                                 monsterName = Monster.GetRandomMonsterName();
                                 quest.ChangeMonsterQuestInfo(monsterName);

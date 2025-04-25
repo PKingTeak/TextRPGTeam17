@@ -96,7 +96,7 @@ namespace TextRPG.Scene
         // 아이템 선택
         void ChooseItem()
         {
-            while(true)
+            while (true)
             {
                 Console.Clear();
                 Console.WriteLine($"{sceneName} - 현재 층수 {floor}층" + "\n");
@@ -106,7 +106,7 @@ namespace TextRPG.Scene
                 printInfo.PrintPlayerInfo(player);
 
                 Console.WriteLine("\n[아이템 목록]");
-                for(int i = 0; i < potions.Count; i++)
+                for (int i = 0; i < potions.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {potions[i].Name} x {potions[i].Count}");
                 }
@@ -120,7 +120,7 @@ namespace TextRPG.Scene
                     sceneManager.ItemManager.UsePotion(potions[choice - 1]);
                 }
             }
-        }   
+        }
 
         /// 스킬 선택
         void ChooseSkill()
@@ -280,7 +280,7 @@ namespace TextRPG.Scene
                 printInfo.PrintRewardInfo(reward);
 
                 // 보상 적용
-                if(!isRewarded)
+                if (!isRewarded)
                 {
                     battleReward.ApplyReward(reward, player);
                     isRewarded = true;
@@ -323,3 +323,4 @@ namespace TextRPG.Scene
         }
     }
 }
+

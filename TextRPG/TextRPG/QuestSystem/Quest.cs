@@ -53,7 +53,7 @@ namespace TextRPG.QuestSystem
             Console.WriteLine($" {minCount}/{maxCount}\n");
             Console.WriteLine($"- 보상 -");
             Console.WriteLine($"{questReward.Gold} Gold");
-            if(questReward.item != null)
+            if (questReward.item != null)
                 Console.WriteLine($"{questReward.item.Name} x 1");
 
             Console.WriteLine();
@@ -91,7 +91,7 @@ namespace TextRPG.QuestSystem
         {
             isRewardGet = true;
 
-            
+
         }
 
         public void ChangeTarget(string target)
@@ -100,4 +100,3 @@ namespace TextRPG.QuestSystem
         }
     }
 }
-
