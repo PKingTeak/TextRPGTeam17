@@ -32,9 +32,23 @@ namespace TextRPG.Unit.Child
 
         public override void AttackVoice()
         {
+            Random ran = new Random();
+            int voicenum = ran.Next(0, 3);
+            switch (voicenum)
+            {
+                case 0:
+                    Console.WriteLine($"{state.Name}이 대검을 사용하여 공격!!");
+                    break;
+                case 1:
+                    Console.WriteLine("양손으로 잡고 호흡가다듬고 대검을 휘둘렀다");
+                    break;
+                case 2:
+                    Console.WriteLine("췌에에에에에야야야야");
+                    break;
 
-            Console.WriteLine($"{state.Name}이 대검을 사용하여 공격!!");
-            Console.ReadLine();
+
+            }
+
 
         }
 
