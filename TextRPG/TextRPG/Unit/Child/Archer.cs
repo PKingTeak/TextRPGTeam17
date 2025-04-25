@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -30,24 +29,7 @@ namespace TextRPG.Unit.Child
 
         public override void AttackVoice()
         {
-           Random ran = new Random();
-           int voicenum =   ran.Next(0, 3);
-            switch (voicenum)
-            { 
-            case 0:
             Console.WriteLine($"{state.Name}이 활을 사용하여 공격!!");
-                    break;
-                    case 1:
-                    Console.WriteLine("호흡을 멈추고 집중하여 활을 당겼다");
-                    break;
-                    case 2:
-                    Console.WriteLine("흡!!");
-                    break;
-            
-
-            }
-           
-            
         }
 
 
