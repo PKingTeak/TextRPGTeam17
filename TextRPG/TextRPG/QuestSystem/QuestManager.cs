@@ -31,7 +31,6 @@ namespace TextRPG.QuestSystem
                         if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
                         {
                             quest.Complete(); //퀘스트 완료
-                            quest.Accept(false);//퀘스트를 완료했기에 퀘스트를 수락했다는 제어를 풀어줘야함
                             Console.WriteLine("퀘스트 성공");
                         }
                     }
@@ -61,7 +60,6 @@ namespace TextRPG.QuestSystem
                         if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
                         {
                             quest.Complete(); //퀘스트 완료
-                            quest.Accept(false);//퀘스트를 완료했기에 퀘스트를 수락했다는 제어를 풀어줘야함
                             Console.WriteLine("퀘스트 성공");
                         }
                     }
@@ -104,7 +102,7 @@ namespace TextRPG.QuestSystem
         }
         public void SetQuestAccept(Quest quest) //퀘스트 수락
         {
-            quest.Accept(true);
+            quest.Accept();
         }
     }
 }
