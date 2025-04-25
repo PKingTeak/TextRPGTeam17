@@ -27,7 +27,7 @@ public class PrintBattleInfo
     public void PrintPlayerInfo(Player player)
     {
         Console.WriteLine("[내정보]");
-        Console.WriteLine($"Lv. {player.state.Level} {player.state.Name} ({player.GetType().Name})");
+        Console.WriteLine($"Lv. {player.state.Level} \u001b[38;2;0;220;44m{player.state.Name}\u001b[0m ({player.GetType().Name})");
         Console.WriteLine($"HP {player.state.CurHp}/{player.state.MaxHp}");
         Console.WriteLine($"MP {player.state.CurMp}/{player.state.MaxMp}");
     }
@@ -50,6 +50,7 @@ public class PrintBattleInfo
     /// <param name="useNum"></param>
     public void PrintMonsterInfo(List<Monster> monsters, bool useNum)
     {
+
         if (useNum)
         {
             int num = 1;
@@ -57,9 +58,9 @@ public class PrintBattleInfo
             for (int i = 0; i < monsters.Count; i++)
             {
                 if (monsters[i].state.CurHp != 0)
-                    Console.WriteLine($"[{num}] Lv. {monsters[i].state.Level} {monsters[i].state.Name} HP {monsters[i].state.CurHp}");
+                    Console.WriteLine($"[{num}] Lv. {monsters[i].state.Level} \u001b[38;2;255;27;27m{monsters[i].state.Name}\u001b[0m HP {monsters[i].state.CurHp}");
                 else
-                    Console.WriteLine($"[{num}] Lv. {monsters[i].state.Level} {monsters[i].state.Name} Dead");
+                    Console.WriteLine($"[{num}] Lv. {monsters[i].state.Level} \u001b[38;2;255;27;27m{monsters[i].state.Name}\u001b[0m Dead");
                 num++;
             }
         }
@@ -69,9 +70,9 @@ public class PrintBattleInfo
             foreach (var monster in monsters)
             {
                 if (monster.state.CurHp != 0)
-                    Console.WriteLine($"Lv. {monster.state.Level} {monster.state.Name} HP {monster.state.CurHp}");
+                    Console.WriteLine($"Lv. {monster.state.Level} \u001b[38;2;255;27;27m{monster.state.Name}\u001b[0m HP {monster.state.CurHp}");
                 else
-                    Console.WriteLine($"Lv. {monster.state.Level} {monster.state.Name} Dead");
+                    Console.WriteLine($"Lv. {monster.state.Level} \u001b[38;2;255;27;27m{monster.state.Name}\u001b[0m Dead");
             }
         }
     }

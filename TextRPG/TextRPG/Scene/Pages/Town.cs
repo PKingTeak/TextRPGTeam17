@@ -11,7 +11,7 @@ namespace TextRPG.Scene.Pages
     {
         public Town(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "[마을]";
+            sceneName = "\u001b[38;2;255;255;131m[마을]\u001b[0m";
             sceneDescription = "스파르타 던전에 오신 여러분 환영합니다.\n이제 전투를 시작할 수 있습니다.";
             type = SceneType.Town;
             

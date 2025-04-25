@@ -19,7 +19,7 @@ namespace TextRPG.Scene.Pages
         public QuestScene(SceneManager sceneManager) : base(sceneManager)
         {
             questManager = sceneManager.QuestManager;
-            sceneName = "Quest!!";
+            sceneName = "\u001b[38;2;255;255;131mQuest!!\u001b[0m";
             sceneDescription = "이곳에서 퀘스트를 진행할 수 있습니다.";
             type = SceneType.Quest;
 

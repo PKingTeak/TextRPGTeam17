@@ -6,7 +6,7 @@ namespace TextRPG.Scene
     {
         public BattleScene(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "[Battle!!]";
+            sceneName = "\u001b[38;2;255;27;27m[Battle!!]\u001b[0m";
             sceneDescription = "";
             type = SceneType.Battle;
             this.player = sceneManager.Player;
