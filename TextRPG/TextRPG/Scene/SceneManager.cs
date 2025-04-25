@@ -44,7 +44,6 @@ namespace TextRPG.Scene
             // 객체 생성
             ItemManager = new ItemManager(Player);
             QuestManager = new QuestManager();
-
             // 화면 로드
             sceneList.Add(new Town(this));
             sceneList.Add(new Status(this));

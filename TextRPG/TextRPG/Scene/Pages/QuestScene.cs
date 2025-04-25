@@ -12,7 +12,7 @@ namespace TextRPG.Scene.Pages
     class QuestScene : Scene
     {
 QuestManager questManager;
-
+Player player;
         public QuestScene(SceneManager sceneManager) : base(sceneManager)
         {
             questManager=sceneManager.QuestManager;
@@ -24,11 +24,12 @@ QuestManager questManager;
             questManager.SetQuest(10004, "협곡을 부수는 골렘 처치", "이봐! 골렘 잡아", "골렘", 20, "마리 처치", "무한의 대검 x 1 , 500G");
             questManager.SetQuest(10002, "장비를 장착해보자", "모험을 떠나기 전엔 기본 장비부터 챙기는 게 좋지 않겠어?\r\n몸을 보호하려면 방어구 하나쯤은 필요하고, 적을 상대하려면 무기도 있어야 하니까 말이야.\r\n인벤토리를 열고 아무 장비나 하나 장착해봐!\r\n별거 아닐 것 같아도, 그게 모험의 시작이니까!", "장비", 1, "개 장착하기", "초급 전투복 x 1\n3G");
             questManager.SetQuest(10003, "더욱 더 강해지기!", "모험가라면 레벨을 올리는 건 기본이지!\r\n레벨이 올라가면 능력치도 올라가고, 새로운 스킬도 배울 수 있어!\r\n레벨을 올리기 위해선 몬스터를 처치하고 경험치를 얻어야 해.\r\n그럼 자네의 모험이 시작되는 거야!", "레벨", 1, " 이상 올리기", "힘의 물약 x 2\n8G");
-
+            this.player=sceneManager.Player;
         }
 
         public override void ShowScene()
         {
+            sceneManager.QuestManager.Subscribe(player);
             Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
             int questID = InputHandler.ChooseAction(0, 3, "1. 마을을 위협하는 미니언 처치\n" +
                                                          "2. 장비를 장착해보자\n" +

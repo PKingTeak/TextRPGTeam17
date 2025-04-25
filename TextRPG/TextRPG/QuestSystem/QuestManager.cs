@@ -27,7 +27,6 @@ namespace TextRPG.QuestSystem
 
                     if (quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
                     {
-                        Console.WriteLine($"{quest.questTarget}를{quest.minCount}개 카운트");
                         quest.Count(); //퀘스트의 수집 수 증가
                         if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
                         {
@@ -58,7 +57,6 @@ namespace TextRPG.QuestSystem
 
                     if (quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
                     {
-                        Console.WriteLine($"{quest.questTarget}를{quest.minCount}개 카운트");
                         quest.Count(); //퀘스트의 수집 수 증가
                         if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
                         {
