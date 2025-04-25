@@ -57,7 +57,7 @@ public class ItemManager
                     equippedWeapon.ChangeEquipStatus(false);
                     player.DequimentItem(equippedWeapon);
                 }
-                
+
                 // 현재 장착 무기 변경
                 equippedWeapon = item;
                 break;
@@ -68,7 +68,7 @@ public class ItemManager
                     // 장착된 방어구가 있다면 해제
                     equippedArmor.ChangeEquipStatus(false);
                     player.DequimentItem(equippedArmor);
-                }   
+                }
 
                 // 현재 장착 방어구 변경
                 equippedArmor = item;
@@ -123,19 +123,11 @@ public class ItemManager
 
     public void SellItem(Item item)
     {
-        if (item.IsOwned)
-        {
-            if (item == equippedWeapon) equippedWeapon = null;
-            if (item == equippedArmor) equippedArmor = null;
 
-            item.ChangeOwnership(false);
-            item.ChangeEquipStatus(false);
-            Console.WriteLine($"{item.Name} 판매 완료!");
-        }
-        else
-        {
-            Console.WriteLine($"{item.Name}은 소지하고 있지 않습니다.");
-        }
+        DeEquipmentItem(item);
+        item.ChangeOwnership(false);
+        
+        Console.WriteLine($"{item.Name} 판매 완료!");
     }
 
     public string ShowItems(int idx)

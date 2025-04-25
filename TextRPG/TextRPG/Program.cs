@@ -15,6 +15,7 @@ class Program
 
         while (sceneManager.StackCount > 0)
         {
+            Console.Clear();
             sceneManager.ShowCurrentScene();
         }
         Console.WriteLine("게임 종료");
