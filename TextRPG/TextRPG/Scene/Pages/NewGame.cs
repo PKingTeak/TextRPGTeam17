@@ -34,6 +34,7 @@ namespace TextRPG.Scene.Pages
 
             do
             {
+                Console.Clear();
                 Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
 
                 Console.Write("이름을 알려주세요 : ");
@@ -58,6 +59,7 @@ namespace TextRPG.Scene.Pages
 
             do
             {
+                Console.Clear();
                 Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
                 int choice = InputHandler.ChooseAction(1, 4, $"직업을 선택해 주세요.\n" +
                                                               "1. 전사\n" +
@@ -72,7 +74,7 @@ namespace TextRPG.Scene.Pages
                         pType = (PlayerType)(choice - 1);
                         break;
                 }
-
+                Console.Clear();
                 choice = InputHandler.ChooseAction(1, 2, $"직업은 [{className[choice - 1]}], 맞나요?\n" +
                                                               "1. 네\n" +
                                                               "2. 아니요", "원하시는 행동을 입력해주세요.");

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,7 +32,7 @@ namespace TextRPG.Unit.Child
         }
         public static Player SetJob(string _name, PlayerType type)
         {
-            switch(type)
+            switch (type)
             {
                 case PlayerType.Warrior:
                     return new Warrior(_name);
@@ -52,10 +52,7 @@ namespace TextRPG.Unit.Child
             Console.WriteLine($"이름: {state.Name}\n레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage} {GetItemStat(ItemDamage)}\n방어력: {state.Defense} {GetItemStat(ItemDefense)}\n체 력: {state.CurHp}\nGold: {state.Gold}");
         }
 
-        /// <summary>
-        /// 골드 사용 메서드
-        /// </summary>
-        /// <param name="_num">현재 골드에 더해질 값</param>
+
         public void UseGold(int _num)
         {
             state.Gold += _num;
@@ -69,9 +66,6 @@ namespace TextRPG.Unit.Child
 
 
         #region 레벨관련매서드
-        /// <summary>
-        /// RewardExp()로 경험치를 얻어서 max경험치가 되면 LevelUP()함수를 호출 
-        /// </summary>
         private void levelUp()
         {
             state.Level++;
@@ -84,27 +78,28 @@ namespace TextRPG.Unit.Child
             //추가 수정사항은 회의 하고 추가 및 수정예정
             // 이벤트 발생
             OnPlayerChange?.Invoke("더욱 더 강해지기!");
+
+            // HP, MP 회복
+            ResetHp();
+            ResetMP();
         }
+
         public void RewardExp(int _Exp)
         {
             state.CurExp += _Exp;
             if (state.CurExp >= state.MaxExp)
             {
+                Console.WriteLine("\n레벨업 !!");
+                Console.WriteLine($"Lv. {state.Level} -> Lv. {state.Level + 1}");
+
                 levelUp();
-
             }
-            else
-            {
-                return; //레벨업 조건이 아님 
-            }
-
         }
         #endregion
 
         #region 아이템 관련
         public void EquimentItem(Item _Item)
         {
-            playerequiments.Add(_Item);
             switch (_Item.itemType)
             {
                 case Item.ItemType.Weapon:
@@ -115,7 +110,6 @@ namespace TextRPG.Unit.Child
                     ItemDefense += _Item.Value;
                     break;
             }
-            playerequiments.Remove(_Item);
 
             // 이벤트 발생
             OnPlayerChange?.Invoke("장비를 장착해보자");
@@ -134,27 +128,24 @@ namespace TextRPG.Unit.Child
                     ItemDefense -= _Item.Value;
                     break;
             }
-            playerequiments.Remove(_Item);
         }
 
         #endregion
 
-        /// <summary>
-        /// Unit에 존재하는 Attack함수를 오버라이드 하여 사용함. 
-        /// 이유) 플레이어마다 공격 보이스 (직업마다 다르기 때문에 ) 적용시키기 위해서 
-        /// </summary>
-        
+
         #region 공격및스킬관련
         public override void Attack(Unit Attacker, Unit _Other)
         {
+
             int realDamage = RandomNum(FinalDamage - _Other.state.Defense, FinalDamage + 10);
             if (realDamage < 0)
             {
                 realDamage = 1;
             }
             Attacker.AttackVoice();
-           
+            //Console.WriteLine($"{state.Name}의 일반 공격 !!");
             _Other.SetDamage(realDamage);
+
         }
 
         public List<Skill> GetSKillList()
@@ -173,9 +164,6 @@ namespace TextRPG.Unit.Child
 
 
         public List<Skill> SkillList = new List<Skill>();
-
-        List<Item> playerequiments = new List<Item>(); //장비 갯수 무조건 0번째는 무기 나머지는 방어구
-                                                       //아이템 먹으면 -> 공격력이 겹치는데 -> 
         #endregion
 
 

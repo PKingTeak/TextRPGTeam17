@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG.Unit.Child;
 
 namespace TextRPG.Scene.Pages
 {
@@ -13,9 +14,11 @@ namespace TextRPG.Scene.Pages
             sceneName = "[마을]";
             sceneDescription = "스파르타 던전에 오신 여러분 환영합니다.\n이제 전투를 시작할 수 있습니다.";
             type = SceneType.Town;
+            
         }
         public override void ShowScene()
         {
+        
             Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
 
             // 플레이어 정보 출력
