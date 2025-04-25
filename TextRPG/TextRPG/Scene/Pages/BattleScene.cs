@@ -78,7 +78,7 @@ namespace TextRPG.Scene
         void PlayerPhase(bool useSkill)
         {
             selectSkill = null;
-            
+
             if (useSkill)
                 ChooseSkill();
             else
@@ -221,7 +221,7 @@ namespace TextRPG.Scene
         void EndBattle(bool isWin)
         {
             int killCount = CountKilledMonster();
-
+            bool isRewarded = false;
             // 보상 번들 생성
             BattleReward battleReward = new BattleReward(sceneManager.ItemManager);
             Reward reward = battleReward.CreateBattleReward(floor, killCount);
@@ -241,7 +241,14 @@ namespace TextRPG.Scene
                 // 보상 출력
                 Console.WriteLine("\n[획득 보상]");
                 printInfo.PrintRewardInfo(reward);
-                battleReward.ApplyReward(reward, player);
+
+                // 보상 적용
+                if(!isRewarded)
+                {
+                    battleReward.ApplyReward(reward, player);
+                    isRewarded = true;
+                }
+
                 int choice = InputHandler.ChooseAction(0, 0, "\n0. 다음", "원하시는 행동을 입력해주세요.\n");
 
                 if (choice == 0) return;
