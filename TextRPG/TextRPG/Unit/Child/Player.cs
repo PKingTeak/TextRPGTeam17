@@ -152,7 +152,8 @@ namespace TextRPG.Unit.Child
         #region 공격및스킬관련
         public override void Attack(Unit Attacker, Unit _Other)
         {
-            int realDamage = RandomNum(FinalDamage - _Other.state.Defense, state.Damage + 10);
+
+            int realDamage = RandomNum(FinalDamage - _Other.state.Defense, FinalDamage + 10);
             if (realDamage < 0)
             {
                 realDamage = 1;
