@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TextRPG.QuestSystem;
+﻿using TextRPG.QuestSystem;
 using TextRPG.Scene.Pages;
 using TextRPG.Unit.Child;
 
@@ -32,7 +27,7 @@ namespace TextRPG.Scene
             sceneStack = new Stack<Action>();
             
             sceneList.Add(new NewGame(this));
-            sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.NewGame).Show);
+            AddScene(SceneType.NewGame);
         }
 
         public void InitPlayer(string name, PlayerType type)

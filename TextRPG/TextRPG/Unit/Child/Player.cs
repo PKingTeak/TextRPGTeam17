@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +14,13 @@ using TextRPG.Unit;
 
 namespace TextRPG.Unit.Child
 {
-
+    public enum PlayerType
+    {
+        Warrior,
+        Archer,
+        Assessin,
+        Wizard
+    }
 
     public class Player : Unit
     {
@@ -24,29 +30,20 @@ namespace TextRPG.Unit.Child
         {
 
         }
-        public static Player SetJob(string _name)
+        public static Player SetJob(string _name, PlayerType type)
         {
-            while (true)
+            switch (type)
             {
-                Console.Clear();
-                Console.WriteLine("직업을 선택해 주세요\n1.전사 \t2.궁수\t3.도적\t4.마법사");
-                string Input = Console.ReadLine();
-
-                switch (Input)
-                {
-                    case "1":
-                        return new Warrior(_name);
-                    case "2":
-                        return new Archer(_name);
-                    case "3":
-                        return new Assessin(_name);
-                    case "4":
-                        return new Wizard(_name);
-                    default:
-                        Console.WriteLine("값을 잘못 입력했습니다.");
-                        Thread.Sleep(500);
-                        break;
-                }
+                case PlayerType.Warrior:
+                    return new Warrior(_name);
+                case PlayerType.Archer:
+                    return new Archer(_name);
+                case PlayerType.Assessin:
+                    return new Assessin(_name);
+                case PlayerType.Wizard:
+                    return new Wizard(_name);
+                default:
+                    return new Warrior(_name);
             }
         }
         //상태창 
@@ -66,7 +63,7 @@ namespace TextRPG.Unit.Child
 
         }
 
-      
+
 
         #region 레벨관련매서드
         private void levelUp()
@@ -79,22 +76,24 @@ namespace TextRPG.Unit.Child
             state.Defense += state.Level;
             state.Damage += (2 * state.Level);
             //추가 수정사항은 회의 하고 추가 및 수정예정
+            // 이벤트 발생
+            OnPlayerChange?.Invoke("더욱 더 강해지기!");
 
-            OnPlayerChange?.Invoke("더욱 더 강해지기!");// 레벨업 퀘스트 이벤트 발생
+            // HP, MP 회복
+            ResetHp();
+            ResetMP();
         }
+
         public void RewardExp(int _Exp)
         {
             state.CurExp += _Exp;
             if (state.CurExp >= state.MaxExp)
             {
+                Console.WriteLine("\n레벨업 !!");
+                Console.WriteLine($"Lv. {state.Level} -> Lv. {state.Level + 1}");
+
                 levelUp();
-
             }
-            else
-            {
-                return; //레벨업 조건이 아님 
-            }
-
         }
         #endregion
 
@@ -114,8 +113,8 @@ namespace TextRPG.Unit.Child
             }
             playerequiments.Remove(_Item);
 
-            
-            OnPlayerChange?.Invoke("장비를 장착해보자");//장비 장착 퀘스트 이벤트 발생
+            // 이벤트 발생
+            OnPlayerChange?.Invoke("장비를 장착해보자");
         }
 
         public void DequimentItem(Item _Item)
@@ -140,6 +139,7 @@ namespace TextRPG.Unit.Child
         #region 공격및스킬관련
         public override void Attack(Unit Attacker, Unit _Other)
         {
+
             int realDamage = RandomNum(FinalDamage - _Other.state.Defense, FinalDamage + 10);
             if (realDamage < 0)
             {
@@ -148,6 +148,7 @@ namespace TextRPG.Unit.Child
             Attacker.AttackVoice();
             //Console.WriteLine($"{state.Name}의 일반 공격 !!");
             _Other.SetDamage(realDamage);
+
         }
 
         public List<Skill> GetSKillList()
@@ -172,9 +173,7 @@ namespace TextRPG.Unit.Child
         #endregion
 
 
-        /// <summary>
-        /// 이벤트 선언 (Action 플레이어 변화 전달)
-        /// </summary>
+        //이벤트 선언 (Action 사망소식 전달)
         public event Action<string> OnPlayerChange;
 
         private string GetItemStat(int itemStat)

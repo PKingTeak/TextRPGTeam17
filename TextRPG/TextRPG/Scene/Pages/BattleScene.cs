@@ -116,10 +116,16 @@ namespace TextRPG.Scene
 
                 else if (choice != -1 && choice <= player.SkillList.Count)
                 {
-                    // 스킬 선택 후 공격 몬스터 선택
                     selectSkill = player.SkillList[choice - 1];
-                    ChooseMonster();
-                    return;
+                    // 스킬 선택 후 공격 몬스터 선택
+                    if (player.state.CurMp >= selectSkill.UseMp)
+                        ChooseMonster();
+                    else
+                    {
+                        selectSkill = null;
+                        Console.WriteLine("MP가 부족합니다.");
+                        Thread.Sleep(500);
+                    }
                 }
             }
         }
@@ -158,7 +164,7 @@ namespace TextRPG.Scene
                         if (selectSkill != null)
                             selectSkill.UsingSkill(player, monsters[choice - 1]);
                         else
-                            player.Attack(player,monsters[choice - 1]);
+                            player.Attack(player, monsters[choice - 1]);
 
                         printInfo.WaitBattleProgress(); // 전투 과정 출력 대기
 
@@ -194,7 +200,7 @@ namespace TextRPG.Scene
                 if (monster.state.CurHp == 0)
                     continue;
                 else
-                    monster.Attack(monster,player);
+                    monster.Attack(monster, player);
             }
 
             // 전투 과정 출력 대기
