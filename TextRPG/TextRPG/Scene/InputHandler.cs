@@ -36,7 +36,6 @@ namespace TextRPG.Scene
                 inputNum = -1;
             }
 
-            Console.Clear();
             return inputNum;
         }
     }

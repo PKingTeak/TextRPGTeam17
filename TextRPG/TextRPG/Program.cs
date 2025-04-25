@@ -1,8 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
-using TextRPG.QuestSystem;
-using TextRPG.Scene;
-using TextRPG.Unit.Child;
+﻿using TextRPG.Scene;
 
 
 
@@ -15,6 +11,7 @@ class Program
 
         while (sceneManager.StackCount > 0)
         {
+            Console.Clear();
             sceneManager.ShowCurrentScene();
         }
         Console.WriteLine("게임 종료");

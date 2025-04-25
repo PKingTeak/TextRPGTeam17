@@ -51,9 +51,16 @@ namespace TextRPG.QuestSystem
             this.minCount++;
         }
 
-        public void Accept(bool Accept) //퀘스트 수락
+        public void Accept() //퀘스트 수락
         {
-            isAccepted = Accept;
+            isAccepted = true;
+        }
+        public void ResetQuest() // 퀘스트 초기화
+        {
+            isComplete = false;
+            isAccepted = false;
+            isRewardGet = false;
+            minCount = 0;
         }
 
         public void Complete()//퀘스트 완료
@@ -63,6 +70,11 @@ namespace TextRPG.QuestSystem
         public void RewardGet()//퀘스트 보상 전달
         {
             isRewardGet = true;
+        }
+
+        public void ChangeTarget(string target)
+        {
+            questTarget = target;
         }
     }
 }
