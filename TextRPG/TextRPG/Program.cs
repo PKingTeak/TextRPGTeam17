@@ -1,13 +1,21 @@
-﻿
-using TextRPG.Unit.Child;
+﻿using TextRPG.Scene;
 
-namespace Program
+
+
+class Program
 {
-    class MainGame
+
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        Opening opening = new Opening();
+        opening.openshow();
+        SceneManager sceneManager = new SceneManager();
+
+        while (sceneManager.StackCount > 0)
         {
-      
+            Console.Clear();
+            sceneManager.ShowCurrentScene();
         }
-    };
+        Console.WriteLine("게임 종료");
+    }
 }
