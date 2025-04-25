@@ -32,31 +32,23 @@ namespace TextRPG.Scene.Pages
 
         public override void ShowScene()
         {
-            Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
-            int questID = InputHandler.ChooseAction(0, 3, $"1. 마을을 위협하는 {monsterName} 처치\n" +
-                                                         "2. 장비를 장착해보자\n" +
-                                                         "3. 더욱 더 강해지기!\n" +
-                                                         "0. 나가기", "원하시는 퀘스트를 선택해주세요.");
-            Quest quest = new Quest(); //빈 퀘스트
-            switch (questID)
-            {
-                case 0:
-                    sceneManager.PopScene();
-                    break;
-                case 1:
-                    quest = questManager.FindQuest(10001); //특정 퀘스트 찾기
-                    QuestControl(quest);
-                    break;
-                case 2:
-                    quest = questManager.FindQuest(10002);
-                    QuestControl(quest);
-                    break;
-                case 3:
-                    quest = questManager.FindQuest(10003);
-                    QuestControl(quest);
-                    break;
+            List<Quest> questList = questManager.ReturnQuestList();
 
+            Console.WriteLine($"{sceneName}\n{sceneDescription}\n");
+
+            // 퀘스트 목록 출력
+            for (int i = 0; i < questList.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {questList[i].questTitle} {(questList[i].isComplete ? "[완료]" : "")}");
             }
+
+            int questID = InputHandler.ChooseAction(0, questList.Count, "\n0. 나가기", "원하시는 퀘스트를 선택해주세요.");
+
+            if (questID == 0)
+                sceneManager.PopScene();
+
+            else if (questID != -1 && questID <= questList.Count)
+                QuestControl(questList[questID - 1]);
         }
         public void QuestControl(Quest quest)//퀘스트 각종 제어문
         {
@@ -106,14 +98,17 @@ namespace TextRPG.Scene.Pages
                     {
                         Console.WriteLine("보상을 드렸습니다.");
                         quest.RewardGet();//보상완료 체크
+                        questManager.ApplyReward(quest.questReward);
                         
-                        if(quest.QuestID == 10001)
+                        if (quest.questType == QuestType.Repeat)
                         {
-                            monsterName = Monster.GetRandomMonsterName();
-                            quest.ChangeTarget(monsterName);
+                            if(quest.QuestID == 10001)
+                            {
+                                monsterName = Monster.GetRandomMonsterName();
+                                quest.ChangeMonsterQuestInfo(monsterName);
+                            }
+                            quest.ResetQuest();
                         }
-                        
-                        quest.ResetQuest();
                     }
                     else
                         Console.WriteLine("조건을 충족하지 못했습니다.");

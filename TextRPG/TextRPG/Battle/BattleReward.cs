@@ -5,12 +5,23 @@ public class Reward
     public int Exp { get; set; }
     public int Gold { get; set; }
     public List<Item> Items { get; set; }
-
+    public Item? item { get; set; }
     public Reward()
     {
         Exp = 0;
         Gold = 0;
         Items = new List<Item>();
+    }
+
+    public Reward(int Gold, Item item)
+    {
+        this.Gold = Gold;
+        this.item = item;
+    }
+
+    public Reward(int Gold)
+    {
+        this.Gold = Gold;
     }
 }
 public class BattleReward
