@@ -14,13 +14,7 @@ using TextRPG.Unit;
 
 namespace TextRPG.Unit.Child
 {
-    public enum PlayerType
-    {
-        Warrior,
-        Archer,
-        Assessin,
-        Wizard
-    }
+
 
     public class Player : Unit
     {
@@ -30,20 +24,29 @@ namespace TextRPG.Unit.Child
         {
 
         }
-        public static Player SetJob(string _name, PlayerType type)
+        public static Player SetJob(string _name)
         {
-            switch(type)
+            while (true)
             {
-                case PlayerType.Warrior:
-                    return new Warrior(_name);
-                case PlayerType.Archer:
-                    return new Archer(_name);
-                case PlayerType.Assessin:
-                    return new Assessin(_name);
-                case PlayerType.Wizard:
-                    return new Wizard(_name);
-                default:
-                    return new Warrior(_name);
+                Console.Clear();
+                Console.WriteLine("직업을 선택해 주세요\n1.전사 \t2.궁수\t3.도적\t4.마법사");
+                string Input = Console.ReadLine();
+
+                switch (Input)
+                {
+                    case "1":
+                        return new Warrior(_name);
+                    case "2":
+                        return new Archer(_name);
+                    case "3":
+                        return new Assessin(_name);
+                    case "4":
+                        return new Wizard(_name);
+                    default:
+                        Console.WriteLine("값을 잘못 입력했습니다.");
+                        Thread.Sleep(500);
+                        break;
+                }
             }
         }
         //상태창 
@@ -52,10 +55,7 @@ namespace TextRPG.Unit.Child
             Console.WriteLine($"이름: {state.Name}\n레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage} {GetItemStat(ItemDamage)}\n방어력: {state.Defense} {GetItemStat(ItemDefense)}\n체 력: {state.CurHp}\nGold: {state.Gold}");
         }
 
-        /// <summary>
-        /// 골드 사용 메서드
-        /// </summary>
-        /// <param name="_num">현재 골드에 더해질 값</param>
+
         public void UseGold(int _num)
         {
             state.Gold += _num;
@@ -79,8 +79,8 @@ namespace TextRPG.Unit.Child
             state.Defense += state.Level;
             state.Damage += (2 * state.Level);
             //추가 수정사항은 회의 하고 추가 및 수정예정
-            // 이벤트 발생
-            OnPlayerChange?.Invoke("더욱 더 강해지기!");
+
+            OnPlayerChange?.Invoke("더욱 더 강해지기!");// 레벨업 퀘스트 이벤트 발생
         }
         public void RewardExp(int _Exp)
         {
@@ -114,8 +114,8 @@ namespace TextRPG.Unit.Child
             }
             playerequiments.Remove(_Item);
 
-            // 이벤트 발생
-            OnPlayerChange?.Invoke("장비를 장착해보자");
+            
+            OnPlayerChange?.Invoke("장비를 장착해보자");//장비 장착 퀘스트 이벤트 발생
         }
 
         public void DequimentItem(Item _Item)
@@ -172,7 +172,9 @@ namespace TextRPG.Unit.Child
         #endregion
 
 
-        //이벤트 선언 (Action 사망소식 전달)
+        /// <summary>
+        /// 이벤트 선언 (Action 플레이어 변화 전달)
+        /// </summary>
         public event Action<string> OnPlayerChange;
 
         private string GetItemStat(int itemStat)
