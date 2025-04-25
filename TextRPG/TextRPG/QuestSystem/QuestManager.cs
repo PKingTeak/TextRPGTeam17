@@ -35,12 +35,14 @@ namespace TextRPG.QuestSystem
 
                     if (quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
                     {
-                        quest.Count(); //퀘스트의 수집 수 증가
+                        if (quest.minCount < quest.maxCount)
+                            quest.Count(); //퀘스트의 수집 수 증가
                         if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
                         {
                             quest.Complete(); //퀘스트 완료
                             Console.WriteLine("퀘스트 성공");
                         }
+
                     }
                 }
             }
@@ -64,12 +66,14 @@ namespace TextRPG.QuestSystem
 
                     if (quest.isAccepted)//퀘스트를 수락한 상태가 아니라면 카운트 되지않음
                     {
-                        quest.Count(); //퀘스트의 수집 수 증가
+                        if (quest.minCount < quest.maxCount)
+                            quest.Count(); //퀘스트의 수집 수 증가
                         if (quest.minCount >= quest.maxCount) //처치한 몬스터 수가 5 이상이면
                         {
                             quest.Complete(); //퀘스트 완료
                             Console.WriteLine("퀘스트 성공");
                         }
+
                     }
                 }
             }
