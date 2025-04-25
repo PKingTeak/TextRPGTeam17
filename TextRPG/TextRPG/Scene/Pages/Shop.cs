@@ -20,7 +20,7 @@ namespace TextRPG.Scene.Pages
 
         public Shop(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "상점";
+            sceneName = "[상점]";
             sceneDescription = "필요한 아이템을 얻을 수 있는 상점입니다.";
             type = SceneType.Shop;
         }
@@ -84,6 +84,8 @@ namespace TextRPG.Scene.Pages
 
         private void ShowBuyOrSell()
         {
+            int usingGoldType = 1; // 1 : 골드 증가, -1 : 골드 감소
+
             itemInfoList.Clear();
             itemInfoList.Add(ItemInfoType.NameAndDescription);
             itemInfoList.Add(ItemInfoType.Price);
@@ -92,11 +94,13 @@ namespace TextRPG.Scene.Pages
             {
                 ShowItemList(itemInfoList, (int x) => !sceneManager.ItemManager.Items[x].IsOwned, true);
                 OnShopAction = sceneManager.ItemManager.BuyItem;
+                usingGoldType = -1; // 구매 시 골드 감소
             }
             else if(shopMode == ShopMode.Sell)
             {
                 ShowItemList(itemInfoList, (int x) => sceneManager.ItemManager.Items[x].IsOwned, true);
                 OnShopAction = sceneManager.ItemManager.SellItem;
+                usingGoldType = 1; // 판매 시 골드 증가
             }
 
             int choice = InputHandler.ChooseAction(0, showItemList.Count, "0. 나가기", "아이템 번호를 입력해주세요.");
@@ -110,6 +114,7 @@ namespace TextRPG.Scene.Pages
                 default:
                     // 구매/판매 로직
                     OnShopAction(showItemList[choice - 1]);
+                    sceneManager.Player.UseGold(showItemList[choice - 1].Price * usingGoldType);
                     Thread.Sleep(1000);
                     Console.Clear();
                     break;

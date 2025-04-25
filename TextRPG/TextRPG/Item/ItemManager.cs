@@ -103,9 +103,9 @@ public class ItemManager
     }
     public void ShowEquippedItems()
     {
-        Console.WriteLine("🧤 현재 장착 중인 아이템:");
-        Console.WriteLine($"무기: {(equippedWeapon != null ? equippedWeapon.Name : "없음")}");
-        Console.WriteLine($"방어구: {(equippedArmor != null ? equippedArmor.Name : "없음")}");
+        Console.WriteLine("현재 장착 중인 아이템");
+        Console.WriteLine($" - 무기: {(equippedWeapon != null ? equippedWeapon.Name : "없음")}");
+        Console.WriteLine($" - 방어구: {(equippedArmor != null ? equippedArmor.Name : "없음")}");
     }
 
     public void BuyItem(Item item)

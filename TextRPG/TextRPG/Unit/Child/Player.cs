@@ -14,7 +14,13 @@ using TextRPG.Unit;
 
 namespace TextRPG.Unit.Child
 {
-
+    public enum PlayerType
+    {
+        Warrior,
+        Archer,
+        Assessin,
+        Wizard
+    }
 
     public class Player : Unit
     {
@@ -24,29 +30,20 @@ namespace TextRPG.Unit.Child
         {
 
         }
-        public static Player SetJob(string _name)
+        public static Player SetJob(string _name, PlayerType type)
         {
-            while (true)
+            switch(type)
             {
-                Console.Clear();
-                Console.WriteLine("직업을 선택해 주세요\n1.전사 \t2.궁수\t3.도적\t4.마법사");
-                string Input = Console.ReadLine();
-
-                switch (Input)
-                {
-                    case "1":
-                        return new Warrior(_name);
-                    case "2":
-                        return new Archer(_name);
-                    case "3":
-                        return new Assessin(_name);
-                    case "4":
-                        return new Wizard(_name);
-                    default:
-                        Console.WriteLine("값을 잘못 입력했습니다.");
-                        Thread.Sleep(500);
-                        break;
-                }
+                case PlayerType.Warrior:
+                    return new Warrior(_name);
+                case PlayerType.Archer:
+                    return new Archer(_name);
+                case PlayerType.Assessin:
+                    return new Assessin(_name);
+                case PlayerType.Wizard:
+                    return new Wizard(_name);
+                default:
+                    return new Warrior(_name);
             }
         }
         //상태창 
@@ -55,7 +52,10 @@ namespace TextRPG.Unit.Child
             Console.WriteLine($"이름: {state.Name}\n레벨: {state.Level}\nChad: {GetType().Name}\n공격력: {state.Damage} {GetItemStat(ItemDamage)}\n방어력: {state.Defense} {GetItemStat(ItemDefense)}\n체 력: {state.CurHp}\nGold: {state.Gold}");
         }
 
-
+        /// <summary>
+        /// 골드 사용 메서드
+        /// </summary>
+        /// <param name="_num">현재 골드에 더해질 값</param>
         public void UseGold(int _num)
         {
             state.Gold += _num;

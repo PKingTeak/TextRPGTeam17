@@ -18,7 +18,7 @@ namespace TextRPG.Scene.Pages
 
         public Inventory(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "인벤토리";
+            sceneName = "[인벤토리]";
             sceneDescription = "보유 중인 아이템을 관리할 수 있습니다.";
             type = SceneType.Inventory;
         }
@@ -31,7 +31,6 @@ namespace TextRPG.Scene.Pages
             }
 
             Console.WriteLine($"{sceneName}{subTitle}\n{sceneDescription}\n");
-            Console.WriteLine();
 
             switch (invenMode)
             {

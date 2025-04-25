@@ -11,7 +11,7 @@ namespace TextRPG.Scene.Pages
     {
         public Status(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "상태 보기";
+            sceneName = "[상태 보기]";
             sceneDescription = "캐릭터의 정보가 표시됩니다.";
             type = SceneType.Status;
         }

@@ -26,21 +26,32 @@ namespace TextRPG.Scene
             get { return sceneStack.Count; }
         }
 
-        public SceneManager(Player player, ItemManager itemManager, QuestManager questManager)
+        public SceneManager()
         {
             sceneList = new List<Scene>();
             sceneStack = new Stack<Action>();
-            Player = player;
-            ItemManager = itemManager;
-            QuestManager = questManager;
             
+            sceneList.Add(new NewGame(this));
+            sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.NewGame).Show);
+        }
+
+        public void InitPlayer(string name, PlayerType type)
+        {
+            // 플레이어 생성
+            Player = Player.SetJob(name, type);
+
+            // 게임 시작
+            // 객체 생성
+            ItemManager = new ItemManager(Player);
+            QuestManager = new QuestManager();
+
+            // 화면 로드
             sceneList.Add(new Town(this));
             sceneList.Add(new Status(this));
             sceneList.Add(new Inventory(this));
             sceneList.Add(new Shop(this));
             sceneList.Add(new BattleScene(this));
             sceneList.Add(new QuestScene(this));
-            sceneStack.Push(sceneList.Find(x => x.SceneType == SceneType.Town).Show);
         }
 
         /// <summary>
