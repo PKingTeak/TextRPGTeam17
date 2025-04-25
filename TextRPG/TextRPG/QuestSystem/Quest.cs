@@ -46,7 +46,7 @@ namespace TextRPG.QuestSystem
 
         public void QuestInfo() //퀘스트 정보
         {
-            Console.WriteLine($"Quest!! - {(questType == QuestType.Noraml ? "일반 퀘스트" : "반복퀘스트")}\n");
+            Console.WriteLine($"\u001b[38;2;255;255;131mQuest!!\u001b[0m - {(questType == QuestType.Noraml ? "일반 퀘스트" : "반복퀘스트")}\n");
             Console.WriteLine(questTitle + "\n");
             Console.WriteLine(questContent + "\n");
             Console.Write($"- {questTarget} {maxCount}{questAction}");
