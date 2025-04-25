@@ -23,6 +23,7 @@ public class ItemManager
         Items.Add(new Item("엘프의 활", Item.ItemType.Weapon, 11, "정확도가 높은 마법 활.", 900));
         Items.Add(new Item("철 투구", Item.ItemType.Armor, 5, "머리를 보호하는 튼튼한 철 투구.", 400));
         Items.Add(new Item("용의 갑옷", Item.ItemType.Armor, 20, "전설 속 용의 비늘로 만든 방어구.", 2000));
+        Items.Add(new Item("쓸만한 방패", Item.ItemType.Armor, 3, "그냥저냥 쓸만한 방패다.", 500));
     }
 
     /// <summary>
