@@ -26,10 +26,28 @@ namespace TextRPG.Unit.Child
             SkillList.Add(new Skill("민첩하게 통수치기", "빠르게 전두엽을 때려 치명상을 입힌다.", 30, 4));
            
         }
-        public override void AttackVoice()
+          public override void AttackVoice()
         {
+           Random ran = new Random();
+           int voicenum =   ran.Next(0, 3);
+            switch (voicenum)
+            { 
+            case 0:
             Console.WriteLine($"{state.Name}이 단검을 사용하여 비겁하게 공격!!");
+                    break;
+                    case 1:
+                    Console.WriteLine("뒤통수가 이쁘구나?? 라고 말하면서 공격!!");
+                    break;
+                    case 2:
+                    Console.WriteLine("머리를 때리면서 주머니에 손 넣기");
+                    break;
+             
+
+            }
+           
+            
         }
+
 
 
 
