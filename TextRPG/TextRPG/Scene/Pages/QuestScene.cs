@@ -9,14 +9,14 @@ using TextRPG.QuestSystem;
 using System.Security.Cryptography.X509Certificates;
 namespace TextRPG.Scene.Pages
 {
-    class QuestScene : Scene
+    class QuestScene:Scene
     {
-QuestManager questManager;
+        QuestManager questManager;
 
         public QuestScene(SceneManager sceneManager) : base(sceneManager)
         {
-            questManager=sceneManager.QuestManager;
-            sceneName = "Quest!!";
+            questManager = sceneManager.QuestManager;
+            sceneName = "[Quest!!]";
             sceneDescription = "";
             type = SceneType.Quest;
             // 퀘스트 정보 저장
@@ -36,7 +36,7 @@ QuestManager questManager;
                                                          "3. 더욱 더 강해지기!\n" +
                                                          "0. 나가기", "원하시는 퀘스트를 선택해주세요.");
             Quest quest = new Quest(); //빈 퀘스트
-            switch (questID)
+            switch(questID)
             {
                 case 0:
                     sceneManager.PopScene();
@@ -60,22 +60,22 @@ QuestManager questManager;
         {
             // quest.Complete(); //퀘스트 완료
             Console.Clear();
-            if (quest.isRewardGet)
+            if(quest.isRewardGet)
             {
                 Console.WriteLine("이미 보상을 받고 완료한 퀘스트 입니다.");
-                                Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 return;
             }
-            else if (quest.isAccepted)
+            else if(quest.isAccepted)
             {
                 Console.WriteLine("이미 수락한 퀘스트 입니다.");
-                                Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 questManager.GetQuest(quest);
                 //돌아가기 선택지가 있어야함
                 //return;
             }
             questManager.GetQuest(quest); //해당 퀘스트 정보 출력
-            if (quest.isComplete)
+            if(quest.isComplete)
             {
 
                 QuestReward(quest); //퀘스트 보상받기,돌아가기
@@ -94,7 +94,7 @@ QuestManager questManager;
             int questID = InputHandler.ChooseAction(0, 2, "1. 수락" +
                                                          "2. 거절", "원하시는 행동을 입력해주세요.");
 
-            switch (questID)
+            switch(questID)
             {
 
                 case 1:
@@ -102,7 +102,7 @@ QuestManager questManager;
                     Console.WriteLine(quest.questTitle + "퀘스트를 수락하였습니다.");
                     break;
                 case 2:
-                Console.Clear();
+                    Console.Clear();
                     ShowScene();
                     break;
 
@@ -117,14 +117,14 @@ QuestManager questManager;
             int questID = InputHandler.ChooseAction(0, 2, "1.보상 받기" +
                                                          "2.돌아가기", "원하시는 행동을 입력해주세요.");
 
-            switch (questID)
+            switch(questID)
             {
                 case 1:
                     Console.WriteLine("보상을 드렸습니다.");
                     quest.RewardGet();//보상완료 체크
                     break;
                 case 2:
-                Console.Clear();
+                    Console.Clear();
                     ShowScene();
                     break;
 

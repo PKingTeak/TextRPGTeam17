@@ -11,21 +11,10 @@ class Program
 
     static void Main(string[] args)
     {
-        ItemManager itemManager = new ItemManager();
-        QuestManager questManager = new QuestManager();
-
-        // 플레이어 객체 생성 및 정보 입력
-        Console.WriteLine("이름을 입력해주세요");
-        string Input = Console.ReadLine();
-        Player player = Player.SetJob(Input);
-
-       // Item newItem = new Item("검",Item.ItemType.WeaPon, 10 ,"단단한 검이다.", 1000);
-
-        SceneManager sceneManager = new SceneManager(player, itemManager, questManager);
+        SceneManager sceneManager = new SceneManager();
 
         while (sceneManager.StackCount > 0)
         {
-            Console.Clear();
             sceneManager.ShowCurrentScene();
         }
         Console.WriteLine("게임 종료");

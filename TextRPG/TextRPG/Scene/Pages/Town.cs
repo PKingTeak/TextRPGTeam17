@@ -10,7 +10,7 @@ namespace TextRPG.Scene.Pages
     {
         public Town(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "마을";
+            sceneName = "[마을]";
             sceneDescription = "스파르타 던전에 오신 여러분 환영합니다.\n이제 전투를 시작할 수 있습니다.";
             type = SceneType.Town;
         }
