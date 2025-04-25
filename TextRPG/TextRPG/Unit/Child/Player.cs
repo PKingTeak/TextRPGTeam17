@@ -66,9 +66,12 @@ namespace TextRPG.Unit.Child
 
         }
 
-      
+
 
         #region 레벨관련매서드
+        /// <summary>
+        /// RewardExp()로 경험치를 얻어서 max경험치가 되면 LevelUP()함수를 호출 
+        /// </summary>
         private void levelUp()
         {
             state.Level++;
@@ -136,7 +139,11 @@ namespace TextRPG.Unit.Child
 
         #endregion
 
-
+        /// <summary>
+        /// Unit에 존재하는 Attack함수를 오버라이드 하여 사용함. 
+        /// 이유) 플레이어마다 공격 보이스 (직업마다 다르기 때문에 ) 적용시키기 위해서 
+        /// </summary>
+        
         #region 공격및스킬관련
         public override void Attack(Unit Attacker, Unit _Other)
         {
@@ -146,7 +153,7 @@ namespace TextRPG.Unit.Child
                 realDamage = 1;
             }
             Attacker.AttackVoice();
-            //Console.WriteLine($"{state.Name}의 일반 공격 !!");
+           
             _Other.SetDamage(realDamage);
         }
 
