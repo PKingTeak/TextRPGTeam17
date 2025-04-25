@@ -100,7 +100,6 @@ namespace TextRPG.Unit.Child
         #region 아이템 관련
         public void EquimentItem(Item _Item)
         {
-            playerequiments.Add(_Item);
             switch (_Item.itemType)
             {
                 case Item.ItemType.Weapon:
@@ -111,7 +110,6 @@ namespace TextRPG.Unit.Child
                     ItemDefense += _Item.Value;
                     break;
             }
-            playerequiments.Remove(_Item);
 
             // 이벤트 발생
             OnPlayerChange?.Invoke("장비를 장착해보자");
@@ -130,7 +128,6 @@ namespace TextRPG.Unit.Child
                     ItemDefense -= _Item.Value;
                     break;
             }
-            playerequiments.Remove(_Item);
         }
 
         #endregion
@@ -167,9 +164,6 @@ namespace TextRPG.Unit.Child
 
 
         public List<Skill> SkillList = new List<Skill>();
-
-        List<Item> playerequiments = new List<Item>(); //장비 갯수 무조건 0번째는 무기 나머지는 방어구
-                                                       //아이템 먹으면 -> 공격력이 겹치는데 -> 
         #endregion
 
 

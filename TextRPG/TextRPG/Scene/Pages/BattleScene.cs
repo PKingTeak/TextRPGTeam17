@@ -77,11 +77,10 @@ namespace TextRPG.Scene
 
         void PlayerPhase(bool useSkill)
         {
+            selectSkill = null;
+            
             if (useSkill)
-            {
                 ChooseSkill();
-                selectSkill = null;
-            }
             else
                 ChooseMonster();
         }
@@ -119,7 +118,10 @@ namespace TextRPG.Scene
                     selectSkill = player.SkillList[choice - 1];
                     // 스킬 선택 후 공격 몬스터 선택
                     if (player.state.CurMp >= selectSkill.UseMp)
+                    {
                         ChooseMonster();
+                        return;
+                    }
                     else
                     {
                         selectSkill = null;

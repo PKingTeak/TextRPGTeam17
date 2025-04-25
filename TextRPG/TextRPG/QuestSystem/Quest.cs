@@ -59,6 +59,7 @@ namespace TextRPG.QuestSystem
         {
             isComplete = false;
             isAccepted = false;
+            isRewardGet = false;
             minCount = 0;
         }
 
@@ -69,6 +70,11 @@ namespace TextRPG.QuestSystem
         public void RewardGet()//퀘스트 보상 전달
         {
             isRewardGet = true;
+        }
+
+        public void ChangeTarget(string target)
+        {
+            questTarget = target;
         }
     }
 }

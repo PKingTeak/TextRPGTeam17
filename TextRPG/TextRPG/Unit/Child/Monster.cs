@@ -11,7 +11,7 @@ namespace TextRPG.Unit.Child
     {
 
         public int Exp { get; private set; }
-        static public string[] monsterNames = {"미니언", "슬라임", "", "", "서큐버스" };
+        static public string[] monsterNames = {"미니언" };
 
         public void setExp(int floor)
         {
