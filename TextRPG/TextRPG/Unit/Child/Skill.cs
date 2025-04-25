@@ -36,7 +36,7 @@ namespace TextRPG.Unit.Child
             {
                 Console.WriteLine($"MP가 부족합니다");
             }
-            other.SetDamage(result);
+            other.SetDamage(result, false);
         }
 
         public int AttackRank { get; private set; }

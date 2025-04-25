@@ -43,8 +43,6 @@ namespace TextRPG.Unit.Child
                     case 2:
                     Console.WriteLine("흡!!");
                     break;
-            
-
             }
            
             
