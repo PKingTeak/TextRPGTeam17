@@ -7,6 +7,8 @@ class Program
 
     static void Main(string[] args)
     {
+        Opening opening=new Opening();
+        opening.Show();
         SceneManager sceneManager = new SceneManager();
 
         while (sceneManager.StackCount > 0)
