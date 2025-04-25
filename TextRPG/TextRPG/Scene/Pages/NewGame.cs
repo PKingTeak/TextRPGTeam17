@@ -12,7 +12,7 @@ namespace TextRPG.Scene.Pages
     {
         public NewGame(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "캐릭터 생성";
+            sceneName = "[캐릭터 생성]";
             sceneDescription = "스파르타 마을에 오신걸 환영합니다.\n캐릭터 정보를 입력해 주세요";
             type = SceneType.NewGame;
         }
@@ -41,7 +41,7 @@ namespace TextRPG.Scene.Pages
                 Console.WriteLine();
                 Console.Clear();
 
-                int choice = InputHandler.ChooseAction(1, 2, $"이름이 {name}, 맞나요?\n" +
+                int choice = InputHandler.ChooseAction(1, 2, $"이름이 [{name}], 맞나요?\n" +
                                                               "1. 네\n" +
                                                               "2. 아니요", "원하시는 행동을 입력해주세요.");
                 if(choice == 1) confirm = true;
@@ -73,7 +73,7 @@ namespace TextRPG.Scene.Pages
                         break;
                 }
 
-                choice = InputHandler.ChooseAction(1, 2, $"직업은 {className[choice - 1]}, 맞나요?\n" +
+                choice = InputHandler.ChooseAction(1, 2, $"직업은 [{className[choice - 1]}], 맞나요?\n" +
                                                               "1. 네\n" +
                                                               "2. 아니요", "원하시는 행동을 입력해주세요.");
                 if(choice == 1) confirm = true;

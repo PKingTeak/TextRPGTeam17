@@ -20,7 +20,7 @@ namespace TextRPG.Scene.Pages
 
         public Shop(SceneManager sceneManager) : base(sceneManager)
         {
-            sceneName = "상점";
+            sceneName = "[상점]";
             sceneDescription = "필요한 아이템을 얻을 수 있는 상점입니다.";
             type = SceneType.Shop;
         }

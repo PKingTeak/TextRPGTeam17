@@ -29,7 +29,7 @@ namespace TextRPG.Scene
             int inputNum;
             bool isInt = int.TryParse(input, out inputNum);
 
-            if(!isInt && min > inputNum || inputNum > max)
+            if(!isInt || min > inputNum || inputNum > max)
             {
                 Console.WriteLine("잘못된 입력입니다.");
                 Thread.Sleep(1000);
