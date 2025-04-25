@@ -12,8 +12,8 @@ namespace TextRPG.Unit
 
     public class Unit
     {
-
-
+        protected Random rand = new Random();
+        protected const int evadePercent = 10;
         public struct UnitState
         {
 
@@ -28,7 +28,7 @@ namespace TextRPG.Unit
 
             public int Defense { get; set; }
 
-            public int Gold { get; set;}
+            public int Gold { get; set; }
 
             public int MaxExp { get; set; }
 
@@ -62,19 +62,19 @@ namespace TextRPG.Unit
 
         }
 
-        public virtual void Attack(Unit Attacker,Unit _Other)
+        public virtual void Attack(Unit Attacker, Unit _Other)
         {
             int realDamage = RandomNum(state.Damage - _Other.state.Defense, state.Damage + 10);
-          
+
             if (realDamage < 0)
             {
                 realDamage = 1;
             }
-        
-            Console.WriteLine($"{state.Name} 의 일반공격!!");
-          
+
+            Console.WriteLine($"{state.Name} 의 공격!!");
+
             //랜덤 추가 예정
-            _Other.SetDamage(realDamage);
+            _Other.SetDamage(realDamage, false);
 
             //공격 
             //공격력 - 방어력 만큼 피해 주기 
@@ -82,8 +82,7 @@ namespace TextRPG.Unit
 
         public int RandomNum(int _min, int _max)
         {
-            Random random = new Random();
-            int result = random.Next(_min, _max);
+            int result = rand.Next(_min, _max);
             return result;
         }
 
@@ -94,13 +93,22 @@ namespace TextRPG.Unit
             //나중에 아이템 오면 생각
         }
 
-        public void SetDamage(int _damage)
+        public void SetDamage(int _damage, bool isCritical)
         {
+            int percent = rand.Next(100);
+
+            // 10% 확률로 회피
+            if (percent <= evadePercent)
+            {
+                Console.WriteLine($"Lv. {state.Level} {state.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
+                return;
+            }
+
             int pre_Hp = state.CurHp;
 
             state.CurHp -= _damage;
 
-            Console.WriteLine($"Lv. {state.Level} {state.Name} 을(를) 맞췄습니다. [데미지: {_damage}]");
+            Console.WriteLine($"Lv. {state.Level} {state.Name} 을(를) 맞췄습니다. [데미지: {_damage}] {(isCritical ? "- 치명타!!": "")}");
 
             if (state.CurHp <= 0)
             {
@@ -110,6 +118,7 @@ namespace TextRPG.Unit
             else
                 Console.WriteLine($"Lv. {state.Level} {state.Name} HP {pre_Hp} -> {state.CurHp}\n");
         }
+
         public void ResetHp()
         {
             state.CurHp = state.MaxHp;

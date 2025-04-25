@@ -49,7 +49,7 @@ namespace TextRPG.Scene.Pages
             itemInfoList.Add(ItemInfoType.NameAndDescription);
 
             ShowItemList(itemInfoList, (int x) => sceneManager.ItemManager.Items[x].IsOwned, false); // 소지 중인 아이템만 출력
-
+            ShowItemList(itemInfoList, (int x) => sceneManager.ItemManager.Items[x].Count > 0, false);
             int choice = InputHandler.ChooseAction(0, 1, "1. 장착관리\n" +
                                                          "0. 나가기", "원하시는 행동을 입력해주세요.");
 

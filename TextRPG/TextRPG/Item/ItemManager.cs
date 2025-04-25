@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ public class ItemManager
         Items.Add(new Item("철 투구", Item.ItemType.Armor, 5, "머리를 보호하는 튼튼한 철 투구.", 400));
         Items.Add(new Item("용의 갑옷", Item.ItemType.Armor, 20, "전설 속 용의 비늘로 만든 방어구.", 2000));
         Items.Add(new Item("쓸만한 방패", Item.ItemType.Armor, 3, "그냥저냥 쓸만한 방패다.", 500));
+        Items.Add(new Item("체력 포션", Item.ItemType.Potion, 100, "HP를 100 회복시켜주는 맛있는 포션", 300));
+        Items.Add(new Item("마나 포션", Item.ItemType.Potion, 50, "MP를 50 회복시켜주는 맛없는 포션", 500));
     }
 
     /// <summary>
@@ -109,12 +112,30 @@ public class ItemManager
         Console.WriteLine($" - 방어구: {(equippedArmor != null ? equippedArmor.Name : "없음")}");
     }
 
+    /// <summary>
+    /// 아이템 구매
+    /// </summary>
+    /// <param name="item"></param>
     public void BuyItem(Item item)
     {
         if (!item.IsOwned)
         {
-            item.ChangeOwnership(true);
-            Console.WriteLine($"{item.Name} 구매 완료!");
+            if (player.state.Gold >= item.Price)
+            {
+                Console.WriteLine($"{item.Name} 구매 완료!");
+                player.state.Gold -= item.Price;
+
+                if (item.itemType != Item.ItemType.Potion)
+                    item.ChangeOwnership(true);
+                else
+                    item.GetItem();
+            }
+            else
+            {
+                Console.WriteLine("Gold가 부족합니다");
+                Thread.Sleep(1000);
+                return;
+            }
         }
         else
         {
@@ -122,12 +143,18 @@ public class ItemManager
         }
     }
 
+    /// <summary>
+    /// 아이템 판매
+    /// </summary>
+    /// <param name="item"></param>
     public void SellItem(Item item)
     {
 
         DeEquipmentItem(item);
         item.ChangeOwnership(false);
-        
+
+        player.state.Gold += item.Price;
+
         Console.WriteLine($"{item.Name} 판매 완료!");
     }
 
@@ -136,11 +163,61 @@ public class ItemManager
         return Items[idx].ToString();
     }
 
-    // 랜덤 아이템 반환
+    /// <summary>
+    /// 랜덤 아이템 반환
+    /// </summary>
+    /// <returns></returns>
     public Item GetRandomItem()
     {
         Random rand = new Random();
 
         return Items[rand.Next(0, Items.Count)];
+    }
+
+    /// <summary>
+    /// 포션 리스트 반환
+    /// </summary>
+    /// <returns></returns>
+    public List<Item> GetPotions()
+    {
+        List<Item> potions = new List<Item>();
+
+        foreach (var item in Items)
+        {
+            if (item.itemType == Item.ItemType.Potion)
+                potions.Add(item);
+        }
+
+        return potions;
+    }
+
+    /// <summary>
+    /// 포션 사용
+    /// </summary>
+    /// <param name="item"></param>
+    public void UsePotion(Item item)
+    {
+        if (item.Count == 0)
+        {
+            Console.WriteLine("사용할 포션이 없습니다.");
+        }
+        else
+        {
+            item.ConsumeItem();
+
+            switch (item.Name)
+            {
+                case "체력 포션":
+                    player.UseHpPotion(item.Value);
+                    Console.WriteLine($"HP를 {item.Value} 회복하였습니다.");
+                    break;
+
+                case "마나 포션":
+                    player.UseMpPotion(item.Value);
+                    Console.WriteLine($"MP를 {item.Value} 회복하였습니다.");
+                    break;
+            }
+        }
+        Thread.Sleep(1000);
     }
 }

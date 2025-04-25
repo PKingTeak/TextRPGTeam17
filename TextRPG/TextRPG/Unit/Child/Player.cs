@@ -24,7 +24,7 @@ namespace TextRPG.Unit.Child
 
     public class Player : Unit
     {
-
+        const int criticalPercent = 15;
 
         public Player()
         {
@@ -55,15 +55,23 @@ namespace TextRPG.Unit.Child
 
         public void UseGold(int _num)
         {
-            state.Gold += _num;
-            if (state.Gold < 0)
+            if (_num < 0)
             {
-                state.Gold = 0;
+                if (state.Gold >= -_num)
+                {
+                    state.Gold += _num;
+                    if (state.Gold < 0)
+                    {
+                        state.Gold = 0;
+                    }
+                }
+            }
+            else
+            {
+                state.Gold += _num;
             }
 
         }
-
-
 
         #region 레벨관련매서드
         private void levelUp()
@@ -130,22 +138,40 @@ namespace TextRPG.Unit.Child
             }
         }
 
+        public void UseHpPotion(int value)
+        {
+            state.CurHp += value;
+
+            if(state.CurHp >= state.MaxHp)
+                state.CurHp = state.MaxHp;
+        }
+
+        public void UseMpPotion(int value)
+        {
+            state.CurMp += value;
+
+            if(state.CurMp >= state.MaxMp)
+                state.CurMp = state.MaxMp;
+        }
         #endregion
 
 
         #region 공격및스킬관련
         public override void Attack(Unit Attacker, Unit _Other)
         {
+            int percent = rand.Next(100);
+            bool isCritical = false;
 
-            int realDamage = RandomNum(FinalDamage - _Other.state.Defense, FinalDamage + 10);
+            if (percent <= criticalPercent)
+                isCritical = true;
+
+            int realDamage = (int)(RandomNum(FinalDamage - _Other.state.Defense, FinalDamage + 10) * (isCritical ? 1.6 : 1));
             if (realDamage < 0)
             {
                 realDamage = 1;
             }
             Attacker.AttackVoice();
-            //Console.WriteLine($"{state.Name}의 일반 공격 !!");
-            _Other.SetDamage(realDamage);
-
+            _Other.SetDamage(realDamage, isCritical);
         }
 
         public List<Skill> GetSKillList()
