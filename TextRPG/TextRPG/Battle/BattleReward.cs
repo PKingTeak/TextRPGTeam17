@@ -45,9 +45,6 @@ public class BattleReward
         // 새로운 보상 생성
         Reward reward = new Reward();
 
-        // 보상 경험치 적용
-        reward.Exp = 20 * floor * killCount;
-
         // 처치한 몬스터 만큼 아이템 생성
         for (int i = 0; i < killCount; i++)
         {
@@ -59,8 +56,9 @@ public class BattleReward
                 reward.Items.Add(itemManager.GetRandomItem());
             }
 
-            else
-                reward.Gold += floor * 10;
+            // 골드 & 경험치 적용
+            reward.Gold += floor * 10;
+            reward.Exp += floor * 20;
         }
 
         return reward;
